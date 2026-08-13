@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Agent Integration — Hope Theory | Multi-Agent Systems, LLM Automation</title>
+<meta name="description" content="Multi-agent AI integration services. LLM orchestration, workflow automation, prompt engineering. 15+ providers. Production-grade AI systems." />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a2e;
+    --border: rgba(0,240,255,0.12);
+    --cyan: #00f0ff;
+    --green: #00ff88;
+    --purple: #a855f7;
+    --pink: #ff00aa;
+    --text: #e0e0e0;
+    --muted: #7a7a8a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  a { color: var(--cyan); text-decoration: none; }
+  a:hover { opacity: 0.8; }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .brand { font-size: 16px; font-weight: 800; color: var(--cyan); }
+  nav .links { display: flex; gap: 24px; list-style: none; }
+  nav .links a { font-size: 13px; font-weight: 500; color: var(--muted); }
+  nav .links a:hover { color: var(--cyan); }
+
+  .hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(ellipse at 50% 30%, rgba(168,85,247,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content {
+    max-width: 800px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 20px;
+    background: rgba(168,85,247,0.05);
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+  }
+  .hero .tagline {
+    font-size: 18px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .section {
+    padding: 60px 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 12px;
+  }
+  .section h2 {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--purple);
+  }
+  .card p, .card li {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .card ul {
+    list-style: none;
+    margin-top: 12px;
+  }
+  .card li {
+    padding: 6px 0 6px 20px;
+    position: relative;
+  }
+  .card li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .tech-tag {
+    padding: 6px 12px;
+    background: rgba(168,85,247,0.08);
+    border: 1px solid rgba(168,85,247,0.2);
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--purple);
+  }
+
+  .pricing-box {
+    background: linear-gradient(135deg, rgba(168,85,247,0.08), rgba(0,240,255,0.06));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    margin: 28px 0;
+  }
+  .pricing-box .price {
+    font-size: 36px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .pricing-box .label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all .2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(0,240,255,0.2));
+    color: var(--purple);
+    border: 1px solid rgba(168,85,247,0.4);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, rgba(168,85,247,0.3), rgba(0,240,255,0.3));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(168,85,247,0.2);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover {
+    border-color: var(--purple);
+    color: var(--purple);
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer strong { color: var(--cyan); }
+
+  @media (max-width: 768px) {
+    nav .links { display: none; }
+    .hero { padding: 100px 16px 40px; }
+    .section { padding: 40px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">☤ Hope Theory</div>
+  <ul class="links">
+    <li><a href="/docs/index.html">Home</a></li>
+    <li><a href="/docs/services/fullstack.html">Full-Stack</a></li>
+    <li><a href="/docs/services/ai-agents.html">AI Agents</a></li>
+    <li><a href="/docs/services/bengali-ai.html">Bengali AI</a></li>
+    <li><a href="/docs/index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🤖 AI Agent Integration</div>
+    <h1>AI That Actually<br/>Works in Production</h1>
+    <p class="tagline">
+      Multi-agent systems, LLM orchestration, and workflow automation. I build AI infrastructure that runs your business — not demos that break in production.
+    </p>
+    <div class="cta-row">
+      <a href="#pricing" class="btn btn-primary">View Pricing</a>
+      <a href="#contact" class="btn btn-secondary">Start a Project</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="section-title">Investment</div>
+  <h2>Transparent Pricing</h2>
+  <div class="pricing-box">
+    <div class="price">$1,000 – $2,500</div>
+    <div class="label">Per Project</div>
+    <p style="color:var(--muted);margin-top:12px;font-size:14px;">Fixed-price or hourly. Detailed architecture plan before any code is written.</p>
+  </div>
+
+  <div class="card">
+    <h3>What's Included</h3>
+    <ul>
+      <li>Multi-agent system design & orchestration</li>
+      <li>LLM provider integration (15+ providers)</li>
+      <li>Prompt engineering + caching + optimization</li>
+      <li>Workflow automation pipelines</li>
+      <li>Error handling + fallback chains</li>
+      <li>Production monitoring + logging</li>
+      <li>API design + documentation</li>
+      <li>Handover + training</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Tech Stack</h3>
+    <div class="tech-stack">
+      <span class="tech-tag">OpenRouter</span>
+      <span class="tech-tag">Gemini</span>
+      <span class="tech-tag">Groq</span>
+      <span class="tech-tag">xAI</span>
+      <span class="tech-tag">Claude</span>
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">Node.js</span>
+      <span class="tech-tag">LangChain</span>
+      <span class="tech-tag">Zod</span>
+      <span class="tech-tag">Vercel</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Proof</h3>
+    <ul>
+      <li><strong>Hermes Agent</strong> — 7-profile multi-agent system integrating 15+ LLM providers with automatic failover and prompt caching. Used daily for business operations across 6 ventures.</li>
+      <li><strong>AI Trading Assistant</strong> — Custom multi-agent system for crypto market analysis, on-chain data processing, and trade signal generation.</li>
+    </ul>
+  </div>
+
+  <div class="card" id="contact">
+    <h3>Start a Project</h3>
+    <p>Tell me about your AI needs. I'll send a detailed architecture plan and proposal within 24 hours.</p>
+    <div class="cta-row">
+      <a href="mailto:hopetheorybd@gmail.com?subject=AI Agent Integration Inquiry" class="btn btn-primary">Email Me</a>
+      <a href="https://wa.me/8801870489448?text=Hi%20Fahad,%20I'm%20interested%20in%20AI%20agent%20integration" class="btn btn-secondary">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <strong>Fahad Ibrahim</strong> · <strong>Hope Theory</strong> ☤</p>
+  <p style="margin-top:8px;font-size:11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory</p>
+</footer>
+
+</body>
+</html>

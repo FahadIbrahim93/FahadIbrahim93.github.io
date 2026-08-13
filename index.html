@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hope Theory — Fahad Ibrahim | Venture Builder & Full-Stack Developer</title>
+<meta name="description" content="Hope Theory — Fahad Ibrahim builds production apps, trades markets, and runs 6 ventures. Full-stack React/TypeScript/Supabase. Open for freelance and partnerships." />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a2e;
+    --border: rgba(0,240,255,0.12);
+    --cyan: #00f0ff;
+    --green: #00ff88;
+    --purple: #a855f7;
+    --pink: #ff00aa;
+    --text: #e0e0e0;
+    --muted: #7a7a8a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  a { color: var(--cyan); text-decoration: none; transition: opacity .2s; }
+  a:hover { opacity: 0.8; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(ellipse at 50% 30%, rgba(0,240,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content {
+    max-width: 900px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 28px;
+    background: rgba(0,240,255,0.05);
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 76px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #e0e0e0 0%, #00f0ff 50%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .tagline {
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--muted);
+    margin-bottom: 36px;
+    font-weight: 300;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all .2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(168,85,247,0.2));
+    color: var(--cyan);
+    border: 1px solid rgba(0,240,255,0.4);
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, rgba(0,240,255,0.3), rgba(168,85,247,0.3));
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,240,255,0.2);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+
+  /* VENTURES GRID */
+  .ventures-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .venture-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    text-align: left;
+    transition: all .2s;
+  }
+  .venture-card:hover {
+    border-color: rgba(0,240,255,0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  }
+  .venture-card .icon { font-size: 28px; margin-bottom: 10px; }
+  .venture-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .venture-card p { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .venture-card .tag {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: rgba(0,240,255,0.08);
+    color: var(--cyan);
+    border: 1px solid rgba(0,240,255,0.2);
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 90px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 12px;
+  }
+  .section h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    margin-bottom: 28px;
+    letter-spacing: -1px;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .service-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all .2s;
+  }
+  .service-card:hover {
+    border-color: rgba(0,240,255,0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  }
+  .service-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .service-card .price {
+    font-size: 14px;
+    color: var(--green);
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .service-card p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .service-card .features {
+    list-style: none;
+    margin-bottom: 18px;
+  }
+  .service-card .features li {
+    padding: 5px 0;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .service-card .features li:last-child { border-bottom: none; }
+  .service-card .features li::before {
+    content: '▹ ';
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* STATS */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .stat {
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--green);
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 4px;
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: all .2s;
+  }
+  .contact-card:hover {
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+  }
+  .contact-card .icon { font-size: 26px; margin-bottom: 8px; }
+  .contact-card .label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .contact-card .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cyan);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 50px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer strong { color: var(--cyan); }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .brand {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--cyan);
+    letter-spacing: -0.5px;
+  }
+  nav .links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+  nav .links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color .2s;
+  }
+  nav .links a:hover { color: var(--cyan); }
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    nav .links { display: none; }
+    .mobile-menu-btn { display: block; }
+    nav .links.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background: var(--bg); padding: 20px; gap: 14px; border-bottom: 1px solid var(--border); }
+    .hero { padding: 100px 16px 60px; }
+    .section { padding: 60px 16px; }
+    .ventures-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">☤ Hope Theory</div>
+  <ul class="links">
+    <li><a href="#ventures">Ventures</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="mobile-menu-btn" onclick="document.querySelector('.links').classList.toggle('open')">Menu</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">☤ Never GIVE UP on your HOPES</div>
+    <h1>Hope Theory</h1>
+    <p class="tagline">
+      Venture builder, full-stack developer, and crypto trader running 6 businesses under one brand.
+      Building production apps, trading markets, and sharing the journey publicly.
+    </p>
+    <div class="hero-cta">
+      <a href="#services" class="btn btn-primary">View Services</a>
+      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+    </div>
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-value">6</div>
+        <div class="stat-label">Active Ventures</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">3+</div>
+        <div class="stat-label">Production Apps</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">141</div>
+        <div class="stat-label">Tests Passing</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">60%</div>
+        <div class="stat-label">Faster w/ AI</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VENTURES -->
+<section class="section" id="ventures">
+  <div class="section-title">The Empire</div>
+  <h2>6 Ventures. 1 Mission.</h2>
+  <div class="ventures-grid">
+    <div class="venture-card">
+      <div class="icon">👨‍💻</div>
+      <h3>CODE — Full-Stack Development</h3>
+      <p>React 19, TypeScript, Supabase, AI agents. Production apps shipped in weeks. BugSmasher, RollON, Insectiles.</p>
+      <span class="tag">Active</span>
+    </div>
+    <div class="venture-card">
+      <div class="icon">📈</div>
+      <h3>CRYPTO — Trading & Analysis</h3>
+      <p>BTC, ETH, SOL, DOGE, FET. 4H/1D/1W timeframes. Technical analysis, on-chain data, AI-powered trading assistant.</p>
+      <span class="tag">Active</span>
+    </div>
+    <div class="venture-card">
+      <div class="icon">🛒</div>
+      <h3>JG Mart — Hyperlocal Grocery</h3>
+      <p>Japan Garden City, Dhaka. WhatsApp-native grocery delivery. 1,700 families, 27 buildings, 4 clusters.</p>
+      <span class="tag">Pre-Launch</span>
+    </div>
+    <div class="venture-card">
+      <div class="icon">💍</div>
+      <h3>MARJAHANS — Jewelry</h3>
+      <p>Online jewelry boutique. Premium pieces, curated collections, direct to your door.</p>
+      <span class="tag">Active</span>
+    </div>
+    <div class="venture-card">
+      <div class="icon">👕</div>
+      <h3>SNAPTRAP — Streetwear</h3>
+      <p>Streetwear for the builder generation. Limited drops, quality fabrics, community-first.</p>
+      <span class="tag">Planning</span>
+    </div>
+    <div class="venture-card">
+      <div class="icon">🏗️</div>
+      <h3>BUILD — Real Estate Tech</h3>
+      <p>Tech-enabled real estate solutions. Partnering with family companies to modernize property operations.</p>
+      <span class="tag">Partnership</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-title">What I Offer</div>
+  <h2>Services & Expertise</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <h3>🛠️ Full-Stack Development</h3>
+      <div class="price">$500 – $5,000 / project</div>
+      <p>Production-ready React/TypeScript/Supabase applications. Shipped in 2-3 weeks with quality gates.</p>
+      <ul class="features">
+        <li>React 19 + TypeScript + Tailwind</li>
+        <li>Supabase auth + database + real-time</li>
+        <li>PWA, offline-first, mobile-ready</li>
+        <li>Tests, lint, build all passing</li>
+        <li>Deployed to Vercel/Netlify</li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Start a Project</a>
+    </div>
+    <div class="service-card">
+      <h3>🤖 AI Agent Integration</h3>
+      <div class="price">$1,000 – $2,500 / project</div>
+      <p>Multi-agent AI workflows, automation pipelines, and LLM integration for your business.</p>
+      <ul class="features">
+        <li>Multi-agent system design</li>
+        <li>15+ LLM provider integration</li>
+        <li>Prompt engineering + caching</li>
+        <li>Workflow automation</li>
+        <li>Production monitoring</li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Start a Project</a>
+    </div>
+    <div class="service-card">
+      <h3>🗣️ Bengali AI Training</h3>
+      <div class="price">$15 – $50 / hour</div>
+      <p>Native Bengali speaker providing voice training, annotation, and localization for LLM/voice models.</p>
+      <ul class="features">
+        <li>Native Bengali fluency (no translation drift)</li>
+        <li>Voice recording + speech training</li>
+        <li>Cultural-context annotation</li>
+        <li>Bilingual content review</li>
+        <li>Technical background = cleaner data</li>
+      </ul>
+      <a href="#contact" class="btn btn-primary">Start a Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-title">The Founder</div>
+  <h2>About Fahad Ibrahim</h2>
+  <p style="font-size:16px;color:var(--text);max-width:700px;margin-bottom:24px;">
+    I'm a venture builder and full-stack developer based in Dhaka, Bangladesh. I run 6 businesses under Hope Theory — from shipping production React apps to trading crypto markets to building a hyperlocal grocery delivery platform.
+  </p>
+  <p style="font-size:16px;color:var(--muted);max-width:700px;margin-bottom:32px;">
+    My philosophy is simple: <strong style="color:var(--green)">"Never GIVE UP on your HOPES."</strong> It's not a tagline — it's a decision framework. When a trade goes bad, when a project fails, when applications sit unanswered for 56 days — the framework says: act anyway. Build anyway. Ship anyway.
+  </p>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-value">BSc CSE</div>
+      <div class="stat-label">Ahsanullah University (2012-2017)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">3+</div>
+      <div class="stat-label">Production Apps Live</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">6</div>
+      <div class="stat-label">Ventures Active</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">Remote Ready</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-title">Get In Touch</div>
+  <h2>Let's Work Together</h2>
+  <p style="font-size:16px;color:var(--muted);max-width:600px;margin-bottom:32px;">
+    Open for freelance projects, AI training contracts, partnerships, and full-time remote roles. Based in Dhaka, Bangladesh (UTC+6).
+  </p>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="icon">📧</div>
+      <div class="label">Email</div>
+      <div class="value"><a href="mailto:hopetheorybd@gmail.com">hopetheorybd@gmail.com</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="icon">💼</div>
+      <div class="label">LinkedIn</div>
+      <div class="value"><a href="https://linkedin.com/in/hopetheory-" target="_blank">/in/hopetheory-</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="icon">🐙</div>
+      <div class="label">GitHub</div>
+      <div class="value"><a href="https://github.com/FahadIbrahim93" target="_blank">FahadIbrahim93</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="icon">𝕏</div>
+      <div class="label">X/Twitter</div>
+      <div class="value"><a href="https://x.com/hopetheory__" target="_blank">@hopetheory__</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="icon">📱</div>
+      <div class="label">WhatsApp</div>
+      <div class="value"><a href="https://wa.me/8801870489448" target="_blank">+880 1870 489 448</a></div>
+    </div>
+    <div class="contact-card">
+      <div class="icon">📝</div>
+      <div class="label">Portfolio</div>
+      <div class="value"><a href="https://fahadibrahim93.github.io" target="_blank">Live Site</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <strong>Fahad Ibrahim</strong> · <strong>Hope Theory</strong> ☤</p>
+  <p style="margin-top:8px;font-size:11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory. All rights reserved.</p>
+</footer>
+
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
