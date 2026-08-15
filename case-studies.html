@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case Studies — Fahad Ibrahim | Hope Theory</title>
+<meta name="description" content="Production case studies from Fahad Ibrahim: BugSmasher, RollON, Insectiles. Metrics, decisions, outcomes." />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  :root {
+    --bg: #0a0a0f;
+    --card: #1a1a2e;
+    --border: rgba(0,240,255,0.15);
+    --cyan: #00f0ff;
+    --green: #00ff88;
+    --purple: #a855f7;
+    --text: #e0e0e0;
+    --muted: #7a7a8a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  a { color: var(--cyan); text-decoration: none; }
+
+  header {
+    padding: 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  header h1 { font-size: 22px; font-weight: 800; letter-spacing: -1px; }
+  header a { font-size: 13px; font-weight: 600; padding: 8px 14px; border:1px solid var(--border); border-radius: 8px; }
+
+  main { padding: 32px; max-width: 1100px; margin: 0 auto; }
+  .case {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .case h2 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .case .meta { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .metrics { display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap: 10px; margin-bottom: 16px; }
+  .metric { background: rgba(0,240,255,0.05); border:1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .metric .val { font-size: 20px; font-weight: 800; font-family:'JetBrains Mono',monospace; color: var(--green); }
+  .metric .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
+  .case p, .case li { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
+  .case ul { list-style: none; margin-top: 10px; }
+  .case li { padding: 6px 0 6px 18px; position: relative; }
+  .case li::before { content: '▹'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .links { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .links a { padding: 8px 12px; border:1px solid var(--border); border-radius: 8px; font-size: 12px; font-weight: 600; }
+
+  footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+  footer strong { color: var(--cyan); }
+
+  @media (max-width: 768px) {
+    header, main { padding-left: 16px; padding-right: 16px; }
+    .case { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Case Studies</h1>
+  <a href="/portfolio/index.html">← Back to Portfolio</a>
+</header>
+
+<main>
+  <div class="case">
+    <h2>🐞 BugSmasher</h2>
+    <div class="meta">Arcade clicker-defense · React 19 + TypeScript + Supabase · GitHub: FahadIbrahim93/BugSmasher-HopeTheory</div>
+    <div class="metrics">
+      <div class="metric"><div class="val">2 wks</div><div class="lbl">Ship Time</div></div>
+      <div class="metric"><div class="val">16</div><div class="lbl">Achievements</div></div>
+      <div class="metric"><div class="val">100%</div><div class="lbl">PWA Offline</div></div>
+      <div class="metric"><div class="val">141</div><div class="lbl">Tests</div></div>
+    </div>
+    <p>Built a production-ready arcade game with auth, XP progression, achievements, and global leaderboards. Offline-first PWA with cloud sync via Supabase.</p>
+    <ul>
+      <li>Supabase auth with email and OAuth providers</li>
+      <li>Realtime leaderboards and XP state sync</li>
+      <li>Quality gates: lint, tests, production build</li>
+      <li>Deployed with CI-ready setup</li>
+    </ul>
+    <div class="links">
+      <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank">GitHub</a>
+      <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <h2>🛒 RollON</h2>
+    <div class="meta">E-commerce platform · React 19 + TypeScript + Tailwind · GitHub: FahadIbrahim93/RollON-MVP-Final-V1</div>
+    <div class="metrics">
+      <div class="metric"><div class="val">2 wks</div><div class="lbl">Ship Time</div></div>
+      <div class="metric"><div class="val">141</div><div class="lbl">Tests Passing</div></div>
+      <div class="metric"><div class="val">WCAG</div><div class="lbl">Accessible</div></div>
+      <div class="metric"><div class="val">~95%</div><div class="lbl">Coverage</div></div>
+    </div>
+    <p>Production-grade e-commerce platform with cart, variants, checkout flow, and admin dashboard. Accessibility-first with WCAG 2.1 AA compliance.</p>
+    <ul>
+      <li>Checkout flow with validation and error handling</li>
+      <li>Admin dashboard for inventory and orders</li>
+      <li>Zustand state management with clean separation</li>
+      <li>Automated quality gates before delivery</li>
+    </ul>
+    <div class="links">
+      <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank">GitHub</a>
+      <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <h2>🎮 Insectiles</h2>
+    <div class="meta">Sci-fi survival roguelite · React 19 + TypeScript + PixiJS 8 + GSAP · GitHub: FahadIbrahim93</div>
+    <div class="metrics">
+      <div class="metric"><div class="val">5</div><div class="lbl">Classes</div></div>
+      <div class="metric"><div class="val">Custom</div><div class="lbl">Game Engine</div></div>
+      <div class="metric"><div class="val">GSAP</div><div class="lbl">Transitions</div></div>
+      <div class="metric"><div class="val">Wave</div><div class="lbl">Combat</div></div>
+    </div>
+    <p>Built a custom PixiJS 8 game engine with sci-fi cyberpunk styling, 5 insect classes, wave-based combat, and smooth GSAP transitions.</p>
+    <ul>
+      <li>Custom engine architecture, not template-driven</li>
+      <li>Reusable combat and entity systems</li>
+      <li>Performance-optimized render loop</li>
+      <li>Polished UX with loading, feedback, and transitions</li>
+    </ul>
+    <div class="links">
+      <a href="https://github.com/FahadIbrahim93" target="_blank">GitHub</a>
+      <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <h2>📈 AI Trading Assistant</h2>
+    <div class="meta">Crypto market analysis · Multi-agent system · Internal tool</div>
+    <div class="metrics">
+      <div class="metric"><div class="val">4H/1D/1W</div><div class="lbl">Timeframes</div></div>
+      <div class="metric"><div class="val">Multi</div><div class="lbl">Agent</div></div>
+      <div class="metric"><div class="val">On-chain</div><div class="lbl">Data</div></div>
+      <div class="metric"><div class="val">Live</div><div class="lbl">Signals</div></div>
+    </div>
+    <p>Custom multi-agent system for crypto market analysis, on-chain data processing, and trade signal generation. Used across multiple ventures.</p>
+    <ul>
+      <li>Technical analysis across multiple timeframes</li>
+      <li>On-chain data integration for market context</li>
+      <li>Signal generation with risk-aware outputs</li>
+      <li>Daily operational use in trading workflow</li>
+    </ul>
+  </div>
+
+  <div class="case">
+    <h2>🤖 Hermes Agent System</h2>
+    <div class="meta">Multi-agent AI system · 15+ providers · Production operations</div>
+    <div class="metrics">
+      <div class="metric"><div class="val">15+</div><div class="lbl">Providers</div></div>
+      <div class="metric"><div class="val">7</div><div class="lbl">Profiles</div></div>
+      <div class="metric"><div class="val">Auto</div><div class="lbl">Failover</div></div>
+      <div class="metric"><div class="val">Daily</div><div class="lbl">Use</div></div>
+    </div>
+    <p>Personal multi-agent operating system integrating multiple LLM providers with automatic failover, prompt caching, and role-based profiles. Used daily across 6 ventures.</p>
+    <ul>
+      <li>Multi-provider routing with automatic fallback</li>
+      <li>Role-based agent profiles for different tasks</li>
+      <li>Prompt caching and cost optimization</li>
+      <li>Continuous operational use and iteration</li>
+    </ul>
+  </div>
+
+  <div class="case">
+    <h2>🛒 JG Mart</h2>
+    <div class="meta">Hyperlocal grocery delivery · WhatsApp-native · Dhaka</div>
+    <div class="metrics">
+      <div class="metric"><div class="val">1,700</div><div class="lbl">Families</div></div>
+      <div class="metric"><div class="val">27</div><div class="lbl">Buildings</div></div>
+      <div class="metric"><div class="val">4</div><div class="lbl">Clusters</div></div>
+      <div class="metric"><div class="val">AOV</div><div class="lbl">800 BDT</div></div>
+    </div>
+    <p>Hyperlocal grocery delivery platform for Japan Garden City, Dhaka. WhatsApp-native ordering for 1,700 families across 27 buildings and 4 clusters.</p>
+    <ul>
+      <li>Operator and customer-facing flows</li>
+      <li>WhatsApp-first checkout experience</li>
+      <li>Cluster-based delivery routing</li>
+      <li>Local-first design for low-connectivity areas</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>
+  <p>Built by <strong>Fahad Ibrahim</strong> · <strong>Hope Theory</strong> ☤</p>
+  <p style="margin-top:8px;font-size:11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory</p>
+</footer>
+
+</body>
+</html>
