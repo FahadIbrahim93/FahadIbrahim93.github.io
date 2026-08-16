@@ -4,7 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Case Studies — Fahad Ibrahim | Hope Theory</title>
-<meta name="description" content="Production case studies from Fahad Ibrahim: BugSmasher, RollON, Insectiles. Metrics, decisions, outcomes." />
+<meta name="description" content="Production case studies from Fahad Ibrahim: BugSmasher, RollON, JG Mart, Insectiles. Metrics, decisions, outcomes." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/case-studies.html" />
+<meta name="theme-color" content="#0a0a0f" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fahadibrahim93.github.io/case-studies.html" />
+<meta property="og:title" content="Case Studies — Fahad Ibrahim" />
+<meta property="og:description" content="Production case studies: BugSmasher, RollON, JG Mart. Metrics, decisions, outcomes." />
+<meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
   :root {
@@ -68,29 +77,29 @@
 <body>
 <header>
   <h1>Case Studies</h1>
-  <a href="/portfolio/index.html">← Back to Portfolio</a>
+  <a href="/">← Back to Portfolio</a>
 </header>
 
 <main>
   <div class="case">
     <h2>🐞 BugSmasher</h2>
-    <div class="meta">Arcade clicker-defense · React 19 + TypeScript + Supabase · GitHub: FahadIbrahim93/BugSmasher-HopeTheory</div>
+    <div class="meta">Arcade clicker-defense · React 19 + TypeScript + Firebase · GitHub: FahadIbrahim93/BugSmasher-HopeTheory</div>
     <div class="metrics">
       <div class="metric"><div class="val">2 wks</div><div class="lbl">Ship Time</div></div>
       <div class="metric"><div class="val">16</div><div class="lbl">Achievements</div></div>
       <div class="metric"><div class="val">100%</div><div class="lbl">PWA Offline</div></div>
-      <div class="metric"><div class="val">141</div><div class="lbl">Tests</div></div>
+      <div class="metric"><div class="val">683</div><div class="lbl">Tests</div></div>
     </div>
-    <p>Built a production-ready arcade game with auth, XP progression, achievements, and global leaderboards. Offline-first PWA with cloud sync via Supabase.</p>
+    <p>Built a production-ready arcade game with auth, XP progression, achievements, and global leaderboards. Offline-first PWA with cloud sync via Firebase.</p>
     <ul>
-      <li>Supabase auth with email and OAuth providers</li>
-      <li>Realtime leaderboards and XP state sync</li>
-      <li>Quality gates: lint, tests, production build</li>
-      <li>Deployed with CI-ready setup</li>
+      <li>Firebase auth with callable write paths and schema validation</li>
+      <li>Server-authoritative leaderboards: one-time session tokens, replay-proof score submission</li>
+      <li>651 Vitest + 32 Firebase emulator/integration tests, 79% line coverage</li>
+      <li>Quality gates: lint, tests, production build — CI-ready</li>
     </ul>
     <div class="links">
-      <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank">GitHub</a>
-      <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+      <a href="https://bugsmasher-hopetheory.vercel.app" target="_blank" rel="noopener">Play Live</a>
+      <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
 
@@ -99,20 +108,20 @@
     <div class="meta">E-commerce platform · React 19 + TypeScript + Tailwind · GitHub: FahadIbrahim93/RollON-MVP-Final-V1</div>
     <div class="metrics">
       <div class="metric"><div class="val">2 wks</div><div class="lbl">Ship Time</div></div>
-      <div class="metric"><div class="val">141</div><div class="lbl">Tests Passing</div></div>
-      <div class="metric"><div class="val">WCAG</div><div class="lbl">Accessible</div></div>
-      <div class="metric"><div class="val">~95%</div><div class="lbl">Coverage</div></div>
+      <div class="metric"><div class="val">117</div><div class="lbl">Tests Passing</div></div>
+      <div class="metric"><div class="val">WCAG</div><div class="lbl">2.1 AA</div></div>
+      <div class="metric"><div class="val">87%</div><div class="lbl">Coverage</div></div>
     </div>
     <p>Production-grade e-commerce platform with cart, variants, checkout flow, and admin dashboard. Accessibility-first with WCAG 2.1 AA compliance.</p>
     <ul>
       <li>Checkout flow with validation and error handling</li>
       <li>Admin dashboard for inventory and orders</li>
       <li>Zustand state management with clean separation</li>
-      <li>Automated quality gates before delivery</li>
+      <li>106 unit + 11 Playwright E2E tests; GitHub Actions CI green</li>
     </ul>
     <div class="links">
-      <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank">GitHub</a>
-      <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+      <a href="https://rollon-delta.vercel.app" target="_blank" rel="noopener">Shop Live</a>
+      <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
 
@@ -133,8 +142,28 @@
       <li>Polished UX with loading, feedback, and transitions</li>
     </ul>
     <div class="links">
-      <a href="https://github.com/FahadIbrahim93" target="_blank">GitHub</a>
-      <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+      <span style="font-size:12px;color:var(--muted);">Private repo — architecture walkthrough available on request</span>
+    </div>
+  </div>
+
+  <div class="case">
+    <h2>🎮 Nix — Timeline Dodge</h2>
+    <div class="meta">Viral single-file mini-game · Vanilla HTML/JS + Canvas 2D · GitHub: FahadIbrahim93/viral-pet-nix</div>
+    <div class="metrics">
+      <div class="metric"><div class="val">1</div><div class="lbl">File, 0 Deps</div></div>
+      <div class="metric"><div class="val">MIT</div><div class="lbl">License</div></div>
+      <div class="metric"><div class="val">2</div><div class="lbl">Live Hosts</div></div>
+      <div class="metric"><div class="val">PWA</div><div class="lbl">Ready</div></div>
+    </div>
+    <p>Single-file viral mini-game: dodge the timeline, collect hearts, evolve Nix. Built as a constraint experiment — one HTML file, zero dependencies, instant load, shareable scores.</p>
+    <ul>
+      <li>Canvas 2D render loop with WebAudio synthesized SFX</li>
+      <li>Optimized for social sharing and short skill sessions</li>
+      <li>Deployed on both GitHub Pages and Vercel</li>
+    </ul>
+    <div class="links">
+      <a href="https://fahadibrahim93.github.io/viral-pet-nix" target="_blank" rel="noopener">Play Live</a>
+      <a href="https://github.com/FahadIbrahim93/viral-pet-nix" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
 
@@ -190,6 +219,10 @@
       <li>Cluster-based delivery routing</li>
       <li>Local-first design for low-connectivity areas</li>
     </ul>
+    <div class="links">
+      <a href="https://jg-mart.vercel.app" target="_blank" rel="noopener">Browse Store</a>
+      <a href="https://github.com/FahadIbrahim93/jgmart-hermes" target="_blank" rel="noopener">GitHub</a>
+    </div>
   </div>
 
 </main>

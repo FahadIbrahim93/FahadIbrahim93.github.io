@@ -4,386 +4,382 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Fahad Ibrahim — Full-Stack Developer | React, TypeScript, Supabase</title>
-<meta name="description" content="Fahad Ibrahim — Full-Stack Developer specializing in React 19, TypeScript, and Supabase. Production apps shipped in weeks, not months. Open to remote roles." />
+<meta name="description" content="Fahad Ibrahim — Full-Stack Developer specializing in React 19, TypeScript, Supabase and Firebase. Production apps shipped in weeks, not months. Open to remote roles." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/" />
+<meta name="author" content="Fahad Ibrahim" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#0a0a0f" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fahadibrahim93.github.io/" />
+<meta property="og:title" content="Fahad Ibrahim — Full-Stack Developer" />
+<meta property="og:description" content="React 19 · TypeScript · Supabase · Firebase. Production apps shipped in weeks, not months. Open to remote roles." />
+<meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<meta property="og:site_name" content="Fahad Ibrahim" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://fahadibrahim93.github.io/" />
+<meta name="twitter:title" content="Fahad Ibrahim — Full-Stack Developer" />
+<meta name="twitter:description" content="React 19 · TypeScript · Supabase · Firebase. Production apps shipped in weeks, not months." />
+<meta name="twitter:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<meta name="twitter:creator" content="@hopetheory__" />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+
+<!-- Fonts: preconnect + non-blocking load -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Fahad Ibrahim",
+  "url": "https://fahadibrahim93.github.io/",
+  "image": "https://fahadibrahim93.github.io/images/og.png",
+  "jobTitle": "Full-Stack Developer",
+  "description": "Full-Stack Developer specializing in React 19, TypeScript, Supabase and Firebase. Production apps shipped in weeks, not months.",
+  "email": "mailto:hopetheorybd@gmail.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD" },
+  "sameAs": [
+    "https://github.com/FahadIbrahim93",
+    "https://linkedin.com/in/hopetheory-",
+    "https://x.com/hopetheory__"
+  ],
+  "knowsAbout": ["React", "TypeScript", "Supabase", "Firebase", "Node.js", "Tailwind CSS", "PWA", "Accessibility"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Fahad Ibrahim — Portfolio",
+  "url": "https://fahadibrahim93.github.io/"
+}
+</script>
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
   :root {
     --bg: #0a0a0f;
     --surface: #12121a;
-    --card: #1a1a2e;
+    --card: #151522;
+    --card-solid: #151522;
     --border: rgba(0,240,255,0.15);
     --cyan: #00f0ff;
     --green: #00ff88;
     --purple: #a855f7;
     --pink: #ff00aa;
-    --text: #e0e0e0;
-    --muted: #7a7a8a;
+    --text: #e8e8ee;
+    --muted: #9096a8;
+    --nav-h: 64px;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
   a { color: var(--cyan); text-decoration: none; transition: opacity .2s; }
-  a:hover { opacity: 0.8; }
+  a:hover { opacity: 0.85; }
+  :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+  img { max-width: 100%; display: block; }
+
+  .skip-link {
+    position: absolute; left: -9999px; top: 0; z-index: 200;
+    background: var(--cyan); color: #0a0a0f; padding: 10px 18px;
+    font-weight: 700; border-radius: 0 0 8px 0;
+  }
+  .skip-link:focus { left: 0; }
+
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px;
+    background: rgba(10,10,15,0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,240,255,0.08);
+  }
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600; font-size: 15px; color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .nav-logo span { color: var(--cyan); }
+  .nav-links { display: flex; gap: 4px; align-items: center; list-style: none; }
+  .nav-links a {
+    color: var(--muted); font-size: 13px; font-weight: 600;
+    padding: 8px 12px; border-radius: 6px; transition: color .2s, background .2s;
+  }
+  .nav-links a:hover { color: var(--cyan); background: rgba(0,240,255,0.06); opacity: 1; }
+  .nav-links a.nav-cta {
+    color: var(--cyan); border: 1px solid rgba(0,240,255,0.4); margin-left: 8px;
+  }
+  .nav-links a.nav-cta:hover { background: rgba(0,240,255,0.1); }
+  .nav-toggle {
+    display: none; background: none; border: 1px solid var(--border);
+    border-radius: 8px; color: var(--cyan); font-size: 20px;
+    width: 42px; height: 42px; cursor: pointer; line-height: 1;
+  }
 
   /* HERO */
   .hero {
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 24px;
-    position: relative;
-    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    padding: calc(var(--nav-h) + 48px) 24px 60px;
+    position: relative; overflow: hidden;
   }
   .hero::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(ellipse at 50% 30%, rgba(0,240,255,0.06) 0%, transparent 70%);
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(0,240,255,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(168,85,247,0.05) 0%, transparent 50%);
     pointer-events: none;
   }
-  .hero-content {
-    max-width: 800px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
+  .hero-content { max-width: 860px; text-align: center; position: relative; z-index: 1; }
   .hero-badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 24px;
-    background: rgba(0,240,255,0.05);
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px;
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 24px; background: rgba(0,240,255,0.05);
   }
+  .hero-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 8px var(--green); animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
   .hero h1 {
-    font-size: clamp(32px, 6vw, 64px);
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 16px;
-    letter-spacing: -2px;
-    background: linear-gradient(135deg, #e0e0e0 0%, #00f0ff 100%);
-    -webkit-background-clip: text;
+    font-size: clamp(34px, 6vw, 68px);
+    font-weight: 900; line-height: 1.08; margin-bottom: 16px; letter-spacing: -2px;
+    background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
+    -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
   .hero .tagline {
-    font-size: clamp(16px, 2.5vw, 22px);
-    color: var(--muted);
-    margin-bottom: 32px;
-    font-weight: 300;
+    font-size: clamp(16px, 2.5vw, 21px);
+    color: var(--muted); margin-bottom: 32px; font-weight: 300;
   }
-  .hero .tagline strong {
-    color: var(--green);
-    font-weight: 600;
-  }
-  .hero-cta {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 48px;
-  }
+  .hero .tagline strong { color: var(--green); font-weight: 600; }
+  .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
   .btn {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: all .2s;
+    display: inline-block; padding: 14px 32px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.5px; transition: all .2s;
   }
   .btn-primary {
-    background: linear-gradient(135deg, rgba(0,240,255,0.2), rgba(168,85,247,0.2));
-    color: var(--cyan);
-    border: 1px solid rgba(0,240,255,0.4);
+    background: linear-gradient(135deg, rgba(0,240,255,0.18), rgba(168,85,247,0.18));
+    color: var(--cyan); border: 1px solid rgba(0,240,255,0.4);
   }
   .btn-primary:hover {
-    background: linear-gradient(135deg, rgba(0,240,255,0.3), rgba(168,85,247,0.3));
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,240,255,0.2);
+    background: linear-gradient(135deg, rgba(0,240,255,0.28), rgba(168,85,247,0.28));
+    transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,240,255,0.2); opacity: 1;
   }
-  .btn-secondary {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .btn-secondary:hover {
-    border-color: var(--cyan);
-    color: var(--cyan);
-  }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); opacity: 1; }
   .hero-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 16px;
-    margin-top: 40px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px; margin-top: 40px;
   }
   .stat {
-    padding: 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    padding: 20px 16px; background: var(--card-solid);
+    border: 1px solid var(--border); border-radius: 10px;
   }
-  .stat-value {
-    font-size: 28px;
-    font-weight: 800;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--green);
-  }
-  .stat-label {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-top: 4px;
-  }
+  .stat-value { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: var(--green); }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
 
   /* SECTIONS */
-  .section {
-    padding: 80px 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+  .section { padding: 88px 24px; max-width: 1100px; margin: 0 auto; }
   .section-title {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 12px;
+    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 12px;
   }
-  .section h2 {
-    font-size: clamp(28px, 4vw, 42px);
-    font-weight: 800;
-    margin-bottom: 32px;
-    letter-spacing: -1px;
-  }
+  .section h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; }
+  .section-intro { color: var(--muted); max-width: 720px; margin-bottom: 40px; font-size: 16px; }
 
   /* PROJECTS */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
+  .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
   .project-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    transition: all .2s;
+    background: var(--card-solid); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; transition: all .25s;
+    display: flex; flex-direction: column;
   }
   .project-card:hover {
-    border-color: rgba(0,240,255,0.35);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+    border-color: rgba(0,240,255,0.4); transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
   }
-  .project-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: var(--text);
+  .project-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #0d0d14; }
+  .project-thumb img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top;
+    transition: transform .4s;
   }
-  .project-card .tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 12px 0;
-  }
-  .tech-tag {
-    padding: 4px 10px;
-    background: rgba(0,240,255,0.08);
-    border: 1px solid rgba(0,240,255,0.2);
-    border-radius: 4px;
-    font-size: 11px;
+  .project-card:hover .project-thumb img { transform: scale(1.03); }
+  .project-thumb .live-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(10,10,15,0.85); border: 1px solid rgba(0,255,136,0.4);
+    color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    padding: 4px 10px; border-radius: 12px; text-transform: uppercase;
     font-family: 'JetBrains Mono', monospace;
-    color: var(--cyan);
   }
-  .project-card p {
-    font-size: 14px;
-    color: var(--muted);
-    margin-bottom: 16px;
+  .project-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+  .project-body h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .project-body p { font-size: 14px; color: var(--muted); margin-bottom: 14px; flex: 1; }
+  .tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .tech-tag {
+    padding: 4px 10px; background: rgba(0,240,255,0.08);
+    border: 1px solid rgba(0,240,255,0.2); border-radius: 4px;
+    font-size: 11px; font-family: 'JetBrains Mono', monospace; color: var(--cyan);
   }
-  .project-card .links {
-    display: flex;
-    gap: 12px;
+  .links { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .links a { font-size: 13px; font-weight: 600; }
+  .links .live-link { color: var(--green); }
+  .more-projects { margin-top: 28px; text-align: center; color: var(--muted); font-size: 14px; }
+
+  /* CASE STUDY */
+  .case-banner {
+    background: linear-gradient(135deg, rgba(0,240,255,0.06), rgba(168,85,247,0.06));
+    border: 1px solid var(--border); border-radius: 16px;
+    padding: 32px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center;
   }
-  .project-card .links a {
-    font-size: 13px;
-    font-weight: 600;
+  .case-banner h3 { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+  .case-banner p { color: var(--muted); font-size: 14px; margin-bottom: 18px; }
+  .case-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .case-metric {
+    background: var(--card-solid); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; text-align: center;
   }
+  .case-metric .val { font-size: 22px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: var(--green); }
+  .case-metric .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.2px; margin-top: 2px; }
 
   /* SKILLS */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  .skill-category {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-  }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .skill-category { background: var(--card-solid); border: 1px solid var(--border); border-radius: 10px; padding: 22px; }
   .skill-category h3 {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 12px;
+    font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 12px;
   }
-  .skill-category ul {
-    list-style: none;
-  }
-  .skill-category li {
-    padding: 6px 0;
-    font-size: 14px;
-    color: var(--text);
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-  }
+  .skill-category ul { list-style: none; }
+  .skill-category li { padding: 6px 0; font-size: 14px; color: var(--text); border-bottom: 1px solid rgba(255,255,255,0.04); }
   .skill-category li:last-child { border-bottom: none; }
-  .skill-category li::before {
-    content: '▹ ';
-    color: var(--green);
-    font-weight: 700;
-  }
+  .skill-category li::before { content: '▹ '; color: var(--green); font-weight: 700; }
 
   /* EXPERIENCE */
-  .experience-item {
-    padding: 24px 0;
-    border-bottom: 1px solid var(--border);
-  }
+  .experience-item { padding: 26px 0; border-bottom: 1px solid var(--border); }
   .experience-item:last-child { border-bottom: none; }
   .experience-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 8px; flex-wrap: wrap; gap: 8px;
   }
-  .experience-header h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-  }
-  .experience-header .company {
-    font-size: 14px;
-    color: var(--cyan);
-    font-weight: 500;
-  }
-  .experience-header .date {
-    font-size: 12px;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .experience-item ul {
-    list-style: none;
-    margin-top: 12px;
-  }
-  .experience-item li {
-    padding: 6px 0 6px 20px;
-    position: relative;
-    font-size: 14px;
-    color: var(--text);
-  }
-  .experience-item li::before {
-    content: '▹';
-    position: absolute;
-    left: 0;
-    color: var(--green);
-    font-weight: 700;
-  }
+  .experience-header h3 { font-size: 18px; font-weight: 700; color: var(--text); }
+  .experience-header .company { font-size: 14px; color: var(--cyan); font-weight: 500; }
+  .experience-header .date { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+  .experience-item ul { list-style: none; margin-top: 12px; }
+  .experience-item li { padding: 6px 0 6px 20px; position: relative; font-size: 14px; color: var(--text); }
+  .experience-item li::before { content: '▹'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
 
   /* CONTACT */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-  }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
   .contact-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    transition: all .2s;
+    background: var(--card-solid); border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px; text-align: center; transition: all .2s;
   }
-  .contact-card:hover {
-    border-color: var(--cyan);
-    transform: translateY(-2px);
-  }
-  .contact-card .icon {
-    font-size: 28px;
-    margin-bottom: 8px;
-  }
-  .contact-card .label {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px;
-  }
-  .contact-card .value {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--cyan);
-  }
+  .contact-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+  .contact-card .icon { font-size: 26px; margin-bottom: 8px; }
+  .contact-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .contact-card .value { font-size: 14px; font-weight: 600; color: var(--cyan); word-break: break-word; }
 
   footer {
-    text-align: center;
-    padding: 40px 24px;
-    border-top: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 13px;
+    text-align: center; padding: 44px 24px;
+    border-top: 1px solid var(--border); color: var(--muted); font-size: 13px;
   }
-  footer strong {
-    color: var(--cyan);
+  footer strong { color: var(--cyan); }
+  footer .foot-links { margin-top: 12px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+  footer .foot-links a { color: var(--muted); font-size: 12px; }
+  footer .foot-links a:hover { color: var(--cyan); }
+
+  /* Reveal animation — only active when JS is available */
+  html.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  html.js .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    html.js .reveal { opacity: 1; transform: none; transition: none; }
+    .hero-badge .dot { animation: none; }
   }
 
-  @media (max-width: 768px) {
-    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 860px) {
     .projects-grid { grid-template-columns: 1fr; }
-    .section { padding: 60px 16px; }
+    .case-banner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 768px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      position: fixed; top: var(--nav-h); left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: rgba(10,10,15,0.97); border-bottom: 1px solid var(--border);
+      padding: 12px 24px 20px; display: none;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { padding: 12px; font-size: 15px; }
+    .nav-links a.nav-cta { margin: 8px 0 0; text-align: center; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 64px 16px; }
   }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- NAV -->
+<nav class="nav" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Fahad Ibrahim — home">fahad<span>.ibrahim</span></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">☰</button>
+  <ul class="nav-links" id="nav-menu">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#case-study">Case Study</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="/resume.html" class="nav-cta">Résumé</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+
 <!-- HERO -->
-<section class="hero">
+<section class="hero" aria-label="Introduction">
   <div class="hero-content">
-    <div class="hero-badge">👨‍💻 Open to Remote Roles</div>
+    <div class="hero-badge"><span class="dot" aria-hidden="true"></span> Open to Remote Roles</div>
     <h1>Fahad Ibrahim</h1>
     <p class="tagline">
-      Full-Stack Developer specializing in <strong>React 19, TypeScript, and Supabase</strong><br/>
+      Full-Stack Developer specializing in <strong>React 19, TypeScript &amp; Supabase</strong><br/>
       I build production apps that real people use — shipped in weeks, not months.
     </p>
     <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#work" class="btn btn-primary">View Projects</a>
       <a href="#contact" class="btn btn-secondary">Get In Touch</a>
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-value">3+</div>
-        <div class="stat-label">Production Apps</div>
+        <div class="stat-value">4</div>
+        <div class="stat-label">Live Products</div>
       </div>
       <div class="stat">
         <div class="stat-value">2 wks</div>
         <div class="stat-label">Avg Ship Time</div>
       </div>
       <div class="stat">
-        <div class="stat-value">754+</div>
-        <div class="stat-label">Tests Passing</div>
+        <div class="stat-value">800+</div>
+        <div class="stat-label">Automated Tests</div>
       </div>
       <div class="stat">
         <div class="stat-value">60%</div>
@@ -394,146 +390,176 @@
 </section>
 
 <!-- PROJECTS -->
-<section class="section" id="projects">
-  <div class="section-title">Selected Work</div>
-  <h2>Production-Ready Applications</h2>
+<section class="section" id="work">
+  <div class="section-title reveal">Selected Work</div>
+  <h2 class="reveal">Production-Ready Applications</h2>
+  <p class="section-intro reveal">Every project below is live, tested, and maintained. Click through — they all work.</p>
   <div class="projects-grid">
 
-    <div class="project-card">
-      <h3>🐞 BugSmasher</h3>
-      <p>Full-stack arcade clicker-defense game with auth, XP progression, 16 achievements, and real-time global leaderboards. Offline-first PWA with cloud sync.</p>
-      <div class="tech">
-        <span class="tech-tag">React 19</span>
-        <span class="tech-tag">TypeScript</span>
-        <span class="tech-tag">Supabase</span>
-        <span class="tech-tag">Vite</span>
-        <span class="tech-tag">PWA</span>
+    <article class="project-card reveal">
+      <div class="project-thumb">
+        <img src="/images/bugsmasher.jpg" alt="BugSmasher — neon arcade bug-squashing game interface" width="1200" height="593" loading="lazy" />
+        <span class="live-badge">● Live</span>
       </div>
-      <div class="links">
-        <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank">→ GitHub</a>
-        <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+      <div class="project-body">
+        <h3>🐞 BugSmasher</h3>
+        <p>Full-stack arcade clicker-defense game with auth, XP progression, 16 achievements, and real-time global leaderboards. Server-authoritative scoring with one-time session tokens. Offline-first PWA with cloud sync. 683 automated tests.</p>
+        <div class="tech">
+          <span class="tech-tag">React 19</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Firebase</span>
+          <span class="tech-tag">Canvas 2D</span>
+          <span class="tech-tag">PWA</span>
+        </div>
+        <div class="links">
+          <a href="https://bugsmasher-hopetheory.vercel.app" target="_blank" rel="noopener" class="live-link">→ Play Live</a>
+          <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank" rel="noopener">→ GitHub</a>
+        </div>
       </div>
-    </div>
+    </article>
 
-    <div class="project-card">
-      <h3>🛒 RollON</h3>
-      <p>Production-grade e-commerce platform with cart, variants, checkout flow, and admin dashboard. WCAG 2.1 AA accessible. 106 passing tests, 87% coverage.</p>
-      <div class="tech">
-        <span class="tech-tag">React 19</span>
-        <span class="tech-tag">TypeScript</span>
-        <span class="tech-tag">Tailwind</span>
-        <span class="tech-tag">Zustand</span>
-        <span class="tech-tag">Vitest</span>
+    <article class="project-card reveal">
+      <div class="project-thumb">
+        <img src="/images/rollon.jpg" alt="RollON — dark premium e-commerce storefront hero" width="1200" height="675" loading="lazy" />
+        <span class="live-badge">● Live</span>
       </div>
-      <div class="links">
-        <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank">→ GitHub</a>
-        <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+      <div class="project-body">
+        <h3>🛒 RollON</h3>
+        <p>Production-grade e-commerce platform with catalog, cart, variants, checkout flow, and admin dashboard. Config-driven branding, CSP-hardened, WCAG 2.1 AA accessible. 117 tests (106 unit + 11 Playwright E2E), 87% coverage, CI green.</p>
+        <div class="tech">
+          <span class="tech-tag">React 19</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Tailwind</span>
+          <span class="tech-tag">Zustand</span>
+          <span class="tech-tag">Playwright</span>
+        </div>
+        <div class="links">
+          <a href="https://rollon-delta.vercel.app" target="_blank" rel="noopener" class="live-link">→ Shop Live</a>
+          <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank" rel="noopener">→ GitHub</a>
+        </div>
       </div>
-    </div>
+    </article>
 
-    <div class="project-card">
-      <h3>🎮 Insectiles</h3>
-      <p>Sci-fi cyberpunk survival roguelite with custom PixiJS 8 engine, 5 insect classes, wave-based combat, and GSAP transitions.</p>
-      <div class="tech">
-        <span class="tech-tag">React 19</span>
-        <span class="tech-tag">TypeScript</span>
-        <span class="tech-tag">PixiJS 8</span>
-        <span class="tech-tag">GSAP</span>
+    <article class="project-card reveal">
+      <div class="project-thumb">
+        <img src="/images/jgmart.jpg" alt="JG Mart — hyperlocal grocery delivery storefront with product grid" width="1200" height="675" loading="lazy" />
+        <span class="live-badge">● Live</span>
       </div>
-      <div class="links">
-        <a href="https://github.com/FahadIbrahim93" target="_blank">→ GitHub</a>
-        <span style="font-size:12px;color:var(--muted);">Live demo temporarily unavailable due to hosting account SSO restriction</span>
+      <div class="project-body">
+        <h3>🛵 JG Mart</h3>
+        <p>Hyperlocal grocery delivery PWA for 1,700 families in Japan Garden City, Dhaka. WhatsApp-native ordering, bilingual (বাংলা/EN), 82 products across 10 categories, order tracking, and operator dispatch panel. Zero-framework, offline-cached.</p>
+        <div class="tech">
+          <span class="tech-tag">Vanilla JS</span>
+          <span class="tech-tag">PWA</span>
+          <span class="tech-tag">Supabase</span>
+          <span class="tech-tag">WhatsApp API</span>
+        </div>
+        <div class="links">
+          <a href="https://jg-mart.vercel.app" target="_blank" rel="noopener" class="live-link">→ Browse Store</a>
+          <a href="https://github.com/FahadIbrahim93/jgmart-hermes" target="_blank" rel="noopener">→ GitHub</a>
+        </div>
       </div>
-    </div>
+    </article>
 
-    <div class="project-card">
-      <h3>🎮 Nix — Timeline Dodge</h3>
-      <p>Single-file viral mini-game built with vanilla HTML/JS and Canvas. Dodge the timeline, collect hearts, evolve Nix. Optimized for social sharing and short skill sessions.</p>
-      <div class="tech">
-        <span class="tech-tag">HTML</span>
-        <span class="tech-tag">Canvas 2D</span>
-        <span class="tech-tag">WebAudio</span>
-        <span class="tech-tag">PWA-ready</span>
+    <article class="project-card reveal">
+      <div class="project-thumb">
+        <img src="/images/nix.jpg" alt="Nix Timeline Dodge — retro canvas mini-game start screen" width="1200" height="607" loading="lazy" />
+        <span class="live-badge">● Live</span>
       </div>
-      <div class="links">
-        <a href="https://github.com/FahadIbrahim93/viral-pet-nix" target="_blank">→ GitHub</a>
-        <a href="https://fahadibrahim93.github.io/viral-pet-nix" target="_blank">→ Play</a>
+      <div class="project-body">
+        <h3>🎮 Nix — Timeline Dodge</h3>
+        <p>Single-file viral mini-game in vanilla HTML/JS and Canvas — zero dependencies, MIT licensed. Dodge the timeline, collect hearts, evolve Nix. WebAudio synth SFX, shareable scores, PWA-ready. Built for social virality and short skill sessions.</p>
+        <div class="tech">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">Canvas 2D</span>
+          <span class="tech-tag">WebAudio</span>
+          <span class="tech-tag">0 deps</span>
+        </div>
+        <div class="links">
+          <a href="https://fahadibrahim93.github.io/viral-pet-nix" target="_blank" rel="noopener" class="live-link">→ Play Now</a>
+          <a href="https://github.com/FahadIbrahim93/viral-pet-nix" target="_blank" rel="noopener">→ GitHub</a>
+        </div>
       </div>
-    </div>
+    </article>
 
   </div>
+  <p class="more-projects reveal">
+    Also building: <strong>Skateline</strong> (Three.js free-roam skate game, in development) ·
+    <strong>Insectiles</strong> (PixiJS 8 roguelite, private repo) ·
+    <a href="https://github.com/FahadIbrahim93" target="_blank" rel="noopener">more on GitHub →</a>
+  </p>
 </section>
 
-<!-- CASE STUDIES -->
-<section class="section" id="case-studies">
-  <div class="section-title">Deep Dives</div>
-  <h2>Case Study: JG Mart</h2>
-  <p style="color:var(--muted);max-width:800px;margin-bottom:24px;">
-    Hyperlocal grocery delivery for Japan Garden City, Dhaka. Built as a PWA with WhatsApp-native ordering, Supabase backend, and a 51% margin model.
-  </p>
-  <div class="projects-grid">
-    <div class="project-card">
-      <h3>Problem</h3>
-      <p>1,700 families across 27 buildings needed same-day grocery access without app-friction or middleman markups.</p>
+<!-- CASE STUDY -->
+<section class="section" id="case-study">
+  <div class="section-title reveal">Deep Dive</div>
+  <h2 class="reveal">Case Study: JG Mart</h2>
+  <div class="case-banner reveal">
+    <div>
+      <h3>Grocery delivery for 1,700 families — without the app friction</h3>
+      <p>
+        Japan Garden City, Dhaka: 27 buildings, 4 clusters, one Krishi Market 800m away.
+        Residents needed same-day groceries without app-store friction or middleman markups.
+        I shipped a WhatsApp-native PWA with a 51% margin model, cluster-based routing,
+        and an operator dispatch flow — pre-seed pilot ready.
+      </p>
+      <div class="links">
+        <a href="/case-studies.html" class="btn btn-primary" style="padding:10px 22px;">Read All Case Studies</a>
+        <a href="https://jg-mart.vercel.app" target="_blank" rel="noopener">Open Live Site →</a>
+      </div>
     </div>
-    <div class="project-card">
-      <h3>Solution</h3>
-      <p>Static HTML/CSS/JS PWA with Supabase auth, WhatsApp order flow, admin PIN fallback, and service-worker caching.</p>
+    <div class="case-metrics">
+      <div class="case-metric"><div class="val">1,700</div><div class="lbl">Families Served</div></div>
+      <div class="case-metric"><div class="val">82</div><div class="lbl">Live Products</div></div>
+      <div class="case-metric"><div class="val">51%</div><div class="lbl">Margin Model</div></div>
+      <div class="case-metric"><div class="val">250K</div><div class="lbl">BDT Seed Ask</div></div>
     </div>
-    <div class="project-card">
-      <h3>Outcome</h3>
-      <p>82 products, 10 categories, 4 clusters, live catalog, and validated HTML/Python tooling—pre-seed pilot ready.</p>
-    </div>
-  </div>
-  <div class="links" style="margin-top:24px;">
-    <a href="https://github.com/FahadIbrahim93/jgmart-hermes" target="_blank" class="btn btn-primary">View Repo</a>
-    <a href="https://jg-mart.vercel.app" target="_blank" class="btn btn-secondary">Open Live Site</a>
   </div>
 </section>
 
 <!-- SKILLS -->
 <section class="section" id="skills">
-  <div class="section-title">Technical Skills</div>
-  <h2>Stack & Tools</h2>
+  <div class="section-title reveal">Technical Skills</div>
+  <h2 class="reveal">Stack &amp; Tools</h2>
   <div class="skills-grid">
-    <div class="skill-category">
+    <div class="skill-category reveal">
       <h3>Frontend</h3>
       <ul>
         <li>React 19</li>
-        <li>TypeScript</li>
+        <li>TypeScript (strict)</li>
         <li>Tailwind CSS</li>
-        <li>Framer Motion</li>
+        <li>Framer Motion / GSAP</li>
         <li>Vite</li>
       </ul>
     </div>
-    <div class="skill-category">
-      <h3>Backend & Data</h3>
+    <div class="skill-category reveal">
+      <h3>Backend &amp; Data</h3>
       <ul>
-        <li>Node.js</li>
         <li>Supabase (PostgreSQL)</li>
-        <li>Firebase</li>
+        <li>Firebase (Auth, Functions)</li>
+        <li>Node.js</li>
         <li>REST APIs</li>
         <li>Zustand / Redux</li>
       </ul>
     </div>
-    <div class="skill-category">
-      <h3>Quality & DevOps</h3>
+    <div class="skill-category reveal">
+      <h3>Quality &amp; DevOps</h3>
       <ul>
-        <li>Vitest / Jest</li>
-        <li>ESLint</li>
-        <li>GitHub Actions</li>
-        <li>Vercel</li>
+        <li>Vitest / Playwright</li>
+        <li>GitHub Actions CI</li>
+        <li>ESLint + type gates</li>
+        <li>Vercel / GitHub Pages</li>
         <li>WCAG 2.1 AA</li>
       </ul>
     </div>
-    <div class="skill-category">
-      <h3>AI & Tools</h3>
+    <div class="skill-category reveal">
+      <h3>AI &amp; Automation</h3>
       <ul>
         <li>Hermes Agent</li>
         <li>Claude Code</li>
-        <li>Prompt Engineering</li>
         <li>Multi-Agent Systems</li>
-        <li>AI Integration</li>
+        <li>Prompt Engineering</li>
+        <li>AI-assisted workflows</li>
       </ul>
     </div>
   </div>
@@ -541,10 +567,10 @@
 
 <!-- EXPERIENCE -->
 <section class="section" id="experience">
-  <div class="section-title">Experience</div>
-  <h2>What I've Built</h2>
+  <div class="section-title reveal">Experience</div>
+  <h2 class="reveal">What I've Built</h2>
 
-  <div class="experience-item">
+  <div class="experience-item reveal">
     <div class="experience-header">
       <div>
         <h3>Full-Stack Developer</h3>
@@ -553,95 +579,113 @@
       <div class="date">2024 – Present</div>
     </div>
     <ul>
-      <li>Built BugSmasher (React 19 + TypeScript + Supabase) — full-stack arcade game with auth, XP system, and real-time global leaderboards. Deployed in 2 weeks.</li>
-      <li>Developed RollON (React + TypeScript + Tailwind) — e-commerce platform with cart, variants, and checkout. 141 passing tests, WCAG 2.1 AA compliant.</li>
-      <li>Integrated AI agents into development workflow, cutting shipping time by 60% while maintaining production quality.</li>
-      <li>Manage full lifecycle: architecture → implementation → testing → deployment (Vercel).</li>
+      <li>Built BugSmasher (React 19 + TypeScript + Firebase) — arcade game with auth, XP system, and server-authoritative real-time leaderboards. 683 automated tests, deployed in 2 weeks.</li>
+      <li>Developed RollON (React 19 + TypeScript + Tailwind) — e-commerce platform with cart, variants, checkout, and admin dashboard. 117 tests, 87% coverage, WCAG 2.1 AA compliant.</li>
+      <li>Shipped JG Mart — hyperlocal grocery PWA serving a 1,700-family residential complex with WhatsApp-native ordering.</li>
+      <li>Integrated AI agents into the development workflow, cutting shipping time by ~60% while maintaining quality gates (lint → test → build → deploy).</li>
     </ul>
   </div>
 
-  <div class="experience-item">
+  <div class="experience-item reveal">
     <div class="experience-header">
       <div>
-        <h3>Founder & Lead Developer</h3>
+        <h3>Founder &amp; Lead Developer</h3>
         <div class="company">Hope Theory</div>
       </div>
       <div class="date">2023 – Present</div>
     </div>
     <ul>
       <li>Run Bengali AI training, voice recording, and annotation workflows for emerging-market LLM projects.</li>
-      <li>Built and deployed production applications using modern React/TypeScript/Supabase stack.</li>
-      <li>Deploy AI-agent automation (Hermes Agent, multi-agent systems) to run business operations across multiple ventures.</li>
+      <li>Build and deploy production applications on the React / TypeScript / Supabase stack.</li>
+      <li>Operate multi-agent AI automation across 6 business ventures (retail, content, trading, real estate).</li>
       <li>Daily user of Gemini, OpenRouter, and Groq APIs for content and workflow generation.</li>
     </ul>
   </div>
 
-  <div class="experience-item">
+  <div class="experience-item reveal">
     <div class="experience-header">
       <div>
-        <h3>Bachelor of Science — Computer Science & Engineering</h3>
+        <h3>BSc — Computer Science &amp; Engineering</h3>
         <div class="company">Ahsanullah University of Science and Technology</div>
       </div>
       <div class="date">2012 – 2017</div>
     </div>
     <ul>
       <li>Focused on software engineering, algorithms, and distributed systems.</li>
-      <li>Built foundation in data structures, databases, and full-stack development.</li>
+      <li>Foundation in data structures, databases, and full-stack development.</li>
     </ul>
-  </div>
-</section>
-
-<!-- EDUCATION & CERTIFICATIONS -->
-<section class="section" id="education">
-  <div class="section-title">Education</div>
-  <h2>Background</h2>
-  <div class="experience-item">
-    <div class="experience-header">
-      <div>
-        <h3>BSc Computer Science & Engineering</h3>
-        <div class="company">Ahsanullah University of Science and Technology</div>
-      </div>
-      <div class="date">2012 – 2017</div>
-    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section class="section" id="contact">
-  <div class="section-title">Get In Touch</div>
-  <h2>Let's Work Together</h2>
-  <p style="font-size:16px;color:var(--muted);margin-bottom:32px;max-width:600px;">
-    I'm currently open to remote Full-Stack Developer roles (React/TypeScript/Supabase),
-    freelance projects, and AI training/annotation contracts. Based in Dhaka, Bangladesh (UTC+6).
+  <div class="section-title reveal">Get In Touch</div>
+  <h2 class="reveal">Let's Work Together</h2>
+  <p class="section-intro reveal">
+    I'm currently open to remote Full-Stack Developer roles (React / TypeScript / Supabase),
+    freelance projects, and AI training/annotation contracts. Based in Dhaka, Bangladesh (UTC+6) —
+    comfortable working across time zones.
   </p>
   <div class="contact-grid">
-    <div class="contact-card">
-      <div class="icon">📧</div>
+    <a class="contact-card reveal" href="mailto:hopetheorybd@gmail.com">
+      <div class="icon" aria-hidden="true">📧</div>
       <div class="label">Email</div>
-      <div class="value"><a href="mailto:hopetheorybd@gmail.com">hopetheorybd@gmail.com</a></div>
-    </div>
-    <div class="contact-card">
-      <div class="icon">💼</div>
+      <div class="value">hopetheorybd@gmail.com</div>
+    </a>
+    <a class="contact-card reveal" href="https://linkedin.com/in/hopetheory-" target="_blank" rel="noopener">
+      <div class="icon" aria-hidden="true">💼</div>
       <div class="label">LinkedIn</div>
-      <div class="value"><a href="https://linkedin.com/in/hopetheory-" target="_blank">/in/hopetheory-</a></div>
-    </div>
-    <div class="contact-card">
-      <div class="icon">🐙</div>
+      <div class="value">/in/hopetheory-</div>
+    </a>
+    <a class="contact-card reveal" href="https://github.com/FahadIbrahim93" target="_blank" rel="noopener">
+      <div class="icon" aria-hidden="true">🐙</div>
       <div class="label">GitHub</div>
-      <div class="value"><a href="https://github.com/FahadIbrahim93" target="_blank">FahadIbrahim93</a></div>
-    </div>
-    <div class="contact-card">
-      <div class="icon">𝕏</div>
-      <div class="label">X/Twitter</div>
-      <div class="value"><a href="https://x.com/hopetheory__" target="_blank">@hopetheory__</a></div>
-    </div>
+      <div class="value">FahadIbrahim93</div>
+    </a>
+    <a class="contact-card reveal" href="https://x.com/hopetheory__" target="_blank" rel="noopener">
+      <div class="icon" aria-hidden="true">𝕏</div>
+      <div class="label">X / Twitter</div>
+      <div class="value">@hopetheory__</div>
+    </a>
   </div>
 </section>
 
+</main>
+
 <footer>
   <p>Built by <strong>Fahad Ibrahim</strong> · Hope Theory ☤ · "Never GIVE UP on your HOPES"</p>
-  <p style="margin-top:8px;font-size:11px;">© 2026 Hope Theory. All rights reserved.</p>
+  <div class="foot-links">
+    <a href="/case-studies.html">Case Studies</a>
+    <a href="/resume.html">Résumé</a>
+    <a href="/services/fullstack.html">Full-Stack Services</a>
+    <a href="/services/ai-agents.html">AI Agent Services</a>
+    <a href="/services/bengali-ai.html">Bengali AI Training</a>
+  </div>
+  <p style="margin-top:12px;font-size:11px;">© 2026 Hope Theory. All rights reserved.</p>
 </footer>
+
+<script>
+  // Mark JS availability so reveal animations degrade gracefully without it
+  document.documentElement.classList.add('js');
+
+  // Mobile nav toggle
+  const toggle = document.querySelector('.nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 
 </body>
 </html>

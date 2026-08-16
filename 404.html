@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 — Page Not Found | Fahad Ibrahim</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#0a0a0f" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#0a0a0f; --cyan:#00f0ff; --green:#00ff88; --text:#e8e8ee; --muted:#9096a8; --border:rgba(0,240,255,0.15); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg); color: var(--text); font-family:'Inter',sans-serif;
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .box { text-align:center; max-width:520px; }
+  .code {
+    font-family:'JetBrains Mono',monospace; font-size:clamp(72px,18vw,140px);
+    font-weight:700; line-height:1;
+    background: linear-gradient(135deg,#fff,var(--cyan));
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  h1 { font-size:22px; font-weight:800; margin:16px 0 8px; }
+  p { color:var(--muted); font-size:14px; margin-bottom:28px; }
+  .links { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  a {
+    color:var(--cyan); border:1px solid rgba(0,240,255,0.4); padding:12px 24px;
+    border-radius:8px; font-size:13px; font-weight:600; text-decoration:none; transition:all .2s;
+  }
+  a:hover { background:rgba(0,240,255,0.1); transform:translateY(-2px); }
+  a.ghost { border-color:var(--border); color:var(--text); }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="code">404</div>
+    <h1>This page dodged the timeline.</h1>
+    <p>Whatever you were looking for isn't here — but the projects are live and the portfolio is one click away.</p>
+    <div class="links">
+      <a href="/">→ Portfolio</a>
+      <a class="ghost" href="/case-studies.html">Case Studies</a>
+      <a class="ghost" href="https://fahadibrahim93.github.io/viral-pet-nix">Play Nix</a>
+    </div>
+  </div>
+</body>
+</html>
