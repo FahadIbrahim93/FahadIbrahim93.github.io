@@ -468,6 +468,13 @@
     font-size: 12px; font-weight: 700; color: #c8a97e;
     letter-spacing: 1.5px; margin-bottom: 12px;
   }
+  .step-num::before {
+    content: '0';
+  }
+  .process-step:nth-child(1) .step-num::before { content: '01'; }
+  .process-step:nth-child(2) .step-num::before { content: '02'; }
+  .process-step:nth-child(3) .step-num::before { content: '03'; }
+  .process-step:nth-child(4) .step-num::before { content: '04'; }
   .process-step h3 {
     font-size: 17px; font-weight: 700; margin-bottom: 8px;
     letter-spacing: -0.3px;
@@ -569,6 +576,7 @@
   .project-card:hover .project-thumb img {
     transform: scale(1.04);
     filter: saturate(1.05) brightness(1);
+    clip-path: inset(0 0 0 0);
   }
 
   .project-thumb .live-badge {
