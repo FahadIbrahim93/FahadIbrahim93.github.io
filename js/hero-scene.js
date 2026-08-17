@@ -60,12 +60,12 @@ function initScene(THREE) {
   const COUNT = 1400;
   const positions = new Float32Array(COUNT * 3);
   const colors = new Float32Array(COUNT * 3);
-  const cyan = new THREE.Color(0x00f0ff);
-  const purple = new THREE.Color(0xa855f7);
-  const green = new THREE.Color(0x00ff88);
+  // Particle palette — warm gold + violet premium (no neon cyan/green)
+  const gold   = new THREE.Color(0xc8a97e);
+  const violet = new THREE.Color(0x8b5cf6);
+  const warm   = new THREE.Color(0xf4f4f5);
 
   for (let i = 0; i < COUNT; i++) {
-    // Flattened ellipsoid cloud for a wide cinematic field
     const r = 18 + Math.random() * 26;
     const theta = Math.random() * Math.PI * 2;
     const phi = Math.acos(2 * Math.random() - 1);
@@ -74,7 +74,7 @@ function initScene(THREE) {
     positions[i * 3 + 2] = r * Math.cos(phi) * 0.8 - 6;
 
     const roll = Math.random();
-    const c = roll < 0.62 ? cyan : roll < 0.9 ? purple : green;
+    const c = roll < 0.55 ? gold : roll < 0.85 ? violet : warm;
     colors[i * 3] = c.r;
     colors[i * 3 + 1] = c.g;
     colors[i * 3 + 2] = c.b;
@@ -95,23 +95,23 @@ function initScene(THREE) {
   const particles = new THREE.Points(pGeo, pMat);
   scene.add(particles);
 
-  // ---------- Wireframe centerpiece ----------
+  // ---------- Wireframe centerpiece — gold + violet ----------
   const icoOuter = new THREE.Mesh(
     new THREE.IcosahedronGeometry(9, 1),
     new THREE.MeshBasicMaterial({
-      color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.16
+      color: 0xc8a97e, wireframe: true, transparent: true, opacity: 0.18
     })
   );
   const icoInner = new THREE.Mesh(
     new THREE.IcosahedronGeometry(13.5, 0),
     new THREE.MeshBasicMaterial({
-      color: 0xa855f7, wireframe: true, transparent: true, opacity: 0.09
+      color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.10
     })
   );
   const ring = new THREE.Mesh(
     new THREE.TorusGeometry(16, 0.03, 8, 120),
     new THREE.MeshBasicMaterial({
-      color: 0x00ff88, transparent: true, opacity: 0.22
+      color: 0xc8a97e, transparent: true, opacity: 0.18
     })
   );
   ring.rotation.x = Math.PI / 2.4;

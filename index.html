@@ -216,6 +216,15 @@
     filter: hue-rotate(10deg);
   }
 
+  /* Parallax depth layers — subtle gradient planes */
+  .parallax-layer {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 60% at 20% 50%, rgba(200,169,126,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 75% 30%, rgba(139,92,246,0.03) 0%, transparent 60%);
+    will-change: transform;
+  }
+
   #hero-canvas {
     position: absolute; inset: 0; width: 100%; height: 100%;
     z-index: 0; pointer-events: none; opacity: 0.6;
@@ -460,6 +469,23 @@
     background: var(--card); border: 1px solid var(--border);
     border-radius: 18px; overflow: hidden; transition: all .35s cubic-bezier(.4,0,.2,1);
     display: flex; flex-direction: column; position: relative;
+  }
+
+  /* Featured project — hero card with gold accent */
+  .project-card:first-child {
+    border-color: rgba(200,169,126,0.35);
+    box-shadow: 0 0 0 1px rgba(200,169,126,0.1) inset, 0 24px 56px rgba(0,0,0,0.45);
+  }
+  .project-card:first-child:hover {
+    border-color: rgba(200,169,126,0.55);
+    box-shadow: 0 0 0 1px rgba(200,169,126,0.2) inset, 0 32px 72px rgba(0,0,0,0.55);
+  }
+  .project-card:first-child .project-thumb::after {
+    content: 'Featured'; position: absolute; top: 12px; right: 12px;
+    background: rgba(200,169,126,0.9); color: #09090b;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; padding: 5px 10px; border-radius: 6px;
+    z-index: 2; font-family: 'JetBrains Mono', monospace;
   }
 
   .project-card:hover {
@@ -891,6 +917,12 @@
       </div>
     </div>
   </div>
+
+  <!-- Parallax depth layers — 3 planes of motion for cinematic depth -->
+  <div class="parallax-layer" data-speed="0.15" aria-hidden="true"></div>
+  <div class="parallax-layer" data-speed="0.35" aria-hidden="true"></div>
+  <div class="parallax-layer" data-speed="0.55" aria-hidden="true"></div>
+
   <img class="hero-watermark" src="/images/logo-mark.svg" alt="" aria-hidden="true" />
   <div class="scroll-cue" aria-hidden="true">Scroll</div>
 </section>

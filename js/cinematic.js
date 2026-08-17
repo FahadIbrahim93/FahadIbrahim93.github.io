@@ -404,19 +404,26 @@
   }
 
   /* ================================================================
-   * 11. TICKER — speed variation on scroll
+   * 7. HERO WATERMARK + PARALLAX DEPTH — subtle motion on logo + 3 planes
    * ================================================================ */
-  var ticker = document.querySelector('.ticker-track');
-  if (ticker && !reduced) {
-    gsap.to(ticker, {
-      x: '-=60',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.ticker',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 2,
-      },
+  if (!isMobile && !reduced) {
+    // Watermark parallax
+    var watermark = document.querySelector('.hero-watermark');
+    if (watermark) {
+      gsap.to(watermark, {
+        y: -80, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 2 }
+      });
+    }
+
+    // Parallax depth layers — different speeds create cinematic depth
+    var layers = document.querySelectorAll('.parallax-layer');
+    layers.forEach(function (layer) {
+      var speed = parseFloat(layer.getAttribute('data-speed')) || 0.3;
+      gsap.to(layer, {
+        y: -80 * speed * 3, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+      });
     });
   }
 
@@ -446,7 +453,7 @@
   }
 
   /* ================================================================
-   * 13. NAV — hide/show on scroll direction
+   * 16. NAV — hide/show on scroll direction
    * ================================================================ */
   var nav = document.querySelector('.nav');
   if (nav && !reduced) {
@@ -468,42 +475,26 @@
   }
 
   /* ================================================================
-   * 13. SCROLL PROGRESS BAR — GSAP-driven (replaces vanilla)
+   * 14. TICKER — speed variation on scroll
    * ================================================================ */
-  var progressBar = document.getElementById('scroll-progress');
-  if (progressBar) {
-    gsap.to(progressBar, {
-      scaleX: 1,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.3,
-      },
+  var ticker = document.querySelector('.ticker-track');
+  if (ticker && !reduced) {
+    gsap.to(ticker, {
+      x: '-=60', ease: 'none',
+      scrollTrigger: { trigger: '.ticker', start: 'top bottom', end: 'bottom top', scrub: 2 }
     });
-    // Start at 0
-    progressBar.style.transform = 'scaleX(0)';
-    progressBar.style.transformOrigin = 'left';
   }
 
   /* ================================================================
-   * 14. HERO PARALLAX LAYERS
+   * 15. HERO PARALLAX LAYERS
    * ================================================================ */
   if (!reduced && !isMobile) {
     // Aurora layers move at different rates
     var aurora = document.querySelector('.aurora');
     if (aurora) {
       gsap.to(aurora, {
-        y: 120,
-        opacity: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        },
+        y: 120, opacity: 0, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
       });
     }
 
@@ -511,15 +502,8 @@
     var heroContent = document.querySelector('.hero-content');
     if (heroContent) {
       gsap.to(heroContent, {
-        y: -60,
-        opacity: 0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hero',
-          start: '30% top',
-          end: 'bottom top',
-          scrub: 1,
-        },
+        y: -60, opacity: 0, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: '30% top', end: 'bottom top', scrub: 1 }
       });
     }
   }
