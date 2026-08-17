@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case Study: BugSmasher — Fahad Ibrahim | Hope Theory</title>
+<meta name="description" content="Deep-dive case study: BugSmasher, an accessible arcade game built with React 19, TypeScript, Canvas 2D, and Firebase. 683 tests, server-authoritative anti-cheat leaderboards, 79% coverage." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/case-study-bugsmasher.html" />
+<meta name="theme-color" content="#0a0a0f" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fahadibrahim93.github.io/case-study-bugsmasher.html" />
+<meta property="og:title" content="Case Study: BugSmasher — accessible arcade game, 683 tests" />
+<meta property="og:description" content="How I built a replay-proof, server-authoritative leaderboard and a 683-test verification baseline for a browser arcade game." />
+<meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Case Study: BugSmasher — accessible arcade game with 683 tests",
+  "author": { "@type": "Person", "name": "Fahad Ibrahim" },
+  "publisher": { "@type": "Organization", "name": "Hope Theory" },
+  "about": { "@type": "SoftwareApplication", "name": "BugSmasher", "applicationCategory": "Game" }
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  :root {
+    --bg: #0a0a0f;
+    --card: #14141f;
+    --card2: #1a1a2e;
+    --border: rgba(0,240,255,0.15);
+    --cyan: #00f0ff;
+    --green: #00ff88;
+    --purple: #a855f7;
+    --amber: #ffb347;
+    --text: #e0e0e0;
+    --muted: #8a8a9a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; }
+  a { color: var(--cyan); text-decoration:none; }
+  a:hover { text-decoration: underline; }
+
+  header { padding:28px 32px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  header .brand { font-size:18px; font-weight:800; letter-spacing:-0.5px; }
+  header a.back { font-size:13px; font-weight:600; padding:8px 14px; border:1px solid var(--border); border-radius:8px; }
+
+  .hero { max-width:900px; margin:0 auto; padding:56px 32px 24px; }
+  .hero .kicker { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--green); margin-bottom:14px; }
+  .hero h1 { font-size:clamp(30px,5vw,46px); font-weight:900; letter-spacing:-1.5px; line-height:1.1; margin-bottom:16px; }
+  .hero .sub { font-size:17px; color:var(--muted); max-width:720px; }
+  .hero .tags { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hero .tag { font-family:'JetBrains Mono',monospace; font-size:11px; padding:5px 10px; border:1px solid var(--border); border-radius:6px; color:var(--cyan); background:rgba(0,240,255,0.05); }
+
+  main { max-width:900px; margin:0 auto; padding:16px 32px 64px; }
+  section { margin-top:44px; }
+  section h2 { font-size:24px; font-weight:800; letter-spacing:-0.5px; margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+  section h2 .num { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--purple); font-weight:600; }
+  section .lead { color:var(--muted); font-size:15px; margin-bottom:18px; }
+  section p { font-size:15px; color:var(--text); margin-bottom:14px; }
+  section p.dim { color:var(--muted); }
+
+  .metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:20px 0; }
+  .metric { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 16px; text-align:center; }
+  .metric .val { font-size:26px; font-weight:800; font-family:'JetBrains Mono',monospace; color:var(--green); }
+  .metric .lbl { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px; margin-top:6px; }
+
+  .callout { background:var(--card2); border:1px solid var(--border); border-left:3px solid var(--cyan); border-radius:10px; padding:18px 20px; margin:18px 0; }
+  .callout.warn { border-left-color:var(--amber); }
+  .callout .t { font-weight:700; font-size:14px; margin-bottom:6px; color:var(--cyan); }
+  .callout.warn .t { color:var(--amber); }
+  .callout p { font-size:14px; color:var(--muted); margin:0; }
+
+  ul.clean { list-style:none; margin:8px 0 4px; }
+  ul.clean li { padding:7px 0 7px 22px; position:relative; font-size:14.5px; color:var(--text); }
+  ul.clean li::before { content:'▹'; position:absolute; left:0; color:var(--green); font-weight:700; }
+  ul.clean li b { color:var(--cyan); font-weight:600; }
+
+  table { width:100%; border-collapse:collapse; margin:16px 0; font-size:13.5px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-weight:600; text-transform:uppercase; font-size:11px; letter-spacing:1px; }
+  td.mono { font-family:'JetBrains Mono',monospace; color:var(--green); }
+  td.dim { color:var(--muted); }
+
+  .cta { margin-top:48px; display:flex; gap:12px; flex-wrap:wrap; }
+  .cta a { padding:12px 20px; border-radius:10px; font-weight:700; font-size:14px; }
+  .cta .primary { background:var(--cyan); color:#04141a; }
+  .cta .ghost { border:1px solid var(--border); color:var(--cyan); }
+
+  footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
+  footer strong { color:var(--cyan); }
+
+  @media (max-width:768px){ header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">fahad<span style="color:var(--cyan)">.ibrahim</span></div>
+  <a class="back" href="/case-studies.html">← All Case Studies</a>
+</header>
+
+<div class="hero">
+  <div class="kicker">Case Study · v2.5.0 · MIT</div>
+  <h1>BugSmasher — an accessible arcade game with a replay-proof leaderboard and 683 tests</h1>
+  <p class="sub">High-intensity bug-squashing gameplay meets brutalist OS aesthetics and neon bio-luminescent bugs. Built with React 19, TypeScript, and Canvas 2D, backed by Firebase and a serious automated-verification baseline.</p>
+  <div class="tags">
+    <span class="tag">React 19</span>
+    <span class="tag">TypeScript ~5.9</span>
+    <span class="tag">Canvas 2D</span>
+    <span class="tag">Firebase</span>
+    <span class="tag">Vitest</span>
+    <span class="tag">Playwright</span>
+    <span class="tag">PWA</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="metrics">
+    <div class="metric"><div class="val">683</div><div class="lbl">Tests Passing</div></div>
+    <div class="metric"><div class="val">79%</div><div class="lbl">Line Coverage</div></div>
+    <div class="metric"><div class="val">0</div><div class="lbl">ESLint Errors</div></div>
+    <div class="metric"><div class="val">5/5</div><div class="lbl">Playwright E2E</div></div>
+  </div>
+
+  <section>
+    <h2><span class="num">01</span> The challenge</h2>
+    <p class="lead">Browser arcade games are easy to demo and hard to trust. Two problems dominate: <b>competitive integrity</b> (a client-side score is trivially forgeable) and <b>quality confidence</b> (fast-moving game code rots without a test net).</p>
+    <p>BugSmasher set out to be an actively hardened project, not a throwaway demo. That meant treating the leaderboard as a security surface and treating the codebase as something that must prove itself on every change — while keeping the game genuinely fun and accessible.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> Server-authoritative leaderboards</h2>
+    <p class="lead">The core anti-cheat decision: the client never writes a score directly. All competitive writes go through server-authoritative Firebase callable paths.</p>
+    <ul class="clean">
+      <li><b>Authenticated writes only</b> — score submission requires a signed-in user; anonymous or forged submissions are rejected.</li>
+      <li><b>One-time session tokens</b> — the server issues a score session token that is user-bound, expires, and is atomically consumed on use.</li>
+      <li><b>Replay-proof</b> — because each token can be consumed exactly once, a captured submission cannot be replayed to inflate a score.</li>
+      <li><b>Schema validation + server checksums + rate limiting</b> — payloads are validated server-side and throttled to blunt automated abuse.</li>
+    </ul>
+    <div class="callout">
+      <div class="t">Tested, not just designed</div>
+      <p>Firebase emulator tests explicitly cover the attack paths: replay, token expiry, cross-user token use, and score plausibility checks.</p>
+    </div>
+    <div class="callout warn">
+      <div class="t">Honest scope</div>
+      <p>This is strong baseline protection, not a claim of perfect anti-cheat. Authoritative gameplay-run summaries and full replay verification remain future hardening if competitive integrity demands them.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span> A verification baseline you can audit</h2>
+    <p class="lead">Quality is enforced through layered gates that run in CI, not by vibes. The latest repository-reported verification:</p>
+    <table>
+      <tr><th>Signal</th><th>Result</th></tr>
+      <tr><td>Frontend tests</td><td class="mono">651 passing (Vitest)</td></tr>
+      <tr><td>Firebase tests</td><td class="mono">26 emulator/integration + 6 Functions schema</td></tr>
+      <tr><td>Line coverage</td><td class="mono">79.17%</td></tr>
+      <tr><td>Statement coverage</td><td class="mono">78.12%</td></tr>
+      <tr><td>Function coverage</td><td class="mono">84.57%</td></tr>
+      <tr><td>Branch coverage</td><td class="mono">66.02%</td></tr>
+      <tr><td>ESLint</td><td class="mono">0 errors</td></tr>
+      <tr><td>Playwright E2E</td><td class="mono">5/5 specs passing</td></tr>
+      <tr><td>Production build</td><td class="mono">Passing</td></tr>
+    </table>
+    <p class="dim">Total: 683 tests (651 Vitest + 32 Firebase). Quality gates run via <span style="font-family:'JetBrains Mono',monospace;color:var(--cyan)">npm run ci</span>: typecheck, lint, coverage, emulator, and E2E.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span> Accessibility &amp; performance</h2>
+    <p class="lead">An arcade game should be playable by everyone, on any device, without melting a low-end phone.</p>
+    <ul class="clean">
+      <li><b>Keyboard-first navigation</b> with ARIA support throughout the UI.</li>
+      <li><b>Player-controlled difficulty, reduced-motion, and colorblind modes</b> — accessibility as gameplay options, not an afterthought.</li>
+      <li><b>Adaptive rendering &amp; VFX controls</b> plus mobile-aware canvas scaling for performance headroom.</li>
+    </ul>
+    <div class="callout warn">
+      <div class="t">In progress, stated plainly</div>
+      <p>Full WCAG 2.2 AA evidence-backed verification is still underway. The foundations are in place; the final certification gate is on the roadmap rather than claimed as done.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span> Architecture &amp; supply-chain hygiene</h2>
+    <ul class="clean">
+      <li><b>Modular systems</b> — combat/bug behavior, audio, and typed renderers are extracted behind clean dependency seams.</li>
+      <li><b>AI-assisted engineering workflow</b> — agent rules and skills documented in <span style="font-family:'JetBrains Mono',monospace">AGENTS.md</span> and <span style="font-family:'JetBrains Mono',monospace">.agents/</span>.</li>
+      <li><b>Dependency security</b> — Dependabot and CodeQL configured, plus a blocking <span style="font-family:'JetBrains Mono',monospace">npm audit --audit-level=high</span> workflow for root and Functions dependencies.</li>
+      <li><b>Deep documentation</b> — architecture, deployment, security model, changelog, and a task board to 10/10 all live in the repo.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span> What is deliberately not done yet</h2>
+    <p class="lead">A credible case study names its gaps. Until real providers and operational/legal controls are in place, these remain intentionally out of scope:</p>
+    <ul class="clean">
+      <li>Paid monetization / payment processing</li>
+      <li>Advertising</li>
+      <li>Production analytics &amp; telemetry consent</li>
+      <li>Crash reporting and runtime alerting</li>
+      <li>Final WCAG 2.2 AA evidence gate</li>
+      <li>Final 80/80/75/70 coverage gate</li>
+    </ul>
+    <p class="dim">The project does not claim these capabilities are live merely because integration stubs exist in the source tree.</p>
+  </section>
+
+  <div class="cta">
+    <a class="primary" href="https://bugsmasher-hopetheory.vercel.app" target="_blank" rel="noopener">Play Live →</a>
+    <a class="ghost" href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank" rel="noopener">View on GitHub</a>
+    <a class="ghost" href="/case-studies.html">All Case Studies</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>Built by <strong>Fahad Ibrahim</strong> · <strong>Hope Theory</strong> ☤</p>
+  <p style="margin-top:8px;font-size:11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory</p>
+</footer>
+
+</body>
+</html>
