@@ -164,19 +164,24 @@
     });
   });
 
-  // Section headings — fade up
+  // Section headings — fade up with optional line split
   gsap.utils.toArray('.section h2').forEach(function (el) {
-    gsap.from(el, {
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 85%',
-        toggleActions: 'play none none none',
-      },
-    });
+    var lines = el.innerHTML.split('<br');
+    if (lines.length > 1) {
+      // Multi-line heading: wrap lines for staggered reveal
+      el.innerHTML = lines.map(function (line, i) {
+        return '<span class="line-reveal" style="display:block;overflow:hidden;">' + line + '</span>';
+      }).join('<br');
+      gsap.from('.line-reveal', {
+        y: '110%', opacity: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+      });
+    } else {
+      gsap.from(el, {
+        y: 30, opacity: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+      });
+    }
   });
 
   // Section intros — fade up with delay
