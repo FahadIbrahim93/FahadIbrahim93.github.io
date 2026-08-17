@@ -296,6 +296,19 @@
   }
 
   /* ================================================================
+   * 7.5 SECTION DIVIDERS — animated gold line reveals
+   * ================================================================ */
+  var sections = gsap.utils.toArray('.section + .section');
+  sections.forEach(function (sec) {
+    ScrollTrigger.create({
+      trigger: sec,
+      start: 'top 88%',
+      onEnter: function () { sec.classList.add('in-view'); },
+      onLeaveBack: function () { sec.classList.remove('in-view'); },
+    });
+  });
+
+  /* ================================================================
    * 8. SKILL CATEGORIES — staggered grid reveal
    * ================================================================ */
   var skills = gsap.utils.toArray('.skill-category');
@@ -387,7 +400,32 @@
   }
 
   /* ================================================================
-   * 12. NAV — hide/show on scroll direction
+   * 12. BACK TO TOP — show/hide based on scroll
+   * ================================================================ */
+  var backBtn = document.getElementById('backToTop');
+  if (backBtn && !reduced) {
+    ScrollTrigger.create({
+      start: 'top -60%',
+      end: 99999,
+      onUpdate: function (self) {
+        if (self.progress > 0) {
+          backBtn.classList.add('visible');
+        } else {
+          backBtn.classList.remove('visible');
+        }
+      },
+    });
+    backBtn.addEventListener('click', function () {
+      if (window.__lenis) {
+        window.__lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
+
+  /* ================================================================
+   * 13. NAV — hide/show on scroll direction
    * ================================================================ */
   var nav = document.querySelector('.nav');
   if (nav && !reduced) {
