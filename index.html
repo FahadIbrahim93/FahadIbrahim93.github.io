@@ -193,13 +193,19 @@
     position: relative; overflow: hidden;
   }
 
-  /* Subtle radial gradient — cinematic depth */
-  .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,169,126,0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 50% at 80% 70%, rgba(139,92,246,0.04) 0%, transparent 60%);
-    pointer-events: none; z-index: 0;
+  /* Hero depth layers — parallax-ready */
+  .hero-depth {
+    position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  }
+  .hero-depth-layer {
+    position: absolute; inset: 0;
+    will-change: transform;
+  }
+  .hero-depth-layer[data-depth="0.2"] {
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,169,126,0.06) 0%, transparent 70%);
+  }
+  .hero-depth-layer[data-depth="0.4"] {
+    background: radial-gradient(ellipse 60% 50% at 80% 70%, rgba(139,92,246,0.04) 0%, transparent 60%);
   }
 
   .hero-watermark {
@@ -451,9 +457,15 @@
   }
 
   .project-thumb {
-    position: relative; aspect-ratio: 16/9; overflow: hidden;
-    background: linear-gradient(135deg, #0d0d14, #141418);
+    position: relative; overflow: hidden; aspect-ratio: 16/10;
+    background: var(--surface);
   }
+  .project-thumb::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(9,9,11,0.5) 0%, transparent 50%);
+    opacity: 0; transition: opacity .5s ease;
+  }
+  .project-card:hover .project-thumb::after { opacity: 1; }
 
   .project-thumb img {
     width: 100%; height: 100%; object-fit: cover; object-position: top;
@@ -769,6 +781,9 @@
     .hero-stats { grid-template-columns: repeat(2, 1fr); }
     .section { padding: 80px 20px; }
     .hero h1 { letter-spacing: -1.5px; }
+    .hero-content { text-align: center; }
+    .hero-cta { justify-content: center; }
+    .case-metrics-inline { justify-content: center; }
   }
 
   @media (max-width: 480px) {
@@ -828,6 +843,10 @@
 <section class="hero" aria-label="Introduction">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
   <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
+  <div class="hero-depth" aria-hidden="true">
+    <div class="hero-depth-layer" data-depth="0.2"></div>
+    <div class="hero-depth-layer" data-depth="0.4"></div>
+  </div>
   <div class="hero-content">
     <div class="hero-badge"><span class="dot" aria-hidden="true"></span> Open to Remote Roles</div>
     <h1>Fahad Ibrahim</h1>

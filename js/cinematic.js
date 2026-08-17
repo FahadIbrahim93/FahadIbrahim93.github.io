@@ -279,20 +279,41 @@
   });
 
   /* ================================================================
-   * 7. HERO WATERMARK — subtle parallax on the logo mark
+   * 7. HERO WATERMARK + DEPTH PARALLAX — subtle depth on mouse move
    * ================================================================ */
   var watermark = document.querySelector('.hero-watermark');
-  if (watermark && !isMobile && !reduced) {
-    gsap.to(watermark, {
-      y: -80,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 2,
-      },
-    });
+  var depthLayers = document.querySelectorAll('.hero-depth-layer');
+  if ((watermark || depthLayers.length) && !isMobile && !reduced && finePointer) {
+    var heroEl = document.querySelector('.hero');
+    if (heroEl) {
+      heroEl.addEventListener('mousemove', function (e) {
+        var rect = heroEl.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5;
+        var y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        if (watermark) {
+          gsap.to(watermark, {
+            x: x * 30, y: y * 30 + -80,
+            ease: 'power2.out', duration: 1.2,
+          });
+        }
+
+        depthLayers.forEach(function (layer) {
+          var depth = parseFloat(layer.getAttribute('data-depth') || '0.2');
+          gsap.to(layer, {
+            x: x * depth * 60, y: y * depth * 60,
+            ease: 'power2.out', duration: 1.4,
+          });
+        });
+      });
+
+      heroEl.addEventListener('mouseleave', function () {
+        if (watermark) gsap.to(watermark, { x: 0, y: -80, ease: 'power2.out', duration: 1.2 });
+        depthLayers.forEach(function (layer) {
+          gsap.to(layer, { x: 0, y: 0, ease: 'power2.out', duration: 1.4 });
+        });
+      });
+    }
   }
 
   /* ================================================================
