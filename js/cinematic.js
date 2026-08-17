@@ -366,7 +366,7 @@
   });
 
   /* ================================================================
-   * 9. CONTACT CARDS — scale up stagger
+   * 9. CONTACT CARDS — scale up stagger + gold border
    * ================================================================ */
   var contacts = gsap.utils.toArray('.contact-card');
   if (contacts.length) {
@@ -374,11 +374,11 @@
       scale: 0.92,
       opacity: 0,
       duration: 0.5,
-      stagger: 0.06,
+      stagger: 0.08,
       ease: 'back.out(1.4)',
       scrollTrigger: {
         trigger: '.contact-grid',
-        start: 'top 85%',
+        start: 'top 88%',
         toggleActions: 'play none none none',
       },
     });
