@@ -391,6 +391,16 @@
     font-size: 17px; line-height: 1.7; font-weight: 400;
   }
 
+  /* Manifesto — centered editorial statement */
+  .manifesto { text-align: center; }
+  .manifesto-inner { max-width: 780px; margin: 0 auto; }
+  .manifesto-text {
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--text-secondary); line-height: 1.8; margin-bottom: 18px;
+    font-weight: 400;
+  }
+  .manifesto-text strong { color: var(--text); font-weight: 600; }
+
   /* Section divider — refined */
   .section + .section {
     border-top: 1px solid var(--border);
@@ -702,6 +712,7 @@
     .ticker-track, .grain { animation: none; }
     .hero h1 { animation: none; -webkit-text-fill-color: var(--text); }
     #hero-canvas { display: none; }
+    .loader-mark { animation: none; }
   }
 
   /* ================================================================
@@ -743,6 +754,28 @@
 </style>
 </head>
 <body>
+
+<!-- Loading curtain — fades out on load, signals premium from frame 1 -->
+<style id="loader-css">
+  .loader-curtain {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #09090b;
+    display: flex; align-items: center; justify-content: center;
+    transition: opacity .5s ease, visibility .5s ease;
+  }
+  .loader-curtain.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .loader-mark {
+    width: 48px; height: 48px; opacity: 0.9;
+    animation: loader-pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes loader-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.08); opacity: 1; }
+  }
+</style>
+<div class="loader-curtain" id="loader" aria-hidden="true">
+  <img src="/images/logo-mark.svg" alt="" class="loader-mark" />
+</div>
 
 <a class="skip-link" href="#main">Skip to content</a>
 <div id="scroll-progress" aria-hidden="true"></div>
@@ -811,6 +844,23 @@
     <span><b>React 19</b></span><span>TypeScript</span><span><b>Supabase</b></span><span>Firebase</span><span><b>Tailwind CSS</b></span><span>Node.js</span><span><b>Vite</b></span><span>Zustand</span><span><b>Playwright</b></span><span>Vitest</span><span><b>GitHub Actions</b></span><span>Vercel</span><span><b>PWA</b></span><span>WCAG 2.1 AA</span><span><b>Three.js</b></span><span>Canvas 2D</span><span><b>WebAudio</b></span><span>GSAP</span>
   </div>
 </div>
+
+<!-- MANIFESTO — narrative gap filler, sets art direction -->
+<section class="section manifesto" id="manifesto">
+  <div class="manifesto-inner reveal">
+    <div class="section-title">Philosophy</div>
+    <h2>Built for the people who actually use it.</h2>
+    <p class="manifesto-text">
+      I don't ship portfolios. I ship <strong>products</strong> — tested, accessible, and fast.
+      Every line of code is written for the person on the other side of the screen.
+      No bloat. No shortcuts. No "it works on my machine."
+    </p>
+    <p class="manifesto-text">
+      From arcade games to grocery delivery, from e-commerce to AI automation —
+      I build with the same obsession: <strong>clarity, craft, and care</strong>.
+    </p>
+  </div>
+</section>
 
 <!-- PROJECTS -->
 <section class="section" id="work">
@@ -1092,9 +1142,12 @@
 </main>
 
 <footer>
-  <p style="margin-bottom:8px;">
-    <img src="/images/logo-mark.svg" alt="" aria-hidden="true" style="width:20px;height:20px;vertical-align:middle;margin-right:6px;opacity:0.7;" />
-    <strong>Fahad Ibrahim</strong> · Hope Theory ☤ · "Never GIVE UP on your HOPES"
+  <p style="margin-bottom:10px;">
+    <img src="/images/logo-mark.svg" alt="" aria-hidden="true" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;opacity:0.6;" />
+    <strong>Fahad Ibrahim</strong> · Hope Theory ☤
+  </p>
+  <p style="font-size:12px;color:var(--muted);margin-bottom:16px;font-style:italic;">
+    "Never GIVE UP on your HOPES"
   </p>
   <div class="foot-links">
     <a href="/case-studies.html">Case Studies</a>
@@ -1103,7 +1156,9 @@
     <a href="/services/ai-agents.html">AI Agent Services</a>
     <a href="/services/bengali-ai.html">Bengali AI Training</a>
   </div>
-  <p style="margin-top:16px;font-size:11px;color:var(--muted);">© 2026 Hope Theory. All rights reserved.</p>
+  <p style="margin-top:20px;font-size:11px;color:var(--muted);opacity:0.6;">
+    © 2026 Hope Theory. All rights reserved.
+  </p>
 </footer>
 
 <!-- Ambient layers -->
@@ -1114,6 +1169,19 @@
 <script>
   // Mark JS availability so reveal animations degrade gracefully without it
   document.documentElement.classList.add('js');
+
+  // Loader curtain — dismiss immediately on load, max 2.5s safety
+  (function () {
+    var loader = document.getElementById('loader');
+    if (!loader) return;
+    function hide() { loader.classList.add('hidden'); }
+    if (document.readyState === 'complete') {
+      setTimeout(hide, 180);
+    } else {
+      window.addEventListener('load', function () { setTimeout(hide, 180); });
+      setTimeout(hide, 2500); // safety timeout
+    }
+  })();
 
   // Mobile nav toggle
   const toggle = document.querySelector('.nav-toggle');

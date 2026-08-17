@@ -147,7 +147,7 @@
   // Ensure all animated elements are VISIBLE by default.
   // gsap.from() would otherwise set opacity:0/y:30 immediately on creation,
   // hiding off-screen sections until their trigger fires.
-  gsap.set('.section-title, .section h2, .section-intro, .project-card, .skill-category, .experience-item, .contact-card, .case-banner', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+  gsap.set('.section-title, .section h2, .section-intro, .project-card, .skill-category, .experience-item, .contact-card, .case-banner, .manifesto-inner', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
 
   // Section titles — slide in from left
   gsap.utils.toArray('.section-title').forEach(function (el) {
