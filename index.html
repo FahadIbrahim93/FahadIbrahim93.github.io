@@ -30,10 +30,11 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="apple-touch-icon" href="/favicon.svg" />
 
-<!-- Fonts: preconnect + non-blocking load -->
+<!-- Fonts: preconnect + non-blocking load (media=print swap trick) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
 
 <!-- Structured data -->
 <script type="application/ld+json">
@@ -140,6 +141,39 @@
     padding: calc(var(--nav-h) + 48px) 24px 60px;
     position: relative; overflow: hidden;
   }
+  #hero-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+  .aurora { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .aurora span {
+    position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .aurora .a1 { width: 520px; height: 520px; background: rgba(0,240,255,0.13); top: -140px; left: -80px; }
+  .aurora .a2 { width: 640px; height: 640px; background: rgba(168,85,247,0.12); bottom: -220px; right: -120px; animation-delay: -6s; }
+  .aurora .a3 { width: 380px; height: 380px; background: rgba(0,255,136,0.07); top: 32%; left: 56%; animation-delay: -11s; }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(70px,45px) scale(1.18); }
+  }
+  .scroll-cue {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    z-index: 1; color: var(--muted); font-size: 10px; letter-spacing: 2.5px;
+    text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .scroll-cue::after {
+    content: ''; width: 1px; height: 34px;
+    background: linear-gradient(var(--cyan), transparent);
+    animation: cue-drop 1.8s ease-in-out infinite;
+  }
+  @keyframes cue-drop {
+    0% { transform: scaleY(0); transform-origin: top; }
+    45% { transform: scaleY(1); transform-origin: top; }
+    55% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
   .hero::before {
     content: ''; position: absolute; inset: 0;
     background:
@@ -162,9 +196,34 @@
   .hero h1 {
     font-size: clamp(34px, 6vw, 68px);
     font-weight: 900; line-height: 1.08; margin-bottom: 16px; letter-spacing: -2px;
-    background: linear-gradient(135deg, #ffffff 0%, #00f0ff 100%);
+    background: linear-gradient(120deg, #ffffff 0%, #00f0ff 38%, #a855f7 68%, #ffffff 100%);
+    background-size: 220% 220%;
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: gradient-pan 8s ease-in-out infinite;
+  }
+  @keyframes gradient-pan {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  /* Kinetic hero entrance (JS-gated) */
+  html.js .hero-content > * {
+    opacity: 0;
+    animation: hero-in .9s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  html.js .hero-content > *:nth-child(1) { animation-delay: .10s; }
+  html.js .hero-content > *:nth-child(2) { animation-delay: .22s; }
+  html.js .hero-content > *:nth-child(3) { animation-delay: .34s; }
+  html.js .hero-content > *:nth-child(4) { animation-delay: .46s; }
+  html.js .hero-content > *:nth-child(5) { animation-delay: .58s; }
+  html.js .hero-content > *:nth-child(6) { animation-delay: .70s; }
+  html.js .hero h1 {
+    animation: hero-in .9s cubic-bezier(.22,1,.36,1) .22s forwards,
+               gradient-pan 8s ease-in-out 1.2s infinite;
+  }
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: none; }
   }
   .hero .tagline {
     font-size: clamp(16px, 2.5vw, 21px);
@@ -309,10 +368,81 @@
   /* Reveal animation — only active when JS is available */
   html.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
   html.js .reveal.visible { opacity: 1; transform: none; }
+
+  /* Scroll progress bar */
+  #scroll-progress {
+    position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 120;
+    background: linear-gradient(90deg, var(--cyan), var(--purple), var(--green));
+    transform: scaleX(0); transform-origin: left; pointer-events: none;
+  }
+
+  /* Nav active link */
+  .nav-links a.nav-active { color: var(--cyan); background: rgba(0,240,255,0.08); }
+
+  /* Card glare overlay (3D tilt) */
+  .project-card { position: relative; will-change: transform; }
+  .card-glare {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    opacity: 0; transition: opacity .3s; border-radius: inherit;
+  }
+
+  /* Tech marquee ticker */
+  .ticker {
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    overflow: hidden; padding: 14px 0; background: rgba(18,18,26,0.5);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .ticker-track {
+    display: flex; gap: 48px; width: max-content;
+    animation: ticker-scroll 30s linear infinite;
+  }
+  .ticker:hover .ticker-track { animation-play-state: paused; }
+  .ticker-track span {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500;
+    color: var(--muted); white-space: nowrap; letter-spacing: 1px;
+  }
+  .ticker-track span b { color: var(--cyan); font-weight: 600; }
+  @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* Film grain overlay */
+  .grain {
+    position: fixed; inset: -50%; width: 200%; height: 200%; z-index: 90;
+    pointer-events: none; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain-shift 1.2s steps(4) infinite;
+  }
+  @keyframes grain-shift {
+    0% { transform: translate(0,0); } 25% { transform: translate(-2%,3%); }
+    50% { transform: translate(3%,-2%); } 75% { transform: translate(-3%,-3%); }
+    100% { transform: translate(2%,2%); }
+  }
+
+  /* Custom cursor */
+  #cursor-dot, #cursor-ring {
+    position: fixed; top: 0; left: 0; z-index: 130; pointer-events: none;
+    border-radius: 50%; opacity: 0;
+  }
+  html.has-cursor #cursor-dot, html.has-cursor #cursor-ring { opacity: 1; }
+  #cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--cyan); }
+  #cursor-ring {
+    width: 34px; height: 34px; margin: -17px 0 0 -17px;
+    border: 1px solid rgba(0,240,255,0.5);
+    transition: width .25s, height .25s, margin .25s, border-color .25s, background .25s;
+  }
+  #cursor-ring.cursor-hover {
+    width: 52px; height: 52px; margin: -26px 0 0 -26px;
+    border-color: rgba(0,255,136,0.7); background: rgba(0,240,255,0.06);
+  }
+  html.has-cursor, html.has-cursor a, html.has-cursor button { cursor: none; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     html.js .reveal { opacity: 1; transform: none; transition: none; }
-    .hero-badge .dot { animation: none; }
+    html.js .hero-content > * { opacity: 1; animation: none; }
+    .hero-badge .dot, .aurora span, .scroll-cue::after, .ticker-track, .grain { animation: none; }
+    .hero h1 { animation: none; }
+    #hero-canvas { display: none; }
   }
 
   @media (max-width: 860px) {
@@ -338,10 +468,11 @@
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
+<div id="scroll-progress" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav class="nav" aria-label="Main navigation">
-  <a href="/" class="nav-logo" aria-label="Fahad Ibrahim — home">fahad<span>.ibrahim</span></a>
+  <a href="/" class="nav-logo" aria-label="fahad.ibrahim — home">fahad<span>.ibrahim</span></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">☰</button>
   <ul class="nav-links" id="nav-menu">
     <li><a href="#work">Work</a></li>
@@ -357,6 +488,8 @@
 
 <!-- HERO -->
 <section class="hero" aria-label="Introduction">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span></div>
   <div class="hero-content">
     <div class="hero-badge"><span class="dot" aria-hidden="true"></span> Open to Remote Roles</div>
     <h1>Fahad Ibrahim</h1>
@@ -370,7 +503,7 @@
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-value">4</div>
+        <div class="stat-value" data-count="4">4</div>
         <div class="stat-label">Live Products</div>
       </div>
       <div class="stat">
@@ -378,16 +511,25 @@
         <div class="stat-label">Avg Ship Time</div>
       </div>
       <div class="stat">
-        <div class="stat-value">800+</div>
+        <div class="stat-value" data-count="800" data-suffix="+">800+</div>
         <div class="stat-label">Automated Tests</div>
       </div>
       <div class="stat">
-        <div class="stat-value">60%</div>
+        <div class="stat-value" data-count="60" data-suffix="%">60%</div>
         <div class="stat-label">Faster w/ AI</div>
       </div>
     </div>
   </div>
+  <div class="scroll-cue" aria-hidden="true">Scroll</div>
 </section>
+
+<!-- TECH TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span><b>React 19</b></span><span>TypeScript</span><span><b>Supabase</b></span><span>Firebase</span><span><b>Tailwind CSS</b></span><span>Node.js</span><span><b>Vite</b></span><span>Zustand</span><span><b>Playwright</b></span><span>Vitest</span><span><b>GitHub Actions</b></span><span>Vercel</span><span><b>PWA</b></span><span>WCAG 2.1 AA</span><span><b>Three.js</b></span><span>Canvas 2D</span><span><b>WebAudio</b></span><span>GSAP</span>
+    <span><b>React 19</b></span><span>TypeScript</span><span><b>Supabase</b></span><span>Firebase</span><span><b>Tailwind CSS</b></span><span>Node.js</span><span><b>Vite</b></span><span>Zustand</span><span><b>Playwright</b></span><span>Vitest</span><span><b>GitHub Actions</b></span><span>Vercel</span><span><b>PWA</b></span><span>WCAG 2.1 AA</span><span><b>Three.js</b></span><span>Canvas 2D</span><span><b>WebAudio</b></span><span>GSAP</span>
+  </div>
+</div>
 
 <!-- PROJECTS -->
 <section class="section" id="work">
@@ -397,8 +539,12 @@
   <div class="projects-grid">
 
     <article class="project-card reveal">
+      <div class="card-glare" aria-hidden="true"></div>
       <div class="project-thumb">
-        <img src="/images/bugsmasher.jpg" alt="BugSmasher — neon arcade bug-squashing game interface" width="1200" height="593" loading="lazy" />
+        <picture>
+          <source srcset="/images/bugsmasher.webp" type="image/webp" />
+          <img src="/images/bugsmasher.jpg" alt="BugSmasher — neon arcade bug-squashing game interface" width="1200" height="593" loading="lazy" />
+        </picture>
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
@@ -419,8 +565,12 @@
     </article>
 
     <article class="project-card reveal">
+      <div class="card-glare" aria-hidden="true"></div>
       <div class="project-thumb">
-        <img src="/images/rollon.jpg" alt="RollON — dark premium e-commerce storefront hero" width="1200" height="675" loading="lazy" />
+        <picture>
+          <source srcset="/images/rollon.webp" type="image/webp" />
+          <img src="/images/rollon.jpg" alt="RollON — dark premium e-commerce storefront hero" width="1200" height="675" loading="lazy" />
+        </picture>
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
@@ -441,8 +591,12 @@
     </article>
 
     <article class="project-card reveal">
+      <div class="card-glare" aria-hidden="true"></div>
       <div class="project-thumb">
-        <img src="/images/jgmart.jpg" alt="JG Mart — hyperlocal grocery delivery storefront with product grid" width="1200" height="675" loading="lazy" />
+        <picture>
+          <source srcset="/images/jgmart.webp" type="image/webp" />
+          <img src="/images/jgmart.jpg" alt="JG Mart — hyperlocal grocery delivery storefront with product grid" width="1200" height="675" loading="lazy" />
+        </picture>
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
@@ -462,8 +616,12 @@
     </article>
 
     <article class="project-card reveal">
+      <div class="card-glare" aria-hidden="true"></div>
       <div class="project-thumb">
-        <img src="/images/nix.jpg" alt="Nix Timeline Dodge — retro canvas mini-game start screen" width="1200" height="607" loading="lazy" />
+        <picture>
+          <source srcset="/images/nix.webp" type="image/webp" />
+          <img src="/images/nix.jpg" alt="Nix Timeline Dodge — retro canvas mini-game start screen" width="1200" height="607" loading="lazy" />
+        </picture>
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
@@ -664,6 +822,11 @@
   <p style="margin-top:12px;font-size:11px;">© 2026 Hope Theory. All rights reserved.</p>
 </footer>
 
+<!-- Ambient layers -->
+<div class="grain" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
 <script>
   // Mark JS availability so reveal animations degrade gracefully without it
   document.documentElement.classList.add('js');
@@ -679,13 +842,11 @@
     menu.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
   }));
-
-  // Scroll reveal
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
+<!-- Motion layer (vanilla, self-guarding) -->
+<script src="/js/motion.js" defer></script>
+<!-- WebGL hero (Three.js module, self-guarding) -->
+<script type="module" src="/js/hero-scene.js"></script>
 
 </body>
 </html>
