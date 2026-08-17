@@ -202,6 +202,14 @@
     pointer-events: none; z-index: 0;
   }
 
+  .hero-watermark {
+    position: absolute; right: -40px; bottom: -80px;
+    width: 520px; height: 520px; opacity: 0.03;
+    z-index: 0; pointer-events: none;
+    transform: rotate(-12deg);
+    filter: hue-rotate(10deg);
+  }
+
   #hero-canvas {
     position: absolute; inset: 0; width: 100%; height: 100%;
     z-index: 0; pointer-events: none; opacity: 0.6;
@@ -241,14 +249,16 @@
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
   /* H1 — editorial weight, refined gradient */
+  /* H1 — editorial display type, premium weight */
   .hero h1 {
-    font-size: clamp(40px, 7vw, 80px);
-    font-weight: 800; line-height: 1.05; margin-bottom: 20px; letter-spacing: -2.5px;
-    background: linear-gradient(135deg, #f4f4f5 0%, #c8a97e 50%, #f4f4f5 100%);
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700; line-height: 1.02; margin-bottom: 24px; letter-spacing: -2px;
+    background: linear-gradient(135deg, #f4f4f5 0%, #c8a97e 45%, #f4f4f5 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: gradient-pan 10s ease-in-out infinite;
+    animation: gradient-pan 12s ease-in-out infinite;
   }
   @keyframes gradient-pan {
     0%, 100% { background-position: 0% 50%; }
@@ -363,15 +373,17 @@
   }
 
   .section-title {
-    font-size: 12px; font-weight: 700; letter-spacing: 3px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 3px;
     text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
-    display: inline-block;
+    display: inline-block; font-style: italic;
   }
 
   .section h2 {
-    font-size: clamp(32px, 4.5vw, 52px);
-    font-weight: 800; margin-bottom: 20px; letter-spacing: -1.5px;
-    line-height: 1.1;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 700; margin-bottom: 20px; letter-spacing: -1.5px;
+    line-height: 1.08;
   }
 
   .section-intro {
@@ -410,8 +422,9 @@
 
   .project-thumb img {
     width: 100%; height: 100%; object-fit: cover; object-position: top;
-    transition: transform .6s cubic-bezier(.4,0,.2,1);
+    transition: transform .6s cubic-bezier(.4,0,.2,1), clip-path .8s cubic-bezier(.4,0,.2,1);
     filter: saturate(0.92) brightness(0.95);
+    clip-path: inset(0 0 0 0);
   }
 
   .project-card:hover .project-thumb img {
@@ -450,10 +463,20 @@
   .links a {
     font-size: 13px; font-weight: 600;
     display: inline-flex; align-items: center; gap: 6px;
+    position: relative; padding-bottom: 2px;
   }
-  .links a::after { content: '→'; font-size: 11px; opacity: 0.7; }
+  .links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; background: currentColor;
+    transition: width .35s cubic-bezier(.4,0,.2,1);
+  }
+  .links a:hover::after { width: 100%; }
+  .links a::before {
+    content: '→'; font-size: 11px; opacity: 0.7; margin-right: 2px;
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+  }
+  .links a:hover::before { transform: translateX(4px); }
   .links .live-link { color: var(--green); }
-  .links .live-link::after { color: var(--green); }
 
   .more-projects {
     margin-top: 36px; text-align: center; color: var(--text-secondary);
@@ -497,6 +520,22 @@
   .case-metric .lbl {
     font-size: 10px; color: var(--muted); text-transform: uppercase;
     letter-spacing: 1.5px; margin-top: 8px; font-weight: 600;
+  }
+
+  /* Case study narrative — inline metrics, editorial feel */
+  .case-story { max-width: 720px; }
+  .case-intro {
+    font-size: 16px; line-height: 1.75; color: var(--text-secondary);
+    margin-bottom: 28px;
+  }
+  .case-metrics-inline {
+    display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 8px;
+  }
+  .case-metrics-inline .case-metric {
+    flex: 1 1 120px; padding: 16px;
+  }
+  .case-metrics-inline .case-metric .val {
+    font-size: 24px;
   }
 
   /* ================================================================
@@ -710,7 +749,10 @@
 
 <!-- NAV -->
 <nav class="nav" aria-label="Main navigation">
-  <a href="/" class="nav-logo" aria-label="fahad.ibrahim — home">fahad<span>.ibrahim</span></a>
+  <a href="/" class="nav-logo" aria-label="fahad.ibrahim — home">
+    <img src="/images/logo-mark.svg" alt="" aria-hidden="true" style="width:22px;height:22px;vertical-align:middle;margin-right:8px;opacity:0.9;" />
+    fahad<span>.ibrahim</span>
+  </a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">☰</button>
   <ul class="nav-links" id="nav-menu">
     <li><a href="#work">Work</a></li>
@@ -758,6 +800,7 @@
       </div>
     </div>
   </div>
+  <img class="hero-watermark" src="/images/logo-mark.svg" alt="" aria-hidden="true" />
   <div class="scroll-cue" aria-hidden="true">Scroll</div>
 </section>
 
@@ -891,24 +934,24 @@
   <div class="section-title reveal">Deep Dive</div>
   <h2 class="reveal">Case Study: JG Mart</h2>
   <div class="case-banner reveal">
-    <div>
+    <div class="case-story">
       <h3>Grocery delivery for 1,700 families — without the app friction</h3>
-      <p>
+      <p class="case-intro">
         Japan Garden City, Dhaka: 27 buildings, 4 clusters, one Krishi Market 800m away.
         Residents needed same-day groceries without app-store friction or middleman markups.
         I shipped a WhatsApp-native PWA with a 51% margin model, cluster-based routing,
         and an operator dispatch flow — pre-seed pilot ready.
       </p>
-      <div class="links">
-        <a href="/case-studies.html" class="btn btn-primary" style="padding:10px 22px;">Read All Case Studies</a>
+      <div class="case-metrics-inline">
+        <div class="case-metric"><div class="val">1,700</div><div class="lbl">Families</div></div>
+        <div class="case-metric"><div class="val">82</div><div class="lbl">Products</div></div>
+        <div class="case-metric"><div class="val">51%</div><div class="lbl">Margin</div></div>
+        <div class="case-metric"><div class="val">250K</div><div class="lbl">BDT Ask</div></div>
+      </div>
+      <div class="links" style="margin-top:28px;">
+        <a href="/case-studies.html" class="btn btn-primary" style="padding:12px 24px;">Read All Case Studies</a>
         <a href="https://jg-mart.vercel.app" target="_blank" rel="noopener">Open Live Site →</a>
       </div>
-    </div>
-    <div class="case-metrics">
-      <div class="case-metric"><div class="val">1,700</div><div class="lbl">Families Served</div></div>
-      <div class="case-metric"><div class="val">82</div><div class="lbl">Live Products</div></div>
-      <div class="case-metric"><div class="val">51%</div><div class="lbl">Margin Model</div></div>
-      <div class="case-metric"><div class="val">250K</div><div class="lbl">BDT Seed Ask</div></div>
     </div>
   </div>
 </section>
@@ -1049,7 +1092,10 @@
 </main>
 
 <footer>
-  <p>Built by <strong>Fahad Ibrahim</strong> · Hope Theory ☤ · "Never GIVE UP on your HOPES"</p>
+  <p style="margin-bottom:8px;">
+    <img src="/images/logo-mark.svg" alt="" aria-hidden="true" style="width:20px;height:20px;vertical-align:middle;margin-right:6px;opacity:0.7;" />
+    <strong>Fahad Ibrahim</strong> · Hope Theory ☤ · "Never GIVE UP on your HOPES"
+  </p>
   <div class="foot-links">
     <a href="/case-studies.html">Case Studies</a>
     <a href="/resume.html">Résumé</a>

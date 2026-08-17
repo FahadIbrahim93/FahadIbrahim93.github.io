@@ -82,38 +82,63 @@
   }
 
   /* ================================================================
-   * 3. HERO TEXT SPLIT ANIMATION
+   * 3. HERO SIGNATURE SEQUENCE — choreographed entrance
+   * Creates a cinematic "opening scene" — not just static content.
    * ================================================================ */
-  var heroH1 = document.querySelector('.hero h1');
-  if (heroH1 && !reduced) {
-    // Preserve original text for accessibility
-    var text = heroH1.textContent.trim();
-    heroH1.innerHTML = '';
-    heroH1.setAttribute('aria-label', text);
+  var heroContent = document.querySelector('.hero-content');
+  if (heroContent && !reduced) {
+    // Set all hero children to invisible, then choreograph their entrance
+    var heroChildren = heroContent.children;
+    gsap.set(heroChildren, { autoAlpha: 0, y: 30 });
 
-    var words = text.split(/\s+/);
-    words.forEach(function (word, i) {
-      var span = document.createElement('span');
-      span.className = 'word-reveal';
-      span.textContent = word;
-      span.style.display = 'inline-block';
-      heroH1.appendChild(span);
-      if (i < words.length - 1) {
-        heroH1.appendChild(document.createTextNode(' '));
-      }
-    });
+    var tl = gsap.timeline({ delay: 0.4 });
 
-    // Start words at their final position (no flash of hidden content)
-    gsap.set('.word-reveal', { autoAlpha: 1, y: 0 });
+    // 1. Badge fades in (first)
+    tl.to(heroChildren[0], {
+      autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out',
+    }, 0);
 
-    gsap.from('.word-reveal', {
-      y: 40,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.08,
-      ease: 'power3.out',
-      delay: 0.3,
-    });
+    // 2. H1 word-by-word reveal
+    var heroH1 = document.querySelector('.hero h1');
+    if (heroH1) {
+      var text = heroH1.textContent.trim();
+      heroH1.innerHTML = '';
+      heroH1.setAttribute('aria-label', text);
+
+      var words = text.split(/\s+/);
+      words.forEach(function (word, i) {
+        var span = document.createElement('span');
+        span.className = 'word-reveal';
+        span.textContent = word;
+        span.style.display = 'inline-block';
+        heroH1.appendChild(span);
+        if (i < words.length - 1) {
+          heroH1.appendChild(document.createTextNode(' '));
+        }
+      });
+
+      // Words start at their final position (no flash of hidden content)
+      gsap.set('.word-reveal', { autoAlpha: 1, y: 0 });
+
+      tl.to('.word-reveal', {
+        y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power3.out',
+      }, 0.25);
+    }
+
+    // 3. Tagline fades up
+    tl.to(heroChildren[2], {
+      autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out',
+    }, 0.6);
+
+    // 4. CTAs slide in
+    tl.to(heroChildren[3], {
+      autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out',
+    }, 0.75);
+
+    // 5. Stats fade up last
+    tl.to(heroChildren[4], {
+      autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out',
+    }, 0.9);
   }
 
   /* ================================================================
@@ -171,7 +196,7 @@
   });
 
   /* ================================================================
-   * 5. PROJECT CARDS — staggered reveal + parallax depth
+   * 5. PROJECT CARDS — staggered reveal + clip-path image reveals + parallax
    * ================================================================ */
   var cards = gsap.utils.toArray('.project-card');
   if (cards.length) {
@@ -187,6 +212,24 @@
         scrollTrigger: {
           trigger: card,
           start: 'top 90%',
+          toggleActions: 'play none none none',
+        },
+      });
+    });
+
+    // Clip-path image reveal — sophisticated entrance for project thumbnails
+    var thumbs = gsap.utils.toArray('.project-thumb img');
+    thumbs.forEach(function (img) {
+      // Start image hidden via clip-path
+      gsap.set(img, { clipPath: 'inset(0 100% 0 0)' });
+
+      gsap.to(img, {
+        clipPath: 'inset(0 0% 0 0)',
+        duration: 1.2,
+        ease: 'power3.inOut',
+        scrollTrigger: {
+          trigger: img,
+          start: 'top 85%',
           toggleActions: 'play none none none',
         },
       });
@@ -236,7 +279,24 @@
   });
 
   /* ================================================================
-   * 7. SKILL CATEGORIES — staggered grid reveal
+   * 7. HERO WATERMARK — subtle parallax on the logo mark
+   * ================================================================ */
+  var watermark = document.querySelector('.hero-watermark');
+  if (watermark && !isMobile && !reduced) {
+    gsap.to(watermark, {
+      y: -80,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 2,
+      },
+    });
+  }
+
+  /* ================================================================
+   * 8. SKILL CATEGORIES — staggered grid reveal
    * ================================================================ */
   var skills = gsap.utils.toArray('.skill-category');
   if (skills.length) {
