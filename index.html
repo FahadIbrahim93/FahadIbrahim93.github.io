@@ -374,6 +374,7 @@
   .word-reveal {
     display: inline-block;
     will-change: transform, opacity;
+    white-space: nowrap; /* prevent mid-word line breaks during animation */
   }
 
   /* Nav hide/show on scroll (driven by GSAP in cinematic.js) */

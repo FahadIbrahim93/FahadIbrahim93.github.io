@@ -86,8 +86,8 @@
    * ================================================================ */
   var heroH1 = document.querySelector('.hero h1');
   if (heroH1 && !reduced) {
-    // Split into words while preserving structure
-    var text = heroH1.textContent;
+    // Preserve original text for accessibility
+    var text = heroH1.textContent.trim();
     heroH1.innerHTML = '';
     heroH1.setAttribute('aria-label', text);
 
@@ -103,6 +103,9 @@
       }
     });
 
+    // Start words at their final position (no flash of hidden content)
+    gsap.set('.word-reveal', { autoAlpha: 1, y: 0 });
+
     gsap.from('.word-reveal', {
       y: 40,
       opacity: 0,
@@ -116,6 +119,11 @@
   /* ================================================================
    * 4. UPGRADED SECTION REVEALS (replaces IntersectionObserver)
    * ================================================================ */
+  // Ensure all animated elements are VISIBLE by default.
+  // gsap.from() would otherwise set opacity:0/y:30 immediately on creation,
+  // hiding off-screen sections until their trigger fires.
+  gsap.set('.section-title, .section h2, .section-intro, .project-card, .skill-category, .experience-item, .contact-card, .case-banner', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+
   // Section titles — slide in from left
   gsap.utils.toArray('.section-title').forEach(function (el) {
     gsap.from(el, {
