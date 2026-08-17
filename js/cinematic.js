@@ -147,7 +147,7 @@
   // Ensure all animated elements are VISIBLE by default.
   // gsap.from() would otherwise set opacity:0/y:30 immediately on creation,
   // hiding off-screen sections until their trigger fires.
-  gsap.set('.section-title, .section h2, .section-intro, .project-card, .skill-category, .experience-item, .contact-card, .case-banner, .manifesto-inner', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+  gsap.set('.section-title, .section h2, .section-intro, .project-card, .skill-category, .experience-item, .contact-card, .case-banner, .manifesto-inner, .process-step', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
 
   // Section titles — slide in from left
   gsap.utils.toArray('.section-title').forEach(function (el) {
@@ -335,23 +335,14 @@
   });
 
   /* ================================================================
-   * 8. SKILL CATEGORIES — staggered grid reveal
+   * 8. SKILL CATEGORIES + PROCESS + TESTIMONIAL — staggered reveal
    * ================================================================ */
-  var skills = gsap.utils.toArray('.skill-category');
-  if (skills.length) {
-    gsap.from(skills, {
-      y: 30,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.08,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.skills-grid',
-        start: 'top 85%',
-        toggleActions: 'play none none none',
-      },
+  gsap.utils.toArray('.skill-category, .process-step, .testimonial-inner').forEach(function (el) {
+    gsap.from(el, {
+      y: 30, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
     });
-  }
+  });
 
   /* ================================================================
    * 8. EXPERIENCE ITEMS — slide in from left

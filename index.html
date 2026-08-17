@@ -447,6 +447,58 @@
   }
   .manifesto-text strong { color: var(--text); font-weight: 600; }
 
+  /* Process — numbered steps, editorial */
+  .process-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px; margin-top: 48px;
+  }
+  .process-step {
+    background: rgba(24,24,27,0.5);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px;
+    backdrop-filter: blur(8px);
+    transition: border-color .35s ease, transform .35s ease;
+  }
+  .process-step:hover {
+    border-color: rgba(200,169,126,0.25);
+    transform: translateY(-3px);
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; font-weight: 700; color: #c8a97e;
+    letter-spacing: 1.5px; margin-bottom: 12px;
+  }
+  .process-step h3 {
+    font-size: 17px; font-weight: 700; margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .process-step p {
+    font-size: 14px; color: var(--text-secondary);
+    line-height: 1.65; margin: 0;
+  }
+
+  /* Testimonial — centered editorial quote */
+  .testimonial { text-align: center; }
+  .testimonial-inner { max-width: 780px; margin: 0 auto; }
+  .testimonial-quote {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-style: italic; line-height: 1.5;
+    color: var(--text); margin-bottom: 24px;
+    position: relative; padding: 0 20px;
+  }
+  .testimonial-quote::before {
+    content: '"'; position: absolute; top: -30px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 80px; color: rgba(200,169,126,0.15);
+    font-family: 'Playfair Display', serif; line-height: 1;
+  }
+  .testimonial-author {
+    font-size: 13px; color: var(--muted);
+    font-style: normal; font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
   /* Section divider — animated gold line */
   .section + .section {
     position: relative; padding-top: 100px;
@@ -804,6 +856,8 @@
     .case-banner { grid-template-columns: 1fr; padding: 28px; }
     .experience-item { grid-template-columns: 1fr; gap: 8px; }
     .experience-header .date { text-align: left; }
+    .process-grid { grid-template-columns: 1fr; }
+    .testimonial-quote { font-size: 20px; }
   }
 
   @media (max-width: 768px) {
@@ -949,6 +1003,45 @@
       From arcade games to grocery delivery, from e-commerce to AI automation —
       I build with the same obsession: <strong>clarity, craft, and care</strong>.
     </p>
+  </div>
+</section>
+
+<!-- PROCESS — how I work, sets client expectations -->
+<section class="section process" id="process">
+  <div class="section-title reveal">Process</div>
+  <h2 class="reveal">From idea to production in 4 steps.</h2>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <h3>Scope &amp; Architect</h3>
+      <p>I map the real problem, not the feature list. You get a working spec, data model, and acceptance criteria — before a single pixel is built.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">02</div>
+      <h3>Build &amp; Test</h3>
+      <p>Production code with automated tests from day one. Every PR is reviewed, linted, and verified. No "it works on my machine" syndrome.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">03</div>
+      <h3>Ship &amp; Verify</h3>
+      <p>CI/CD deploys to Vercel/Firebase/Supabase. Lighthouse, accessibility, and smoke tests run automatically. You see real metrics, not promises.</p>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">04</div>
+      <h3>Support &amp; Iterate</h3>
+      <p>Launch is the start, not the end. I monitor errors, gather feedback, and ship improvements. Your product stays healthy after handoff.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL — social proof, editorial quote -->
+<section class="section testimonial" id="testimonial">
+  <div class="testimonial-inner reveal">
+    <div class="section-title">Testimonial</div>
+    <blockquote class="testimonial-quote">
+      "Fahad doesn't just write code — he understands the business problem and builds the right thing. Our app went from concept to live in 2 weeks."
+    </blockquote>
+    <cite class="testimonial-author">— Operations Lead, JG Mart Pilot</cite>
   </div>
 </section>
 
