@@ -366,8 +366,27 @@
   footer .foot-links a:hover { color: var(--cyan); }
 
   /* Reveal animation — only active when JS is available */
+  /* GSAP handles reveals when cinematic.js loads; these CSS fallbacks cover no-GSAP */
   html.js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
   html.js .reveal.visible { opacity: 1; transform: none; }
+
+  /* Word-by-word hero reveal (driven by GSAP in cinematic.js) */
+  .word-reveal {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+
+  /* Nav hide/show on scroll (driven by GSAP in cinematic.js) */
+  .nav {
+    will-change: transform;
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* Lenis: override scroll-behavior when smooth scroll is active */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
 
   /* Scroll progress bar */
   #scroll-progress {
@@ -843,7 +862,12 @@
     toggle.setAttribute('aria-expanded', 'false');
   }));
 </script>
-<!-- Motion layer (vanilla, self-guarding) -->
+<!-- Motion orchestration: GSAP + Lenis + ScrollTrigger (vendored) -->
+<script src="/js/vendor/gsap.min.js"></script>
+<script src="/js/vendor/ScrollTrigger.min.js"></script>
+<script src="/js/vendor/lenis.min.js"></script>
+<script src="/js/cinematic.js" defer></script>
+<!-- Pointer interactions: cursor, magnetic, tilt (vanilla, self-guarding) -->
 <script src="/js/motion.js" defer></script>
 <!-- WebGL hero (Three.js module, self-guarding) -->
 <script type="module" src="/js/hero-scene.js"></script>

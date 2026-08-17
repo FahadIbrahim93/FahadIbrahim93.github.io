@@ -1,84 +1,21 @@
 /**
- * motion.js — interaction & motion layer for fahadibrahim93.github.io
- * Custom cursor, magnetic buttons, 3D tilt+glare cards, animated counters,
- * scroll progress bar, staggered reveals. All vanilla, all guarded:
- * - prefers-reduced-motion: everything disabled
- * - touch devices: cursor/magnetic/tilt skipped (no hover semantics)
- * - no-JS: page renders fully static (html.js gate)
+ * motion.js — interaction layer for fahadibrahim93.github.io
+ * Custom cursor, magnetic buttons, 3D tilt+glare cards, nav active-section.
+ *
+ * NOTE: Scroll progress bar, reveals, and counter animations are now handled
+ * by cinematic.js (GSAP + ScrollTrigger). This file focuses on hover/pointer
+ * interactions that need direct DOM event binding.
+ *
+ * Guardrails:
+ *   - prefers-reduced-motion: cursor/magnetic/tilt disabled
+ *   - touch devices: cursor/magnetic/tilt skipped (no hover semantics)
+ *   - no-JS: page renders fully static (html.js gate)
  */
 (function () {
   'use strict';
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
-
-  /* ---------- Scroll progress bar ---------- */
-  const progress = document.getElementById('scroll-progress');
-  if (progress) {
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-        progress.style.transform = 'scaleX(' + (pct / 100).toFixed(4) + ')';
-        ticking = false;
-      });
-    }, { passive: true });
-  }
-
-  /* ---------- Staggered reveals (upgrade over base reveal) ---------- */
-  const revealEls = document.querySelectorAll('.reveal');
-  if (revealEls.length && !reduced) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        // Stagger siblings that enter together
-        const parent = el.parentElement;
-        const siblings = parent ? Array.from(parent.querySelectorAll('.reveal:not(.visible)')) : [el];
-        const idx = siblings.indexOf(el);
-        el.style.transitionDelay = Math.max(0, idx) * 90 + 'ms';
-        el.classList.add('visible');
-        io.unobserve(el);
-        // Clear delay after transition so hovers aren't laggy
-        setTimeout(() => { el.style.transitionDelay = ''; }, 900);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add('visible'));
-  }
-
-  /* ---------- Animated counters ---------- */
-  const counters = document.querySelectorAll('[data-count]');
-  if (counters.length) {
-    const fmt = (el, v) => {
-      const suffix = el.dataset.suffix || '';
-      const decimals = parseInt(el.dataset.decimals || '0', 10);
-      el.textContent = v.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
-    };
-    const animate = (el) => {
-      const target = parseFloat(el.dataset.count);
-      if (reduced || isNaN(target)) { fmt(el, target || 0); return; }
-      const dur = 1400;
-      const start = performance.now();
-      const ease = (x) => 1 - Math.pow(1 - x, 3); // easeOutCubic
-      const step = (now) => {
-        const p = Math.min(1, (now - start) / dur);
-        fmt(el, target * ease(p));
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    const cio = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) { animate(e.target); cio.unobserve(e.target); }
-      });
-    }, { threshold: 0.4 });
-    counters.forEach((el) => cio.observe(el));
-  }
 
   /* ---------- Custom cursor (desktop, fine pointer only) ---------- */
   if (finePointer && !reduced) {

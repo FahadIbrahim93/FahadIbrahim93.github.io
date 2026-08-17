@@ -1,6 +1,11 @@
 /**
  * hero-scene.js — WebGL hero background for fahadibrahim93.github.io
  * Three.js particle nebula + wireframe geometry, mouse-reactive.
+ *
+ * UPGRADED: Camera path now responds to scroll depth via __scrollProgress
+ * (driven by cinematic.js / Lenis). Particles and geometry rotate based on
+ * scroll position, creating a "fly-through" effect as user scrolls.
+ *
  * Guardrails: DPR cap, pause when offscreen/hidden, reduced-motion skip,
  * mobile skip (CSS aurora carries the look), try/catch WebGL fallback.
  *
@@ -142,13 +147,17 @@ function initScene(THREE) {
     running = !document.hidden;
   });
 
-  // ---------- Scroll fade + parallax ----------
+  // ---------- Scroll fade (legacy, enhanced by cinematic.js parallax) ----------
   let scrollFade = 1;
   function onScroll() {
     const y = window.scrollY;
     const h = hero.clientHeight || 1;
     scrollFade = Math.max(0, 1 - y / (h * 0.85));
-    canvas.style.opacity = scrollFade.toFixed(3);
+    // Don't set canvas opacity here — cinematic.js handles hero parallax fade
+    // Only set it if cinematic.js hasn't loaded (fallback)
+    if (!window.__scrollProgress && window.__scrollProgress !== 0) {
+      canvas.style.opacity = scrollFade.toFixed(3);
+    }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -159,21 +168,49 @@ function initScene(THREE) {
     if (!running || !inView || scrollFade <= 0.01) return;
     const t = clock.getElapsedTime();
 
+    // Read scroll progress from cinematic.js (0..1 through hero)
+    const sp = window.__scrollProgress || 0;
+
     eased.x += (mouse.x - eased.x) * 0.04;
     eased.y += (mouse.y - eased.y) * 0.04;
 
-    particles.rotation.y = t * 0.02 + eased.x * 0.12;
-    particles.rotation.x = eased.y * 0.08;
+    // Scroll-driven particle rotation (the "fly-through" effect)
+    // As user scrolls, the nebula rotates faster and the camera pushes forward
+    const scrollRotY = sp * Math.PI * 0.6;  // up to 108° rotation
+    const scrollRotX = sp * 0.3;
+    particles.rotation.y = t * 0.02 + eased.x * 0.12 + scrollRotY;
+    particles.rotation.x = eased.y * 0.08 + scrollRotX;
 
-    icoOuter.rotation.y = t * 0.08;
-    icoOuter.rotation.x = t * 0.04;
-    icoInner.rotation.y = -t * 0.05;
-    icoInner.rotation.z = t * 0.03;
-    ring.rotation.z = t * 0.06;
+    // Wireframe geometry responds to scroll — orbits widen, rotation accelerates
+    const scrollBoost = 1 + sp * 2.5; // 1x → 3.5x rotation speed
+    icoOuter.rotation.y = t * 0.08 * scrollBoost;
+    icoOuter.rotation.x = t * 0.04 * scrollBoost;
+    icoInner.rotation.y = -t * 0.05 * scrollBoost;
+    icoInner.rotation.z = t * 0.03 * scrollBoost;
+    ring.rotation.z = t * 0.06 * scrollBoost;
 
-    camera.position.x = eased.x * 2.2;
-    camera.position.y = -eased.y * 1.6 - window.scrollY * 0.004;
-    camera.lookAt(0, 0, 0);
+    // Scale geometry with scroll (pull back, then zoom through)
+    const scrollScale = 1 + sp * 0.4;
+    icoOuter.scale.setScalar(scrollScale);
+    icoInner.scale.setScalar(scrollScale * 1.1);
+    ring.scale.setScalar(scrollScale * 0.9);
+
+    // Camera path: mouse reactive + scroll-driven depth + Y descent
+    // As scroll increases, camera pushes forward (Z decreases) and descends
+    const camZ = 30 - sp * 18;        // 30 → 12 (zoom into the scene)
+    const camY = -sp * 6;             // gentle descent
+    const camX = eased.x * 2.2 + sp * eased.x * 3; // wider mouse sway with scroll
+
+    camera.position.x += (camX - camera.position.x) * 0.06;
+    camera.position.y += (camY - eased.y * 1.6 - camera.position.y) * 0.06;
+    camera.position.z += (camZ - camera.position.z) * 0.06;
+    camera.lookAt(0, 0, -sp * 4);
+
+    // Particle opacity pulses with scroll
+    pMat.opacity = 0.75 - sp * 0.3;
+
+    // Ring opacity brightens as you approach
+    ring.material.opacity = 0.22 + sp * 0.15;
 
     renderer.render(scene, camera);
   });
