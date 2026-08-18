@@ -96,7 +96,18 @@
   .cta .ghost { border:1px solid var(--border); color:var(--cyan); }
 
   footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
+  .case-nav-empty { flex:1; }
+
   footer strong { color:var(--cyan); }
+
+  .arch-diagram { margin: 24px 0; padding: 20px; background: rgba(9,9,11,0.6); border: 1px solid var(--border); border-radius: 12px; }
+  .arch-layer { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .arch-box { padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; font-size: 13px; line-height: 1.5; text-align: center; min-width: 140px; }
+  .arch-box.frontend { background: rgba(0,240,255,.06); border-color: rgba(0,240,255,.3); }
+  .arch-box.state { background: rgba(168,85,247,.06); border-color: rgba(168,85,247,.3); }
+  .arch-box.backend { background: rgba(0,255,136,.06); border-color: rgba(0,255,136,.3); }
+  .arch-arrow { font-size: 20px; color: var(--cyan); font-weight: 700; }
+  .arch-caption { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; font-family: 'JetBrains Mono', monospace; }
 
   @media (max-width:768px){ header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;} }
 </style>
@@ -198,6 +209,17 @@
       <tr><td>Build</td><td class="mono">Vite</td></tr>
       <tr><td>State</td><td class="mono">Zustand for UI state</td></tr>
     </table>
+
+    <div class="arch-diagram">
+      <div class="arch-layer">
+        <div class="arch-box frontend">React 19 + TypeScript<br/>UI Overlay<br/>HUD / Menus</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box state">Custom PixiJS 8 Engine<br/>Game Loop<br/>Entity System</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box backend">GSAP 3.12<br/>Transitions + VFX<br/>Zustand State</div>
+      </div>
+      <p class="arch-caption">Insectiles engine: React UI → PixiJS engine → GSAP transitions</p>
+    </div>
   </section>
 
   <section>

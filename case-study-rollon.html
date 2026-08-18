@@ -103,6 +103,15 @@
   .case-nav a:hover { background:rgba(0,240,255,.06); text-decoration:none; }
   .case-nav-empty { flex:1; }
 
+  .arch-diagram { margin: 24px 0; padding: 20px; background: rgba(9,9,11,0.6); border: 1px solid var(--border); border-radius: 12px; }
+  .arch-layer { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .arch-box { padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; font-size: 13px; line-height: 1.5; text-align: center; min-width: 140px; }
+  .arch-box.frontend { background: rgba(0,240,255,.06); border-color: rgba(0,240,255,.3); }
+  .arch-box.state { background: rgba(168,85,247,.06); border-color: rgba(168,85,247,.3); }
+  .arch-box.backend { background: rgba(0,255,136,.06); border-color: rgba(0,255,136,.3); }
+  .arch-arrow { font-size: 20px; color: var(--cyan); font-weight: 700; }
+  .arch-caption { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; font-family: 'JetBrains Mono', monospace; }
+
   @media (max-width:768px){ header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;} }
 </style>
 </head>
@@ -212,6 +221,17 @@
       <li><b>Security</b> — CSP headers, env validation, no hardcoded secrets.</li>
       <li><b>Config-driven</b> — Centralized config for branding, features, and deployment targets.</li>
     </ul>
+
+    <div class="arch-diagram">
+      <div class="arch-layer">
+        <div class="arch-box frontend">React 19 + TypeScript<br/>Tailwind CSS 4<br/>React Router</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box state">Zustand Stores<br/>Cart / Auth / UI<br/>Config Layer</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box backend">Vercel Deploy<br/>GitHub Actions CI<br/>CSP + Env Validation</div>
+      </div>
+      <p class="arch-caption">RollON architecture: frontend → state → deploy</p>
+    </div>
   </section>
 
   <section>
