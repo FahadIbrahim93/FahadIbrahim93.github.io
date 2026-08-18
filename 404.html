@@ -6,25 +6,30 @@
 <title>404 — Page Not Found | Fahad Ibrahim</title>
 <meta name="robots" content="noindex, nofollow" />
 <link rel="canonical" href="https://fahadibrahim93.github.io/" />
-<meta name="theme-color" content="#0a0a0f" />
+<meta name="theme-color" content="#09090b" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
   :root {
-    --bg: #0a0a0f;
-    --card: #14141f;
-    --border: rgba(0,240,255,0.15);
-    --cyan: #00f0ff;
-    --green: #00ff88;
-    --text: #e0e0e0;
-    --purple: #a855f7;
-    --amber: #ffb347;
-    --muted: #8a8a9a;
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --card2: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent: #c8a97e;
+    --accent-glow: rgba(200,169,126,0.15);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139,92,246,0.12);
+    --green: #34d399;
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --muted: #71717a;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; min-height: 100vh; display: flex; flex-direction: column; }
-  a { color: var(--cyan); text-decoration:none; }
+  a { color: var(--accent); text-decoration:none; }
   a:hover { text-decoration: underline; }
 
   header { padding: 28px 32px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
@@ -32,13 +37,13 @@
   header a.back { font-size: 13px; font-weight: 600; padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; }
 
   main { flex: 1; max-width: 700px; margin: 0 auto; padding: 80px 32px; text-align: center; }
-  .error-code { font-family: 'JetBrains Mono', monospace; font-size: clamp(80px, 15vw, 140px); font-weight: 900; letter-spacing: -4px; line-height: 1; color: var(--cyan); opacity: 0.3; }
+  .error-code { font-family: 'JetBrains Mono', monospace; font-size: clamp(80px, 15vw, 140px); font-weight: 900; letter-spacing: -4px; line-height: 1; color: var(--accent); opacity: 0.3; }
   .error-title { font-size: clamp(22px, 4vw, 32px); font-weight: 800; letter-spacing: -1px; margin: 16px 0; }
   .error-desc { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto 32px; }
   .error-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .error-actions a { padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 14px; }
-  .error-actions .primary { background: var(--cyan); color: #04141a; }
-  .error-actions .ghost { border: 1px solid var(--border); color: var(--cyan); }
+  .error-actions .primary { background: var(--accent); color: #04141a; }
+  .error-actions .ghost { border: 1px solid var(--border); color: var(--accent); }
 
   .suggestions { margin-top: 48px; text-align: left; }
   .suggestions h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 12px; }
@@ -48,7 +53,7 @@
   .suggestions a:hover { text-decoration: underline; }
 
   footer { text-align: center; padding: 32px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
-  footer strong { color: var(--cyan); }
+  footer strong { color: var(--accent); }
 
   @media (max-width: 768px) {
     header, main { padding-left: 18px; padding-right: 18px; }
@@ -58,7 +63,7 @@
 </head>
 <body>
 <header>
-  <div class="brand">fahad<span style="color: var(--cyan)">.ibrahim</span></div>
+  <div class="brand">fahad<span style="color: var(--accent)">.ibrahim</span></div>
   <a class="back" href="/">← Home</a>
 </header>
 

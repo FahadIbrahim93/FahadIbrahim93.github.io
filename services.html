@@ -6,7 +6,7 @@
 <title>Services — Fahad Ibrahim | Hope Theory</title>
 <meta name="description" content="Full-Stack Development, AI Integration, and Technical Services by Fahad Ibrahim. React 19, TypeScript, Supabase, and AI-powered solutions." />
 <link rel="canonical" href="https://fahadibrahim93.github.io/services.html" />
-<meta name="theme-color" content="#0a0a0f" />
+<meta name="theme-color" content="#09090b" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -36,24 +36,27 @@
 }
 </script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
   :root {
-    --bg: #0a0a0f;
-    --card: #14141f;
-    --card2: #1a1a2e;
-    --border: rgba(0,240,255,0.15);
-    --cyan: #00f0ff;
-    --green: #00ff88;
-    --purple: #a855f7;
-    --amber: #ffb347;
-    --text: #e0e0e0;
-    --text-secondary: #b0b0c0;
-    --muted: #8a8a9a;
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --card2: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent: #c8a97e;
+    --accent-glow: rgba(200,169,126,0.15);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139,92,246,0.12);
+    --green: #34d399;
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --muted: #71717a;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; }
-  a { color: var(--cyan); text-decoration:none; }
+  a { color: var(--accent); text-decoration:none; }
   a:hover { text-decoration: underline; }
 
   header { padding:28px 32px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
@@ -74,24 +77,24 @@
     padding: 32px; display: flex; flex-direction: column; gap: 16px;
     transition: border-color .2s, transform .2s;
   }
-  .service:hover { border-color: rgba(0,240,255,.35); transform: translateY(-4px); }
-  .service.featured { border-color: rgba(0,240,255,.35); background: linear-gradient(180deg, rgba(0,240,255,.04), var(--card)); }
-  .service-badge { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--cyan); padding:4px 10px; border:1px solid var(--border); border-radius:6px; align-self:flex-start; }
+  .service:hover { border-color: rgba(200,169,126,.35); transform: translateY(-4px); }
+  .service.featured { border-color: rgba(200,169,126,.35); background: linear-gradient(180deg, rgba(200,169,126,.04), var(--card)); }
+  .service-badge { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent); padding:4px 10px; border:1px solid var(--border); border-radius:6px; align-self:flex-start; }
   .service h3 { font-size:22px; font-weight:800; letter-spacing:-0.5px; }
   .service .price { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--green); font-weight:600; }
   .service p { color:var(--text-secondary); font-size:14.5px; line-height:1.65; }
   .service ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
   .service li { font-size:14px; color:var(--text-secondary); padding-left:20px; position:relative; }
-  .service li::before { content:'→'; position:absolute; left:0; color:var(--cyan); font-weight:700; }
+  .service li::before { content:'→'; position:absolute; left:0; color:var(--accent); font-weight:700; }
   .service .cta { margin-top:auto; padding-top:8px; }
-  .service .cta a { display:inline-block; padding:12px 20px; border-radius:10px; font-weight:700; font-size:14px; background:var(--cyan); color:#04141a; }
+  .service .cta a { display:inline-block; padding:12px 20px; border-radius:10px; font-weight:700; font-size:14px; background:var(--accent); color:#04141a; }
   .service .cta a:hover { text-decoration:none; opacity:.9; }
 
   .process { margin-top:64px; }
   .process h2 { font-size:28px; font-weight:800; letter-spacing:-1px; margin-bottom:24px; text-align:center; }
   .process-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:20px; }
   .process-step { text-align:center; padding:24px; background:var(--card); border:1px solid var(--border); border-radius:14px; }
-  .process-step .num { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--cyan); letter-spacing:1.5px; margin-bottom:8px; }
+  .process-step .num { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); letter-spacing:1.5px; margin-bottom:8px; }
   .process-step h4 { font-size:16px; font-weight:700; margin-bottom:6px; }
   .process-step p { font-size:13px; color:var(--muted); line-height:1.55; }
 
@@ -99,16 +102,16 @@
   .faq h2 { font-size:28px; font-weight:800; letter-spacing:-1px; margin-bottom:24px; text-align:center; }
   .faq-list { max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
   .faq-item { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; }
-  .faq-item h4 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--cyan); }
+  .faq-item h4 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent); }
   .faq-item p { font-size:14px; color:var(--text-secondary); line-height:1.6; }
 
-  .cta-section { margin-top:64px; text-align:center; padding:48px 32px; background:linear-gradient(135deg, rgba(0,240,255,.04), rgba(168,85,247,.04)); border:1px solid var(--border); border-radius:20px; }
+  .cta-section { margin-top:64px; text-align:center; padding:48px 32px; background:linear-gradient(135deg, rgba(200,169,126,.04), rgba(168,85,247,.04)); border:1px solid var(--border); border-radius:20px; }
   .cta-section h2 { font-size:28px; font-weight:800; letter-spacing:-1px; margin-bottom:12px; }
   .cta-section p { color:var(--muted); margin-bottom:24px; }
-  .cta-section a { display:inline-block; padding:14px 28px; border-radius:12px; font-weight:700; font-size:15px; background:var(--cyan); color:#04141a; }
+  .cta-section a { display:inline-block; padding:14px 28px; border-radius:12px; font-weight:700; font-size:15px; background:var(--accent); color:#04141a; }
 
   footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
-  footer strong { color:var(--cyan); }
+  footer strong { color:var(--accent); }
 
   @media (max-width:768px){
     header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;}
@@ -119,7 +122,7 @@
 </head>
 <body>
 <header>
-  <div class="brand">fahad<span style="color:var(--cyan)">.ibrahim</span></div>
+  <div class="brand">fahad<span style="color:var(--accent)">.ibrahim</span></div>
   <a class="back" href="/">← Back to Portfolio</a>
 </header>
 

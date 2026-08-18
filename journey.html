@@ -6,7 +6,7 @@
 <title>Journey — Fahad Ibrahim | Hope Theory</title>
 <meta name="description" content="Project timeline and roadmap: Fahad Ibrahim's journey from first lines of code to production platforms, games, and ventures. Hope Theory." />
 <link rel="canonical" href="https://fahadibrahim93.github.io/journey.html" />
-<meta name="theme-color" content="#0a0a0f" />
+<meta name="theme-color" content="#09090b" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -30,23 +30,27 @@
 }
 </script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
   :root {
-    --bg: #0a0a0f;
-    --card: #14141f;
-    --card2: #1a1a2e;
-    --border: rgba(0,240,255,0.15);
-    --cyan: #00f0ff;
-    --green: #00ff88;
-    --purple: #a855f7;
-    --amber: #ffb347;
-    --text: #e0e0e0;
-    --muted: #8a8a9a;
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --card2: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent: #c8a97e;
+    --accent-glow: rgba(200,169,126,0.15);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139,92,246,0.12);
+    --green: #34d399;
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --muted: #71717a;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; }
-  a { color: var(--cyan); text-decoration:none; }
+  a { color: var(--accent); text-decoration:none; }
   a:hover { text-decoration: underline; }
 
   header { padding:28px 32px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
@@ -63,7 +67,7 @@
   .timeline { position:relative; padding-left:48px; margin-top:44px; }
   .timeline::before {
     content:''; position:absolute; left:15px; top:8px; bottom:8px; width:2px;
-    background:linear-gradient(to bottom, var(--cyan), var(--purple), var(--green));
+    background:linear-gradient(to bottom, var(--accent), var(--violet), var(--green));
     border-radius:2px;
   }
 
@@ -72,19 +76,19 @@
 
   .timeline-dot {
     position:absolute; left:-48px; top:6px; width:32px; height:32px;
-    background:var(--bg); border:2px solid var(--cyan); border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent); border-radius:50%;
     display:flex; align-items:center; justify-content:center;
-    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--cyan);
+    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--accent);
     z-index:1;
   }
-  .timeline-dot.purple { border-color:var(--purple); color:var(--purple); }
+  .timeline-dot.purple { border-color:var(--violet); color:var(--violet); }
   .timeline-dot.green { border-color:var(--green); color:var(--green); }
 
   .timeline-card {
     background:var(--card); border:1px solid var(--border); border-radius:14px;
     padding:24px; transition: border-color .2s, transform .2s;
   }
-  .timeline-card:hover { border-color:rgba(0,240,255,.35); transform:translateX(4px); }
+  .timeline-card:hover { border-color:rgba(200,169,126,.35); transform:translateX(4px); }
 
   .timeline-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
   .timeline-title { font-size:20px; font-weight:800; letter-spacing:-0.5px; }
@@ -92,11 +96,11 @@
 
   .timeline-desc { color:var(--muted); font-size:14.5px; margin-bottom:14px; }
   .timeline-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
-  .timeline-tag { font-family:'JetBrains Mono',monospace; font-size:10px; padding:4px 8px; border:1px solid var(--border); border-radius:5px; color:var(--cyan); background:rgba(0,240,255,.04); }
+  .timeline-tag { font-family:'JetBrains Mono',monospace; font-size:10px; padding:4px 8px; border:1px solid var(--border); border-radius:5px; color:var(--accent); background:rgba(200,169,126,.04); }
 
   .timeline-links { display:flex; gap:10px; flex-wrap:wrap; }
-  .timeline-links a { font-size:12px; font-weight:600; padding:6px 12px; border:1px solid var(--border); border-radius:6px; color:var(--cyan); transition: background .2s; }
-  .timeline-links a:hover { background:rgba(0,240,255,.06); text-decoration:none; }
+  .timeline-links a { font-size:12px; font-weight:600; padding:6px 12px; border:1px solid var(--border); border-radius:6px; color:var(--accent); transition: background .2s; }
+  .timeline-links a:hover { background:rgba(200,169,126,.06); text-decoration:none; }
 
   .timeline-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:8px; margin-top:14px; }
   .timeline-metric { background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
@@ -105,11 +109,11 @@
 
   .cta { margin-top:48px; display:flex; gap:12px; flex-wrap:wrap; }
   .cta a { padding:12px 20px; border-radius:10px; font-weight:700; font-size:14px; }
-  .cta .primary { background:var(--cyan); color:#04141a; }
-  .cta .ghost { border:1px solid var(--border); color:var(--cyan); }
+  .cta .primary { background:var(--accent); color:#04141a; }
+  .cta .ghost { border:1px solid var(--border); color:var(--accent); }
 
   footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
-  footer strong { color:var(--cyan); }
+  footer strong { color:var(--accent); }
 
   @media (max-width:768px){
     header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;}
@@ -118,15 +122,15 @@
     .timeline::before { left:11px; }
   }
 
-  .hire-cta { text-align:center; padding:32px 24px; margin:32px 0; background: linear-gradient(135deg, rgba(0,240,255,0.06), rgba(168,85,247,0.06)); border:1px solid var(--border); border-radius:16px; }
+  .hire-cta { text-align:center; padding:32px 24px; margin:32px 0; background: linear-gradient(135deg, rgba(200,169,126,0.06), rgba(168,85,247,0.06)); border:1px solid var(--border); border-radius:16px; }
   .hire-cta p { font-size:18px; font-weight:600; margin-bottom:16px; }
-  .hire-cta .primary { display:inline-block; padding:14px 28px; background:var(--cyan); color:#04141a; border-radius:10px; font-weight:700; font-size:15px; text-decoration:none; margin-right:12px; }
-  .hire-cta .ghost { display:inline-block; padding:14px 28px; border:1px solid var(--border); color:var(--cyan); border-radius:10px; font-weight:600; font-size:15px; text-decoration:none; }
+  .hire-cta .primary { display:inline-block; padding:14px 28px; background:var(--accent); color:#04141a; border-radius:10px; font-weight:700; font-size:15px; text-decoration:none; margin-right:12px; }
+  .hire-cta .ghost { display:inline-block; padding:14px 28px; border:1px solid var(--border); color:var(--accent); border-radius:10px; font-weight:600; font-size:15px; text-decoration:none; }
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">fahad<span style="color:var(--cyan)">.ibrahim</span></div>
+  <div class="brand">fahad<span style="color:var(--accent)">.ibrahim</span></div>
   <a class="back" href="/">← Back to Portfolio</a>
 </header>
 

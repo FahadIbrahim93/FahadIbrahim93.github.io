@@ -6,7 +6,7 @@
 <title>Writing — Fahad Ibrahim | Hope Theory</title>
 <meta name="description" content="Technical writing samples: AI-assisted development, PWA architecture, testing strategies, accessibility, and game engine design." />
 <link rel="canonical" href="https://fahadibrahim93.github.io/writing.html" />
-<meta name="theme-color" content="#0a0a0f" />
+<meta name="theme-color" content="#09090b" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -30,23 +30,27 @@
 }
 </script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
   :root {
-    --bg: #0a0a0f;
-    --card: #14141f;
-    --card2: #1a1a2e;
-    --border: rgba(0,240,255,0.15);
-    --cyan: #00f0ff;
-    --green: #00ff88;
-    --purple: #a855f7;
-    --amber: #ffb347;
-    --text: #e0e0e0;
-    --muted: #8a8a9a;
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --card2: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent: #c8a97e;
+    --accent-glow: rgba(200,169,126,0.15);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139,92,246,0.12);
+    --green: #34d399;
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --muted: #71717a;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; }
-  a { color: var(--cyan); text-decoration:none; }
+  a { color: var(--accent); text-decoration:none; }
   a:hover { text-decoration: underline; }
 
   header { padding:28px 32px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
@@ -66,7 +70,7 @@
     background: var(--card); border: 1px solid var(--border); border-radius: 14px;
     padding: 28px; transition: border-color .2s, transform .2s;
   }
-  .article:hover { border-color: rgba(0,240,255,.35); transform: translateX(4px); }
+  .article:hover { border-color: rgba(200,169,126,.35); transform: translateX(4px); }
 
   .article-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
   .article-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.3; }
@@ -74,18 +78,18 @@
 
   .article-desc { color: var(--muted); font-size: 15px; margin-bottom: 16px; line-height: 1.6; }
   .article-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
-  .article-tag { font-family:'JetBrains Mono',monospace; font-size: 10px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 5px; color: var(--cyan); background: rgba(0,240,255,.04); }
+  .article-tag { font-family:'JetBrains Mono',monospace; font-size: 10px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 5px; color: var(--accent); background: rgba(200,169,126,.04); }
 
   .article-meta { display:flex; gap:16px; flex-wrap:wrap; font-size: 13px; color: var(--muted); }
   .article-meta span { display:flex; align-items:center; gap:4px; }
 
   .cta { margin-top:48px; display:flex; gap:12px; flex-wrap:wrap; }
   .cta a { padding:12px 20px; border-radius:10px; font-weight:700; font-size:14px; }
-  .cta .primary { background:var(--cyan); color:#04141a; }
-  .cta .ghost { border:1px solid var(--border); color:var(--cyan); }
+  .cta .primary { background:var(--accent); color:#04141a; }
+  .cta .ghost { border:1px solid var(--border); color:var(--accent); }
 
   footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
-  footer strong { color:var(--cyan); }
+  footer strong { color:var(--accent); }
 
   @media (max-width:768px){
     header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;}
@@ -93,15 +97,15 @@
     .article-title { font-size: 18px; }
   }
 
-  .hire-cta { text-align:center; padding:32px 24px; margin:32px 0; background: linear-gradient(135deg, rgba(0,240,255,0.06), rgba(168,85,247,0.06)); border:1px solid var(--border); border-radius:16px; }
+  .hire-cta { text-align:center; padding:32px 24px; margin:32px 0; background: linear-gradient(135deg, rgba(200,169,126,0.06), rgba(168,85,247,0.06)); border:1px solid var(--border); border-radius:16px; }
   .hire-cta p { font-size:18px; font-weight:600; margin-bottom:16px; }
-  .hire-cta .primary { display:inline-block; padding:14px 28px; background:var(--cyan); color:#04141a; border-radius:10px; font-weight:700; font-size:15px; text-decoration:none; margin-right:12px; }
-  .hire-cta .ghost { display:inline-block; padding:14px 28px; border:1px solid var(--border); color:var(--cyan); border-radius:10px; font-weight:600; font-size:15px; text-decoration:none; }
+  .hire-cta .primary { display:inline-block; padding:14px 28px; background:var(--accent); color:#04141a; border-radius:10px; font-weight:700; font-size:15px; text-decoration:none; margin-right:12px; }
+  .hire-cta .ghost { display:inline-block; padding:14px 28px; border:1px solid var(--border); color:var(--accent); border-radius:10px; font-weight:600; font-size:15px; text-decoration:none; }
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">fahad<span style="color:var(--cyan)">.ibrahim</span></div>
+  <div class="brand">fahad<span style="color:var(--accent)">.ibrahim</span></div>
   <a class="back" href="/">← Back to Portfolio</a>
 </header>
 

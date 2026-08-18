@@ -6,7 +6,7 @@
 <title>Case Studies — Fahad Ibrahim | Hope Theory</title>
 <meta name="description" content="Production case studies from Fahad Ibrahim: BugSmasher, RollON, JG Mart, Insectiles. Metrics, decisions, outcomes." />
 <link rel="canonical" href="https://fahadibrahim93.github.io/case-studies.html" />
-<meta name="theme-color" content="#0a0a0f" />
+<meta name="theme-color" content="#09090b" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -19,18 +19,22 @@
 <meta name="twitter:description" content="Production case studies: BugSmasher, RollON, JG Mart, Insectiles. Metrics, architecture decisions, outcomes." />
 <meta name="twitter:image" content="https://fahadibrahim93.github.io/images/og.png" />
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
   :root {
-    --bg: #0a0a0f;
-    --card: #1a1a2e;
-    --border: rgba(0,240,255,0.15);
-    --cyan: #00f0ff;
-    --green: #00ff88;
-    --purple: #a855f7;
-    --text: #e0e0e0;
-    --purple: #a855f7;
-    --amber: #ffb347;
-    --muted: #7a7a8a;
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --card2: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent: #c8a97e;
+    --accent-glow: rgba(200,169,126,0.15);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139,92,246,0.12);
+    --green: #34d399;
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --muted: #71717a;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior: smooth; }
@@ -40,7 +44,7 @@
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
   }
-  a { color: var(--cyan); text-decoration: none; }
+  a { color: var(--accent); text-decoration: none; }
 
   header {
     padding: 32px;
@@ -61,7 +65,7 @@
   .case h2 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
   .case .meta { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
   .metrics { display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap: 10px; margin-bottom: 16px; }
-  .metric { background: rgba(0,240,255,0.05); border:1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+  .metric { background: rgba(200,169,126,0.05); border:1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
   .metric .val { font-size: 20px; font-weight: 800; font-family:'JetBrains Mono',monospace; color: var(--green); }
   .metric .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px; }
   .case p, .case li { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
@@ -72,17 +76,17 @@
   .links a { padding: 8px 12px; border:1px solid var(--border); border-radius: 8px; font-size: 12px; font-weight: 600; }
 
   footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
-  footer strong { color: var(--cyan); }
+  footer strong { color: var(--accent); }
 
   @media (max-width: 768px) {
     header, main { padding-left: 16px; padding-right: 16px; }
     .case { padding: 16px; }
   }
 
-  .hire-cta { text-align:center; padding:32px 24px; margin:32px 0; background: linear-gradient(135deg, rgba(0,240,255,0.06), rgba(168,85,247,0.06)); border:1px solid var(--border); border-radius:16px; }
+  .hire-cta { text-align:center; padding:32px 24px; margin:32px 0; background: linear-gradient(135deg, rgba(200,169,126,0.06), rgba(168,85,247,0.06)); border:1px solid var(--border); border-radius:16px; }
   .hire-cta p { font-size:18px; font-weight:600; margin-bottom:16px; }
-  .hire-cta .primary { display:inline-block; padding:14px 28px; background:var(--cyan); color:#04141a; border-radius:10px; font-weight:700; font-size:15px; text-decoration:none; margin-right:12px; }
-  .hire-cta .ghost { display:inline-block; padding:14px 28px; border:1px solid var(--border); color:var(--cyan); border-radius:10px; font-weight:600; font-size:15px; text-decoration:none; }
+  .hire-cta .primary { display:inline-block; padding:14px 28px; background:var(--accent); color:#04141a; border-radius:10px; font-weight:700; font-size:15px; text-decoration:none; margin-right:12px; }
+  .hire-cta .ghost { display:inline-block; padding:14px 28px; border:1px solid var(--border); color:var(--accent); border-radius:10px; font-weight:600; font-size:15px; text-decoration:none; }
 </style>
 </head>
 <body>
