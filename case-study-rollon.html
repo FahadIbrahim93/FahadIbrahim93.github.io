@@ -94,6 +94,11 @@
   footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
   footer strong { color:var(--cyan); }
 
+  .case-nav { display:flex; justify-content:space-between; gap:16px; margin-top:48px; padding-top:24px; border-top:1px solid var(--border); }
+  .case-nav a { padding:10px 18px; border:1px solid var(--border); border-radius:8px; font-size:13px; font-weight:600; color:var(--cyan); transition: background .2s; }
+  .case-nav a:hover { background:rgba(0,240,255,.06); text-decoration:none; }
+  .case-nav-empty { flex:1; }
+
   @media (max-width:768px){ header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;} }
 </style>
 </head>
@@ -217,6 +222,11 @@
     <a class="ghost" href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank" rel="noopener">View on GitHub</a>
     <a class="ghost" href="/case-studies.html">All Case Studies</a>
   </div>
+
+  <nav class="case-nav" aria-label="Case study navigation">
+    <a class="case-nav-prev" href="/case-study-bugsmasher.html">← BugSmasher</a>
+    <a class="case-nav-next" href="/case-study-jgmart.html">JG Mart →</a>
+  </nav>
 
 </main>
 
