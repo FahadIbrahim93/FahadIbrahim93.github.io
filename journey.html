@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Journey — Fahad Ibrahim | Hope Theory</title>
+<meta name="description" content="Project timeline and roadmap: Fahad Ibrahim's journey from first lines of code to production platforms, games, and ventures. Hope Theory." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/journey.html" />
+<meta name="theme-color" content="#0a0a0f" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://fahadibrahim93.github.io/journey.html" />
+<meta property="og:title" content="Journey — Fahad Ibrahim | Hope Theory" />
+<meta property="og:description" content="From first lines of code to production platforms, games, and ventures. The Hope Theory project timeline." />
+<meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fahadibrahim93.github.io/" },
+    { "@type": "ListItem", "position": 2, "name": "Journey", "item": "https://fahadibrahim93.github.io/journey.html" }
+  ]
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  :root {
+    --bg: #0a0a0f;
+    --card: #14141f;
+    --card2: #1a1a2e;
+    --border: rgba(0,240,255,0.15);
+    --cyan: #00f0ff;
+    --green: #00ff88;
+    --purple: #a855f7;
+    --amber: #ffb347;
+    --text: #e0e0e0;
+    --muted: #8a8a9a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; }
+  a { color: var(--cyan); text-decoration:none; }
+  a:hover { text-decoration: underline; }
+
+  header { padding:28px 32px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  header .brand { font-size:18px; font-weight:800; letter-spacing:-0.5px; }
+  header a.back { font-size:13px; font-weight:600; padding:8px 14px; border:1px solid var(--border); border-radius:8px; }
+
+  .hero { max-width:900px; margin:0 auto; padding:56px 32px 24px; }
+  .hero .kicker { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--green); margin-bottom:14px; }
+  .hero h1 { font-size:clamp(30px,5vw,46px); font-weight:900; letter-spacing:-1.5px; line-height:1.1; margin-bottom:16px; }
+  .hero .sub { font-size:17px; color:var(--muted); max-width:720px; }
+
+  main { max-width:900px; margin:0 auto; padding:16px 32px 64px; }
+
+  .timeline { position:relative; padding-left:48px; margin-top:44px; }
+  .timeline::before {
+    content:''; position:absolute; left:15px; top:8px; bottom:8px; width:2px;
+    background:linear-gradient(to bottom, var(--cyan), var(--purple), var(--green));
+    border-radius:2px;
+  }
+
+  .timeline-item { position:relative; margin-bottom:48px; }
+  .timeline-item:last-child { margin-bottom:0; }
+
+  .timeline-dot {
+    position:absolute; left:-48px; top:6px; width:32px; height:32px;
+    background:var(--bg); border:2px solid var(--cyan); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--cyan);
+    z-index:1;
+  }
+  .timeline-dot.purple { border-color:var(--purple); color:var(--purple); }
+  .timeline-dot.green { border-color:var(--green); color:var(--green); }
+
+  .timeline-card {
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:24px; transition: border-color .2s, transform .2s;
+  }
+  .timeline-card:hover { border-color:rgba(0,240,255,.35); transform:translateX(4px); }
+
+  .timeline-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+  .timeline-title { font-size:20px; font-weight:800; letter-spacing:-0.5px; }
+  .timeline-year { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); padding:4px 10px; border:1px solid var(--border); border-radius:6px; }
+
+  .timeline-desc { color:var(--muted); font-size:14.5px; margin-bottom:14px; }
+  .timeline-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
+  .timeline-tag { font-family:'JetBrains Mono',monospace; font-size:10px; padding:4px 8px; border:1px solid var(--border); border-radius:5px; color:var(--cyan); background:rgba(0,240,255,.04); }
+
+  .timeline-links { display:flex; gap:10px; flex-wrap:wrap; }
+  .timeline-links a { font-size:12px; font-weight:600; padding:6px 12px; border:1px solid var(--border); border-radius:6px; color:var(--cyan); transition: background .2s; }
+  .timeline-links a:hover { background:rgba(0,240,255,.06); text-decoration:none; }
+
+  .timeline-metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:8px; margin-top:14px; }
+  .timeline-metric { background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:12px; text-align:center; }
+  .timeline-metric .val { font-size:18px; font-weight:800; font-family:'JetBrains Mono',monospace; color:var(--green); }
+  .timeline-metric .lbl { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:1.2px; margin-top:4px; }
+
+  .cta { margin-top:48px; display:flex; gap:12px; flex-wrap:wrap; }
+  .cta a { padding:12px 20px; border-radius:10px; font-weight:700; font-size:14px; }
+  .cta .primary { background:var(--cyan); color:#04141a; }
+  .cta .ghost { border:1px solid var(--border); color:var(--cyan); }
+
+  footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
+  footer strong { color:var(--cyan); }
+
+  @media (max-width:768px){
+    header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;}
+    .timeline { padding-left:36px; }
+    .timeline-dot { left:-36px; width:28px; height:28px; font-size:10px; }
+    .timeline::before { left:11px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">fahad<span style="color:var(--cyan)">.ibrahim</span></div>
+  <a class="back" href="/">← Back to Portfolio</a>
+</header>
+
+<div class="hero">
+  <div class="kicker">Timeline · Roadmap · Ventures</div>
+  <h1>The Hope Theory journey</h1>
+  <p class="sub">From first lines of code to production platforms, games, and ventures. Every project teaches. Every venture tests a different skill.</p>
+</div>
+
+<main>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot green">2024</div>
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div class="timeline-title">🤖 Hermes Agent System</div>
+          <div class="timeline-year">2024 — Present</div>
+        </div>
+        <p class="timeline-desc">Personal multi-agent operating system integrating 15+ LLM providers with automatic failover, prompt caching, and role-based profiles. Used daily across 6 ventures.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Multi-Agent</span>
+          <span class="timeline-tag">15+ Providers</span>
+          <span class="timeline-tag">Auto Failover</span>
+          <span class="timeline-tag">Daily Use</span>
+        </div>
+        <div class="timeline-metrics">
+          <div class="timeline-metric"><div class="val">15+</div><div class="lbl">Providers</div></div>
+          <div class="timeline-metric"><div class="val">7</div><div class="lbl">Profiles</div></div>
+          <div class="timeline-metric"><div class="val">Daily</div><div class="lbl">Use</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot purple">2025</div>
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div class="timeline-title">📈 AI Trading Assistant</div>
+          <div class="timeline-year">2025</div>
+        </div>
+        <p class="timeline-desc">Custom multi-agent system for crypto market analysis, on-chain data processing, and trade signal generation. Technical analysis across multiple timeframes with risk-aware outputs.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Multi-Agent</span>
+          <span class="timeline-tag">On-Chain</span>
+          <span class="timeline-tag">4H/1D/1W</span>
+          <span class="timeline-tag">Live Signals</span>
+        </div>
+        <div class="timeline-metrics">
+          <div class="timeline-metric"><div class="val">4H/1D/1W</div><div class="lbl">Timeframes</div></div>
+          <div class="timeline-metric"><div class="val">Multi</div><div class="lbl">Agent</div></div>
+          <div class="timeline-metric"><div class="val">Daily</div><div class="lbl">Use</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot">2025</div>
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div class="timeline-title">🐞 BugSmasher — Hope Theory</div>
+          <div class="timeline-year">2025 · 2 wks</div>
+        </div>
+        <p class="timeline-desc">Production-ready arcade game with auth, XP progression, 16 achievements, and real-time global leaderboards. One-time session tokens prevent score tampering. Offline-first PWA with cloud sync.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">React 19</span>
+          <span class="timeline-tag">TypeScript</span>
+          <span class="timeline-tag">Firebase</span>
+          <span class="timeline-tag">683 Tests</span>
+          <span class="timeline-tag">PWA</span>
+        </div>
+        <div class="timeline-metrics">
+          <div class="timeline-metric"><div class="val">683</div><div class="lbl">Tests</div></div>
+          <div class="timeline-metric"><div class="val">2 wks</div><div class="lbl">Ship Time</div></div>
+          <div class="timeline-metric"><div class="val">16</div><div class="lbl">Achievements</div></div>
+          <div class="timeline-metric"><div class="val">RT</div><div class="lbl">Leaderboards</div></div>
+        </div>
+        <div class="timeline-links" style="margin-top:14px;">
+          <a href="/case-study-bugsmasher.html">Read Case Study</a>
+          <a href="https://bugsmasher-hopetheory.vercel.app" target="_blank" rel="noopener">Play Live</a>
+          <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot purple">2025</div>
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div class="timeline-title">🛒 RollON — E-Commerce Platform</div>
+          <div class="timeline-year">2025 · 2 wks</div>
+        </div>
+        <p class="timeline-desc">Production e-commerce platform with config-driven branding, cart, variants, checkout flow, and admin dashboard. CSP-hardened, WCAG 2.1 AA accessible. 117 tests with 87% coverage and CI green.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">React 19</span>
+          <span class="timeline-tag">TypeScript</span>
+          <span class="timeline-tag">Tailwind</span>
+          <span class="timeline-tag">Zustand</span>
+          <span class="timeline-tag">Vercel</span>
+        </div>
+        <div class="timeline-metrics">
+          <div class="timeline-metric"><div class="val">117</div><div class="lbl">Tests</div></div>
+          <div class="timeline-metric"><div class="val">87%</div><div class="lbl">Coverage</div></div>
+          <div class="timeline-metric"><div class="val">CI</div><div class="lbl">Green</div></div>
+          <div class="timeline-metric"><div class="val">A11y</div><div class="lbl">WCAG 2.1 AA</div></div>
+        </div>
+        <div class="timeline-links" style="margin-top:14px;">
+          <a href="/case-study-rollon.html">Read Case Study</a>
+          <a href="https://rollon-delta.vercel.app" target="_blank" rel="noopener">Shop Live</a>
+          <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot green">2025</div>
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div class="timeline-title">🛵 JG Mart — Grocery Delivery PWA</div>
+          <div class="timeline-year">2025 · Pre-Seed</div>
+        </div>
+        <p class="timeline-desc">Hyperlocal grocery delivery PWA for Japan Garden City, Dhaka. WhatsApp-native ordering, Supabase backend, 51% margin model. 1,700 families, 27 buildings, 4 clusters, 82 products.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">PWA</span>
+          <span class="timeline-tag">Supabase</span>
+          <span class="timeline-tag">WhatsApp</span>
+          <span class="timeline-tag">Python</span>
+          <span class="timeline-tag">Vercel</span>
+        </div>
+        <div class="timeline-metrics">
+          <div class="timeline-metric"><div class="val">1,700</div><div class="lbl">Families</div></div>
+          <div class="timeline-metric"><div class="val">27</div><div class="lbl">Buildings</div></div>
+          <div class="timeline-metric"><div class="val">4</div><div class="lbl">Clusters</div></div>
+          <div class="timeline-metric"><div class="val">51%</div><div class="lbl">Margin</div></div>
+        </div>
+        <div class="timeline-links" style="margin-top:14px;">
+          <a href="/case-study-jgmart.html">Read Case Study</a>
+          <a href="https://jg-mart.vercel.app" target="_blank" rel="noopener">Browse Store</a>
+          <a href="https://github.com/FahadIbrahim93/jgmart-hermes" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot purple">2025</div>
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div class="timeline-title">🎮 Insectiles — Sci-Fi Roguelite</div>
+          <div class="timeline-year">2025 · In Development</div>
+        </div>
+        <p class="timeline-desc">Custom PixiJS 8 game engine with sci-fi cyberpunk styling, 5 insect classes, wave-based combat, and smooth GSAP transitions. Architecture walkthrough available on request.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">PixiJS 8</span>
+          <span class="timeline-tag">React 19</span>
+          <span class="timeline-tag">TypeScript</span>
+          <span class="timeline-tag">GSAP</span>
+          <span class="timeline-tag">Custom Engine</span>
+        </div>
+        <div class="timeline-metrics">
+          <div class="timeline-metric"><div class="val">5</div><div class="lbl">Classes</div></div>
+          <div class="timeline-metric"><div class="val">Custom</div><div class="lbl">Engine</div></div>
+          <div class="timeline-metric"><div class="val">GSAP</div><div class="lbl">Transitions</div></div>
+          <div class="timeline-metric"><div class="val">Wave</div><div class="lbl">Combat</div></div>
+        </div>
+        <div class="timeline-links" style="margin-top:14px;">
+          <a href="/case-study-insectiles.html">Read Case Study</a>
+          <span style="font-size:12px;color:var(--muted);margin-left:8px;">Private repo — walkthrough on request</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot green">2025</div>
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div class="timeline-title">🎮 Nix — Timeline Dodge</div>
+          <div class="timeline-year">2025</div>
+        </div>
+        <p class="timeline-desc">Single-file viral mini-game: dodge the timeline, collect hearts, evolve Nix. Built as a constraint experiment — one HTML file, zero dependencies, instant load, shareable scores.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Canvas 2D</span>
+          <span class="timeline-tag">WebAudio</span>
+          <span class="timeline-tag">0 Deps</span>
+          <span class="timeline-tag">PWA</span>
+          <span class="timeline-tag">MIT</span>
+        </div>
+        <div class="timeline-metrics">
+          <div class="timeline-metric"><div class="val">1</div><div class="lbl">File</div></div>
+          <div class="timeline-metric"><div class="val">0</div><div class="lbl">Deps</div></div>
+          <div class="timeline-metric"><div class="val">2</div><div class="lbl">Live Hosts</div></div>
+          <div class="timeline-metric"><div class="val">MIT</div><div class="lbl">License</div></div>
+        </div>
+        <div class="timeline-links" style="margin-top:14px;">
+          <a href="https://fahadibrahim93.github.io/viral-pet-nix" target="_blank" rel="noopener">Play Live</a>
+          <a href="https://github.com/FahadIbrahim93/viral-pet-nix" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cta">
+    <a class="primary" href="/case-studies.html">View All Case Studies</a>
+    <a class="ghost" href="https://github.com/FahadIbrahim93" target="_blank" rel="noopener">GitHub Profile</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>Built by <strong>Fahad Ibrahim</strong> · <strong>Hope Theory</strong> ☤</p>
+  <p style="margin-top:8px;font-size:11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory</p>
+</footer>
+
+</body>
+</html>
