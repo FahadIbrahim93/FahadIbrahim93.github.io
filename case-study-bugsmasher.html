@@ -132,6 +132,11 @@
     <div class="metric"><div class="val">5/5</div><div class="lbl">Playwright E2E</div></div>
   </div>
 
+  <div class="callout">
+    <div class="t">⚡ Key Decisions</div>
+    <p><b>Server-authoritative leaderboards:</b> Client never writes scores directly — all competitive writes go through Firebase callable paths with one-time session tokens. <b>Quality gates in CI:</b> 683 tests run on every commit via npm run ci. <b>Accessibility as gameplay:</b> Keyboard-first, reduced-motion, colorblind modes built-in. <b>Offline-first PWA:</b> Cloud sync via Firebase, works without network.</p>
+  </div>
+
   <section>
     <h2><span class="num">01</span> The challenge</h2>
     <p class="lead">Browser arcade games are easy to demo and hard to trust. Two problems dominate: <b>competitive integrity</b> (a client-side score is trivially forgeable) and <b>quality confidence</b> (fast-moving game code rots without a test net).</p>
