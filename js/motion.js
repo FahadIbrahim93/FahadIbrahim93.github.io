@@ -1,10 +1,6 @@
 /**
  * motion.js — interaction layer for fahadibrahim93.github.io
- * Custom cursor, magnetic buttons, 3D tilt+glare cards, nav active-section.
- *
- * NOTE: Scroll progress bar, reveals, and counter animations are now handled
- * by cinematic.js (GSAP + ScrollTrigger). This file focuses on hover/pointer
- * interactions that need direct DOM event binding.
+ * Custom cursor, magnetic buttons, spring-physics 3D tilt+glare cards.
  *
  * Guardrails:
  *   - prefers-reduced-motion: cursor/magnetic/tilt disabled
@@ -16,6 +12,41 @@
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- Spring physics helper ---------- */
+  function createSpring(stiffness, damping) {
+    let current = 0;
+    let target = 0;
+    let velocity = 0;
+    let raf = null;
+    let ticking = false;
+
+    return {
+      set(v) { target = v; },
+      to(v) { target = v; current = v; velocity = 0; },
+      value() { return current; },
+      start() {
+        if (ticking) return;
+        ticking = true;
+        (function loop() {
+          velocity += (target - current) * stiffness;
+          velocity *= damping;
+          current += velocity;
+          if (Math.abs(target - current) < 0.001 && Math.abs(velocity) < 0.001) {
+            current = target;
+            velocity = 0;
+            ticking = false;
+            return;
+          }
+          raf = requestAnimationFrame(loop);
+        })();
+      },
+      stop() {
+        if (raf) cancelAnimationFrame(raf);
+        ticking = false;
+      },
+    };
+  }
 
   /* ---------- Custom cursor (desktop, fine pointer only) ---------- */
   if (finePointer && !reduced) {
@@ -34,7 +65,6 @@
         ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
         requestAnimationFrame(loop);
       })();
-      // Grow ring over interactive elements
       document.querySelectorAll('a, button, .project-card, .contact-card').forEach((el) => {
         el.addEventListener('pointerenter', () => ring.classList.add('cursor-hover'));
         el.addEventListener('pointerleave', () => ring.classList.remove('cursor-hover'));
@@ -42,49 +72,105 @@
     }
   }
 
-  /* ---------- Magnetic buttons ---------- */
+  /* ---------- Magnetic buttons with spring return ---------- */
   if (finePointer && !reduced) {
     document.querySelectorAll('.btn, .nav-cta').forEach((btn) => {
-      const strength = 0.28;
+      const springX = createSpring(0.18, 0.75);
+      const springY = createSpring(0.18, 0.75);
       btn.addEventListener('pointermove', (e) => {
         const r = btn.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width / 2) * strength;
-        const y = (e.clientY - r.top - r.height / 2) * strength;
-        btn.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+        const tx = (e.clientX - r.left - r.width / 2) * 0.28;
+        const ty = (e.clientY - r.top - r.height / 2) * 0.28;
+        springX.set(tx);
+        springY.set(ty);
+        springX.start();
+        springY.start();
       });
       btn.addEventListener('pointerleave', () => {
-        btn.style.transform = '';
+        springX.to(0);
+        springY.to(0);
+        springX.start();
+        springY.start();
       });
+      (function loop() {
+        btn.style.transform = 'translate(' + springX.value().toFixed(1) + 'px,' + springY.value().toFixed(1) + 'px)';
+        requestAnimationFrame(loop);
+      })();
     });
   }
 
-  /* ---------- 3D tilt + glare on project cards ---------- */
+  /* ---------- Spring-physics 3D tilt + glare on project cards ---------- */
   if (finePointer && !reduced) {
     document.querySelectorAll('.project-card').forEach((card) => {
       const glare = card.querySelector('.card-glare');
-      let raf = null;
+      const springRotX = createSpring(0.12, 0.78);
+      const springRotY = createSpring(0.12, 0.78);
+      const springGlareX = createSpring(0.12, 0.78);
+      const springGlareY = createSpring(0.12, 0.78);
       card.addEventListener('pointermove', (e) => {
-        if (raf) return;
-        raf = requestAnimationFrame(() => {
-          const r = card.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width;
-          const py = (e.clientY - r.top) / r.height;
-          const rotY = (px - 0.5) * 10;   // max 5deg
-          const rotX = (0.5 - py) * 8;    // max 4deg
-          card.style.transform =
-            'perspective(900px) rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg) translateY(-4px)';
-          if (glare) {
-            glare.style.background =
-              'radial-gradient(circle at ' + (px * 100).toFixed(1) + '% ' + (py * 100).toFixed(1) + '%, rgba(0,240,255,0.14), transparent 55%)';
-            glare.style.opacity = '1';
-          }
-          raf = null;
-        });
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        springRotY.set((px - 0.5) * 18);
+        springRotX.set((0.5 - py) * 18);
+        springGlareX.set(px * 100);
+        springGlareY.set(py * 100);
+        springRotX.start();
+        springRotY.start();
+        springGlareX.start();
+        springGlareY.start();
       });
       card.addEventListener('pointerleave', () => {
-        card.style.transform = '';
-        if (glare) glare.style.opacity = '0';
+        springRotX.to(0);
+        springRotY.to(0);
+        springGlareX.to(50);
+        springGlareY.to(50);
+        springRotX.start();
+        springRotY.start();
+        springGlareX.start();
+        springGlareY.start();
       });
+      (function loop() {
+        const rx = springRotX.value();
+        const ry = springRotY.value();
+        const gx = springGlareX.value();
+        const gy = springGlareY.value();
+        card.style.transform =
+          'perspective(900px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateY(-4px)';
+        if (glare) {
+          glare.style.background =
+            'radial-gradient(circle at ' + gx.toFixed(1) + '% ' + gy.toFixed(1) + '%, rgba(255,255,255,0.08), transparent 55%)';
+          glare.style.opacity = '1';
+        }
+        requestAnimationFrame(loop);
+      })();
+    });
+  }
+
+  /* ---------- Spring-physics hover on contact cards ---------- */
+  if (finePointer && !reduced) {
+    document.querySelectorAll('.contact-card').forEach((card) => {
+      const springX = createSpring(0.14, 0.76);
+      const springY = createSpring(0.14, 0.76);
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const tx = (e.clientX - r.left - r.width / 2) * 0.18;
+        const ty = (e.clientY - r.top - r.height / 2) * 0.18;
+        springX.set(tx);
+        springY.set(ty);
+        springX.start();
+        springY.start();
+      });
+      card.addEventListener('pointerleave', () => {
+        springX.to(0);
+        springY.to(0);
+        springX.start();
+        springY.start();
+      });
+      (function loop() {
+        card.style.transform = 'translateY(-3px) translate(' + springX.value().toFixed(1) + 'px,' + springY.value().toFixed(1) + 'px)';
+        requestAnimationFrame(loop);
+      })();
     });
   }
 
