@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case Study: Insectiles — Fahad Ibrahim | Hope Theory</title>
+<meta name="description" content="Deep-dive case study: Insectiles, a sci-fi survival roguelite built with React 19, TypeScript, PixiJS 8, and GSAP. Custom engine architecture, 5 insect classes, wave-based combat." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/case-study-insectiles.html" />
+<meta name="theme-color" content="#0a0a0f" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<!-- Open Graph -->
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://fahadibrahim93.github.io/case-study-insectiles.html" />
+<meta property="og:title" content="Case Study: Insectiles — sci-fi roguelite with custom PixiJS 8 engine" />
+<meta property="og:description" content="How I built a custom PixiJS 8 game engine with sci-fi cyberpunk styling, 5 insect classes, wave-based combat, and smooth GSAP transitions." />
+<meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Case Study: Insectiles — sci-fi roguelite with custom PixiJS 8 engine",
+  "author": { "@type": "Person", "name": "Fahad Ibrahim" },
+  "publisher": { "@type": "Organization", "name": "Hope Theory" },
+  "about": { "@type": "SoftwareApplication", "name": "Insectiles", "applicationCategory": "Game" }
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+  :root {
+    --bg: #0a0a0f;
+    --card: #14141f;
+    --card2: #1a1a2e;
+    --border: rgba(0,240,255,0.15);
+    --cyan: #00f0ff;
+    --green: #00ff88;
+    --purple: #a855f7;
+    --amber: #ffb347;
+    --text: #e0e0e0;
+    --muted: #8a8a9a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; }
+  a { color: var(--cyan); text-decoration:none; }
+  a:hover { text-decoration: underline; }
+
+  header { padding:28px 32px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  header .brand { font-size:18px; font-weight:800; letter-spacing:-0.5px; }
+  header a.back { font-size:13px; font-weight:600; padding:8px 14px; border:1px solid var(--border); border-radius:8px; }
+
+  .hero { max-width:900px; margin:0 auto; padding:56px 32px 24px; }
+  .hero .kicker { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--green); margin-bottom:14px; }
+  .hero h1 { font-size:clamp(30px,5vw,46px); font-weight:900; letter-spacing:-1.5px; line-height:1.1; margin-bottom:16px; }
+  .hero .sub { font-size:17px; color:var(--muted); max-width:720px; }
+  .hero .tags { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hero .tag { font-family:'JetBrains Mono',monospace; font-size:11px; padding:5px 10px; border:1px solid var(--border); border-radius:6px; color:var(--cyan); background:rgba(0,240,255,0.05); }
+
+  main { max-width:900px; margin:0 auto; padding:16px 32px 64px; }
+  section { margin-top:44px; }
+  section h2 { font-size:24px; font-weight:800; letter-spacing:-0.5px; margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+  section h2 .num { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--purple); font-weight:600; }
+  section .lead { color:var(--muted); font-size:15px; margin-bottom:18px; }
+  section p { font-size:15px; color:var(--text); margin-bottom:14px; }
+  section p.dim { color:var(--muted); }
+
+  .metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:20px 0; }
+  .metric { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 16px; text-align:center; }
+  .metric .val { font-size:26px; font-weight:800; font-family:'JetBrains Mono',monospace; color:var(--green); }
+  .metric .lbl { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px; margin-top:6px; }
+
+  .callout { background:var(--card2); border:1px solid var(--border); border-left:3px solid var(--cyan); border-radius:10px; padding:18px 20px; margin:18px 0; }
+  .callout.warn { border-left-color:var(--amber); }
+  .callout .t { font-weight:700; font-size:14px; margin-bottom:6px; color:var(--cyan); }
+  .callout.warn .t { color:var(--amber); }
+  .callout p { font-size:14px; color:var(--muted); margin:0; }
+
+  ul.clean { list-style:none; margin:8px 0 4px; }
+  ul.clean li { padding:7px 0 7px 22px; position:relative; font-size:14.5px; color:var(--text); }
+  ul.clean li::before { content:'▹'; position:absolute; left:0; color:var(--green); font-weight:700; }
+  ul.clean li b { color:var(--cyan); font-weight:600; }
+
+  table { width:100%; border-collapse:collapse; margin:16px 0; font-size:13.5px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-weight:600; text-transform:uppercase; font-size:11px; letter-spacing:1px; }
+  td.mono { font-family:'JetBrains Mono',monospace; color:var(--green); }
+  td.dim { color:var(--muted); }
+
+  .cta { margin-top:48px; display:flex; gap:12px; flex-wrap:wrap; }
+  .cta a { padding:12px 20px; border-radius:10px; font-weight:700; font-size:14px; }
+  .cta .primary { background:var(--cyan); color:#04141a; }
+  .cta .ghost { border:1px solid var(--border); color:var(--cyan); }
+
+  footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
+  footer strong { color:var(--cyan); }
+
+  @media (max-width:768px){ header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">fahad<span style="color:var(--cyan)">.ibrahim</span></div>
+  <a class="back" href="/case-studies.html">← All Case Studies</a>
+</header>
+
+<div class="hero">
+  <div class="kicker">Case Study · v1.0 · Private Repo</div>
+  <h1>Insectiles — sci-fi survival roguelite with a custom PixiJS 8 engine</h1>
+  <p class="sub">Built a custom PixiJS 8 game engine from scratch with sci-fi cyberpunk styling, 5 insect classes, wave-based combat, and smooth GSAP transitions. Architecture walkthrough available on request.</p>
+  <div class="tags">
+    <span class="tag">PixiJS 8</span>
+    <span class="tag">React 19</span>
+    <span class="tag">TypeScript</span>
+    <span class="tag">GSAP</span>
+    <span class="tag">Custom Engine</span>
+    <span class="tag">Roguelite</span>
+  </div>
+</div>
+
+<main>
+
+  <div class="metrics">
+    <div class="metric"><div class="val">5</div><div class="lbl">Insect Classes</div></div>
+    <div class="metric"><div class="val">Custom</div><div class="lbl">Engine</div></div>
+    <div class="metric"><div class="val">GSAP</div><div class="lbl">Transitions</div></div>
+    <div class="metric"><div class="val">Wave</div><div class="lbl">Combat</div></div>
+  </div>
+
+  <section>
+    <h2><span class="num">01</span> The challenge</h2>
+    <p class="lead">Most browser games use a prebuilt engine or a template. I wanted to prove I could design and implement a custom game engine from scratch — one that handles rendering, entity management, wave spawning, and state transitions without relying on a black box.</p>
+    <p>The constraints were tight: React 19 for UI overlay, PixiJS 8 for rendering, TypeScript for type safety across the engine boundary, and GSAP for cinematic transitions. The result needed to feel like a real game, not a tech demo.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> Custom engine architecture</h2>
+    <p class="lead">Instead of fighting PixiJS's scene graph, I built a thin engine layer that owns the game loop, entity lifecycle, and wave orchestration while delegating rendering to PixiJS.</p>
+    <ul class="clean">
+      <li><b>Game loop</b> — requestAnimationFrame with delta-time normalization for consistent speed across refresh rates</li>
+      <li><b>Entity system</b> — base Entity class with position, velocity, health, and render state; subclassed for player, enemies, projectiles</li>
+      <li><b>Wave manager</b> — declarative wave definitions with spawn timing, enemy composition, and difficulty scaling</li>
+      <li><b>State machine</b> — explicit states for menu, playing, paused, gameover with clean transitions</li>
+      <li><b>React bridge</b> — UI overlay (menus, HUD, game over) in React 19, communicating with the engine via typed events</li>
+    </ul>
+    <div class="callout">
+      <div class="t">Why custom, not template?</div>
+      <p>Templates teach you configuration, not architecture. Building a custom engine forced me to make real design decisions: how to handle collision, how to manage entity lifecycles, how to decouple game logic from rendering. Those are the skills that transfer to any complex system.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span> The 5 insect classes</h2>
+    <p class="lead">Each class has distinct movement patterns, attack behaviors, and visual identities. Diversity isn't just cosmetic — it changes how players approach each wave.</p>
+    <table>
+      <tr><th>Class</th><th>Role</th><th>Behavior</th></tr>
+      <tr><td class="mono">Beetle</td><td>Tank</td><td>Slow, high HP, charges in straight lines</td></tr>
+      <tr><td class="mono">Wasp</td><td>Skirmisher</td><td>Fast, erratic movement, hit-and-run attacks</td></tr>
+      <tr><td class="mono">Ant</td><td>Swarm</td><td>Low HP, high numbers, follows pheromone trails</td></tr>
+      <tr><td class="mono">Spider</td><td>Controller</td><td>Web traps that slow player, ranged attacks</td></tr>
+      <tr><td class="mono">Mantis</td><td>Boss</td><td>Multiple attack phases, pattern-based combat</td></tr>
+    </table>
+    <p class="dim">Each class is a standalone TypeScript module with its own AI state machine. Adding a new class requires implementing the Entity interface and registering it with the wave manager.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span> Rendering & visual style</h2>
+    <p class="lead">Sci-fi cyberpunk aesthetic with neon bio-luminescent insects against a dark, atmospheric background. GSAP handles cinematic transitions between states.</p>
+    <ul class="clean">
+      <li><b>PixiJS 8 renderer</b> — WebGL with automatic fallback to Canvas 2D</li>
+      <li><b>Procedural sprites</b> — insect bodies generated with bezier curves, not image assets</li>
+      <li><b>Particle systems</b> — damage numbers, explosion debris, trail effects</li>
+      <li><b>GSAP timelines</b> — entrance animations, wave transitions, death sequences</li>
+      <li><b>Post-processing</b> — bloom, chromatic aberration, scanlines for cyberpunk feel</li>
+    </ul>
+    <div class="callout">
+      <div class="t">Performance-first rendering</div>
+      <p>Target: 60fps on integrated graphics. Object pooling for projectiles and particles. Spatial partitioning for collision detection. Render batching where possible. Profiled with PixiJS built-in stats.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span> Technical stack</h2>
+    <table>
+      <tr><th>Layer</th><th>Implementation</th></tr>
+      <tr><td>Engine</td><td class="mono">Custom PixiJS 8 wrapper</td></tr>
+      <tr><td>UI Overlay</td><td class="mono">React 19 + TypeScript</td></tr>
+      <tr><td>Transitions</td><td class="mono">GSAP 3.12</td></tr>
+      <tr><td>Language</td><td class="mono">TypeScript strict mode</td></tr>
+      <tr><td>Build</td><td class="mono">Vite</td></tr>
+      <tr><td>State</td><td class="mono">Zustand for UI state</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span> What's next</h2>
+    <p class="lead">The engine is functional but early-stage. Roadmap items:</p>
+    <ul class="clean">
+      <li><b>Procedural wave generation</b> — dynamic difficulty scaling based on player performance</li>
+      <li><b>Power-up system</b> — temporary abilities that drop from enemies</li>
+      <li><b>Leaderboard</b> — local storage for now, cloud sync later</li>
+      <li><b>Sound design</b> — WebAudio synthesized SFX with adaptive music</li>
+      <li><b>Mobile controls</b> — touch-based movement and shooting</li>
+    </ul>
+    <div class="callout warn">
+      <div class="t">Honest scope</div>
+      <p>This is a private repo in active development. The engine architecture is solid, but gameplay depth, balance, and content are early-stage. Not ready for public release yet.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">07</span> What I learned</h2>
+    <p class="lead">Building a custom game engine teaches systems thinking that no tutorial can replicate:</p>
+    <ul class="clean">
+      <li><b>Interface boundaries matter</b> — clean seams between engine and UI made iteration fast</li>
+      <li><b>Entity composition over inheritance</b> — behavior components beat deep class hierarchies</li>
+      <li><b>Profiling early</b> — PixiJS stats caught bottlenecks before they became refactors</li>
+      <li><b>TypeScript pays off</b> — catching engine/UI contract mismatches at compile time saved hours of debugging</li>
+      <li><b>Transitions are gameplay</b> — GSAP timelines turned state changes into moments players anticipate</li>
+    </ul>
+  </section>
+
+  <div class="cta">
+    <a class="ghost" href="/case-studies.html">All Case Studies</a>
+    <a class="ghost" href="https://github.com/FahadIbrahim93" target="_blank" rel="noopener">GitHub Profile</a>
+  </div>
+
+  <nav class="case-nav" aria-label="Case study navigation">
+    <a class="case-nav-prev" href="/case-study-jgmart.html">← JG Mart</a>
+    <span class="case-nav-empty"></span>
+  </nav>
+
+</main>
+
+<footer>
+  <p>Built by <strong>Fahad Ibrahim</strong> · <strong>Hope Theory</strong> ☤</p>
+  <p style="margin-top:8px;font-size:11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory</p>
+</footer>
+
+</body>
+</html>
