@@ -356,6 +356,24 @@
     letter-spacing: 1.8px; margin-top: 8px; font-weight: 500;
   }
 
+  /* Stat reel — spinning counter animation */
+  .stat-reel {
+    display: inline-block; position: relative;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-reel-current,
+  .stat-reel-next {
+    display: inline-block;
+  }
+  .stat-reel-next {
+    position: absolute; left: 0; top: 0;
+    opacity: 0; transform: translateY(-18px);
+    transition: opacity .18s ease, transform .18s ease;
+  }
+  .stat-reel-done .stat-reel-next {
+    opacity: 0; transform: translateY(18px);
+  }
+
   /* Scroll cue — refined */
   .scroll-cue {
     position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
@@ -524,11 +542,12 @@
      PROJECTS — refined cards, subtle depth
      ================================================================ */
   .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-
   .project-card {
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 18px; overflow: hidden; transition: all .35s cubic-bezier(.4,0,.2,1);
+    border-radius: 18px; overflow: hidden;
+    transition: transform .35s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .4s ease;
     display: flex; flex-direction: column; position: relative;
+    transform-style: preserve-3d; perspective: 1000px;
   }
 
   /* Featured project — hero card with gold accent */
@@ -555,6 +574,14 @@
       0 24px 56px rgba(0,0,0,0.45),
       0 0 0 1px rgba(200,169,126,0.08) inset;
   }
+
+  .card-glare {
+    position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.07), transparent 55%);
+    opacity: 0; transition: opacity .35s ease;
+    mix-blend-mode: soft-light;
+  }
+  .project-card:hover .card-glare { opacity: 1; }
 
   .project-thumb {
     position: relative; overflow: hidden; aspect-ratio: 16/10;
@@ -715,6 +742,45 @@
   }
 
   /* ================================================================
+     BENTO CAPABILITIES — editorial cards, scannable
+     ================================================================ */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .bento-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px;
+    transition: transform .35s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .4s ease;
+    display: flex; flex-direction: column; gap: 10px;
+    transform-style: preserve-3d; perspective: 1000px;
+  }
+  .bento-card:hover {
+    border-color: rgba(200,169,126,0.28);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.45), 0 0 0 1px rgba(200,169,126,0.08) inset;
+  }
+  .bento-icon {
+    font-size: 22px; opacity: 0.9;
+  }
+  .bento-card h3 {
+    font-size: 15px; font-weight: 700; letter-spacing: -0.2px;
+  }
+  .bento-card p {
+    font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; margin: 0;
+  }
+  .bento-tags {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;
+  }
+  .bento-tags span {
+    padding: 4px 10px; background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 11px; font-family: 'JetBrains Mono', monospace;
+    color: var(--text-secondary); font-weight: 500;
+  }
+
+  /* ================================================================
      EXPERIENCE — editorial timeline feel
      ================================================================ */
   .experience-item {
@@ -866,6 +932,7 @@
     .experience-item { grid-template-columns: 1fr; gap: 8px; }
     .experience-header .date { text-align: left; }
     .process-grid { grid-template-columns: 1fr; }
+    .bento-grid { grid-template-columns: 1fr; }
     .testimonial-quote { font-size: 20px; }
   }
 
@@ -963,11 +1030,11 @@
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-value" data-count="4">4</div>
+        <div class="stat-value" data-count="4" data-suffix="">4</div>
         <div class="stat-label">Live Products</div>
       </div>
       <div class="stat">
-        <div class="stat-value">2 wks</div>
+        <div class="stat-value" data-count="2" data-suffix=" wks">2 wks</div>
         <div class="stat-label">Avg Ship Time</div>
       </div>
       <div class="stat">
@@ -1198,51 +1265,83 @@
   </div>
 </section>
 
-<!-- SKILLS -->
+<!-- CAPABILITIES — bento grid, scannable -->
 <section class="section" id="skills">
   <div class="section-title reveal">Technical Skills</div>
-  <h2 class="reveal">Stack &amp; Tools</h2>
-  <div class="skills-grid">
-    <div class="skill-category reveal">
+  <h2 class="reveal">Capabilities</h2>
+  <div class="bento-grid">
+
+    <div class="bento-card reveal">
+      <div class="bento-icon" aria-hidden="true">⚛️</div>
       <h3>Frontend</h3>
-      <ul>
-        <li>React 19</li>
-        <li>TypeScript (strict)</li>
-        <li>Tailwind CSS</li>
-        <li>Framer Motion / GSAP</li>
-        <li>Vite</li>
-      </ul>
+      <p>Production UIs with React 19, TypeScript strict mode, Tailwind, and performant motion.</p>
+      <div class="bento-tags">
+        <span>React 19</span>
+        <span>TypeScript</span>
+        <span>Tailwind</span>
+        <span>GSAP</span>
+        <span>Vite</span>
+      </div>
     </div>
-    <div class="skill-category reveal">
+
+    <div class="bento-card reveal">
+      <div class="bento-icon" aria-hidden="true">🗄️</div>
       <h3>Backend &amp; Data</h3>
-      <ul>
-        <li>Supabase (PostgreSQL)</li>
-        <li>Firebase (Auth, Functions)</li>
-        <li>Node.js</li>
-        <li>REST APIs</li>
-        <li>Zustand / Redux</li>
-      </ul>
+      <p>Auth, APIs, and data modeling across Supabase and Firebase with real-time sync.</p>
+      <div class="bento-tags">
+        <span>Supabase</span>
+        <span>Firebase</span>
+        <span>Node.js</span>
+        <span>REST</span>
+        <span>Zustand</span>
+      </div>
     </div>
-    <div class="skill-category reveal">
+
+    <div class="bento-card reveal">
+      <div class="bento-icon" aria-hidden="true">🧪</div>
       <h3>Quality &amp; DevOps</h3>
-      <ul>
-        <li>Vitest / Playwright</li>
-        <li>GitHub Actions CI</li>
-        <li>ESLint + type gates</li>
-        <li>Vercel / GitHub Pages</li>
-        <li>WCAG 2.1 AA</li>
-      </ul>
+      <p>CI/CD, accessibility, and test coverage as a first-class requirement, not an afterthought.</p>
+      <div class="bento-tags">
+        <span>Vitest</span>
+        <span>Playwright</span>
+        <span>CI</span>
+        <span>WCAG 2.1 AA</span>
+      </div>
     </div>
-    <div class="skill-category reveal">
+
+    <div class="bento-card reveal">
+      <div class="bento-icon" aria-hidden="true">🤖</div>
       <h3>AI &amp; Automation</h3>
-      <ul>
-        <li>Hermes Agent</li>
-        <li>Claude Code</li>
-        <li>Multi-Agent Systems</li>
-        <li>Prompt Engineering</li>
-        <li>AI-assisted workflows</li>
-      </ul>
+      <p>Multi-agent workflows, prompt engineering, and AI-assisted delivery without quality loss.</p>
+      <div class="bento-tags">
+        <span>Hermes</span>
+        <span>Claude Code</span>
+        <span>Multi-Agent</span>
+      </div>
     </div>
+
+    <div class="bento-card reveal">
+      <div class="bento-icon" aria-hidden="true">🎮</div>
+      <h3>Interactive &amp; Canvas</h3>
+      <p>Games and motion-heavy experiences with Canvas 2D, WebAudio, and PWA offline-first behavior.</p>
+      <div class="bento-tags">
+        <span>Canvas 2D</span>
+        <span>WebAudio</span>
+        <span>PWA</span>
+      </div>
+    </div>
+
+    <div class="bento-card reveal">
+      <div class="bento-icon" aria-hidden="true">🧭</div>
+      <h3>Shipping &amp; Growth</h3>
+      <p>From idea to live product fast, with case studies, metrics, and iteration built in.</p>
+      <div class="bento-tags">
+        <span>Strategy</span>
+        <span>Case Studies</span>
+        <span>Metrics</span>
+      </div>
+    </div>
+
   </div>
 </section>
 

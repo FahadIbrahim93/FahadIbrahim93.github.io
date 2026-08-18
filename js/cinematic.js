@@ -147,7 +147,7 @@
   // Ensure all animated elements are VISIBLE by default.
   // gsap.from() would otherwise set opacity:0/y:30 immediately on creation,
   // hiding off-screen sections until their trigger fires.
-  gsap.set('.section-title, .section h2, .section-intro, .project-card, .skill-category, .experience-item, .contact-card, .case-banner, .manifesto-inner, .process-step', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
+  gsap.set('.section-title, .section h2, .section-intro, .project-card, .skill-category, .experience-item, .contact-card, .case-banner, .manifesto-inner, .process-step, .bento-card', { autoAlpha: 1, y: 0, x: 0, scale: 1 });
 
   // Section titles — slide in from left
   gsap.utils.toArray('.section-title').forEach(function (el) {
@@ -243,44 +243,78 @@
     // Subtle parallax on cards (desktop only)
     if (!isMobile && !reduced) {
       cards.forEach(function (card) {
-        gsap.to(card, {
-          y: -20,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          },
+        var glare = card.querySelector('.card-glare');
+        var xTo = gsap.quickTo(card, 'rotationY', { ease: 'power2.out', duration: 0.4 });
+        var yTo = gsap.quickTo(card, 'rotationX', { ease: 'power2.out', duration: 0.4 });
+        var glareTo = gsap.quickTo(glare, 'backgroundPosition', { ease: 'power2.out', duration: 0.4 });
+
+        card.addEventListener('mousemove', function (e) {
+          var rect = card.getBoundingClientRect();
+          var x = (e.clientX - rect.left) / rect.width - 0.5;
+          var y = (e.clientY - rect.top) / rect.height - 0.5;
+          xTo(x * 18);
+          yTo(-y * 18);
+          if (glare) glareTo((x + 0.5) * 100 + '% ' + (y + 0.5) * 100 + '%');
+        });
+
+        card.addEventListener('mouseleave', function () {
+          xTo(0); yTo(0);
+          if (glare) glareTo('50% 50%');
         });
       });
     }
   }
 
   /* ================================================================
-   * 6. HERO STATS — count-up animation driven by GSAP
+   * 6. HERO STATS — spinning reel counters
    * ================================================================ */
-  gsap.utils.toArray('[data-count]').forEach(function (el) {
+  function spinCounter(el) {
     var target = parseFloat(el.dataset.count);
     if (isNaN(target)) return;
     var suffix = el.dataset.suffix || '';
     var decimals = parseInt(el.dataset.decimals || '0', 10);
     var obj = { val: 0 };
+    var display = document.createElement('span');
+    display.className = 'stat-reel';
+    display.setAttribute('aria-hidden', 'true');
+    el.textContent = '';
+    el.appendChild(display);
+
+    function fmt(v) {
+      return v.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
+    }
+
+    // Build reel digits/string
+    var current = document.createElement('span');
+    current.className = 'stat-reel-current';
+    current.textContent = fmt(0);
+    var next = document.createElement('span');
+    next.className = 'stat-reel-next';
+    next.textContent = fmt(target);
+    display.appendChild(current);
+    display.appendChild(next);
 
     gsap.to(obj, {
       val: target,
-      duration: 1.6,
+      duration: 1.8,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: el,
-        start: 'top 85%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
       onUpdate: function () {
-        el.textContent = obj.val.toFixed(decimals)
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
+        current.textContent = fmt(Math.round(obj.val));
+      },
+      onComplete: function () {
+        current.textContent = fmt(target);
+        display.classList.add('stat-reel-done');
       },
     });
+  }
+
+  document.querySelectorAll('.stat-value[data-count]').forEach(function (el) {
+    spinCounter(el);
   });
 
   /* ================================================================
