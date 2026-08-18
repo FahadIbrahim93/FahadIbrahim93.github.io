@@ -177,6 +177,9 @@
   .nav-links a.nav-cta:hover {
     background: #d4b78e; color: var(--bg);
   }
+  .nav-links a.active {
+    color: #c8a97e; background: rgba(200,169,126,0.08);
+  }
   .nav-toggle {
     display: none; background: none; border: 1px solid var(--border);
     border-radius: 8px; color: var(--text); font-size: 18px;
@@ -1640,6 +1643,35 @@
       const current = document.querySelector('.case-tab.active');
       if (current) movePill(current);
     });
+  })();
+</script>
+
+<script>
+  // Active nav link — updates based on visible section
+  (function () {
+    const links = document.querySelectorAll('.nav-links a[href^="#"]');
+    const sections = Array.from(links).map(a => {
+      const href = a.getAttribute('href');
+      if (href === '#') return null;
+      const el = document.querySelector(href);
+      return el ? { link: a, section: el } : null;
+    }).filter(Boolean);
+
+    if (!sections.length) return;
+
+    const obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          const match = sections.find(function (s) { return s.section === entry.target; });
+          if (match) {
+            links.forEach(function (l) { l.classList.remove('active'); });
+            match.link.classList.add('active');
+          }
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { obs.observe(s.section); });
   })();
 </script>
 <!-- Motion orchestration: GSAP + Lenis + ScrollTrigger (vendored) -->
