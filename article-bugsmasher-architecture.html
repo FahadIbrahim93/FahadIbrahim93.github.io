@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Architecting BugSmasher: Zero-Dependency React Game Engines & 678 Automated Tests — Fahad Ibrahim</title>
+<meta name="description" content="A deep dive into building BugSmasher—a production-grade React game engine with 678 tests, custom canvas rendering, and zero runtime bloat." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/article-bugsmasher-architecture.html" />
+<meta name="theme-color" content="#09090b" />
+<link rel="icon" type="image/svg+xml" href="/images/logo-mark.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cinematic.css">
+<style>
+  :root {
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --border: rgba(200, 169, 126, 0.15);
+    --gold: #c8a97e;
+    --gold-light: #e8c996;
+    --violet: #8b5cf6;
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(9, 9, 11, 0.85);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-left: 28px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover {
+    color: var(--gold);
+  }
+  .article-container {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 0 24px;
+  }
+  .article-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 24px;
+  }
+  .tag {
+    background: rgba(200, 169, 126, 0.1);
+    color: var(--gold);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.75rem;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .lead {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    margin-top: 56px;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  p {
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+  }
+  pre {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    margin: 32px 0;
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--card);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--gold);
+    font-size: 0.9em;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+  blockquote {
+    border-left: 3px solid var(--gold);
+    margin: 32px 0;
+    padding-left: 20px;
+    font-style: italic;
+    color: var(--muted);
+  }
+  ul {
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 120px;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="brand">
+    <img src="/images/logo-mark.svg" alt="Fahad Ibrahim" style="width:28px;height:28px;border-radius:6px;" />
+    Fahad Ibrahim
+  </a>
+  <nav>
+    <a href="/case-studies.html">Case Studies</a>
+    <a href="/journey.html">Journey</a>
+    <a href="/writing.html">Writing</a>
+    <a href="/resume.html">Resume</a>
+    <a href="/services.html">Services</a>
+  </nav>
+</header>
+
+<main class="article-container">
+  <a href="/writing.html" class="back-link">← Back to Writing</a>
+  
+  <div class="article-meta">
+    <span class="tag">Engineering</span>
+    <span>•</span>
+    <span>August 18, 2026</span>
+    <span>•</span>
+    <span>8 min read</span>
+  </div>
+
+  <h1>Architecting BugSmasher: Zero-Dependency React Game Engines & 678 Automated Tests</h1>
+  
+  <p class="lead">How we built a high-performance React game engine with 646 Vitest units, 32 Firebase E2E simulations, custom canvas state management, and 60fps rendering without external game libraries.</p>
+
+  <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
+
+  <h2>The Challenge: React vs. Game Loops</h2>
+  <p>React is fundamentally built for declarative UI rendering, state diffing, and component trees. Game loops require deterministic requestAnimationFrame ticks, mutable transform matrices, and low-latency physics calculations. Reconciling these two paradigms usually results in either heavy abstraction layers or janky frame drops.</p>
+  
+  <p>When we set out to build <strong>BugSmasher</strong> under Hope Theory, the constraint was absolute: deliver a buttery 60fps arcade experience inside a modern web app while maintaining 100% test coverage and robust backend persistence.</p>
+
+  <h2>Architecture & State Management</h2>
+  <p>Instead of relying on heavy third-party game frameworks like Phaser or Pixi.js which bloat bundle sizes and complicate React state synchronization, we architected a bespoke rendering pipeline:</p>
+
+  <ul>
+    <li><strong>Core Game Loop</strong>: Implemented via a custom <code>useGameLoop</code> hook leveraging <code>requestAnimationFrame</code> with delta-time normalization to prevent speed variations on high-refresh-rate displays.</li>
+    <li><strong>State Separation</strong>: UI overlays (scoreboards, health bars, combo multipliers) live in optimized React state, while high-frequency sprite coordinates and collision boxes live in a typed Float32Array memory buffer.</li>
+    <li><strong>Zero Runtime Bloat</strong>: Total bundle size under 120KB gzipped, loading instantly even on 3G connections in Dhaka.</li>
+  </ul>
+
+  <pre><code>// Simplified Game Loop Architecture
+class GameEngine {
+  constructor(canvas, config) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.entities = new Map();
+    this.lastTime = performance.now();
+  }
+
+  tick = (currentTime) => {
+    const dt = (currentTime - this.lastTime) / 1000;
+    this.lastTime = currentTime;
+    
+    this.update(dt);
+    this.render();
+    
+    this.animationId = requestAnimationFrame(this.tick);
+  }
+}</code></pre>
+
+  <h2>Testing Strategy: 678 Automated Suites</h2>
+  <p>Quality in game development is notoriously difficult to guarantee without manual QA. We solved this by treating game mechanics as pure deterministic functions that can be tested in headless Node environments.</p>
+
+  <blockquote>"If your game logic is tightly coupled to DOM elements or requestAnimationFrame, your tests will be brittle. Decouple physics from rendering, and you can test 10,000 game ticks in under 2 seconds."</blockquote>
+
+  <p>Our test suite comprises <strong>646 Vitest unit tests</strong> covering collision detection matrices, score multipliers, state transitions, and audio trigger queues, alongside <strong>32 Firebase integration tests</strong> verifying multiplayer state synchronization and leaderboard commits.</p>
+
+  <h2>Key Takeaways & Lessons Learned</h2>
+  <ol>
+    <li><strong>Immutability has a cost</strong>: In high-frequency render loops, avoid deep object spreads. Pre-allocate arrays and reuse object pools for particles and entities.</li>
+    <li><strong>Test-driven game dev works</strong>: Writing collision and scoring rules in Vitest before touching canvas rendering saved countless hours of debugging.</li>
+    <li><strong>Performance budgets matter</strong>: Monitoring frame budget (16.6ms per frame) ensured zero layout thrashing.</li>
+  </ol>
+
+  <div style="margin-top: 60+px; padding: 32px; background: var(--card); border: 1px solid var(--border); border-radius: 16px;">
+    <h3 style="margin-top: 0; font-family: 'Playfair Display', serif; color: var(--gold);">Explore the Code</h3>
+    <p style="margin-bottom: 20px;">BugSmasher is part of our open portfolio showcase at Hope Theory.</p>
+    <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank" class="btn" style="background: var(--gold); color: var(--bg); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">View on GitHub →</a>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Fahad Ibrahim • Hope Theory • Dhaka, Bangladesh</p>
+</footer>
+
+</body>
+</html>
