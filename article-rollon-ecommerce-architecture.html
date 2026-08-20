@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Config-Driven E-Commerce at Scale: The RollON Architecture — Fahad Ibrahim</title>
+<meta name="description" content="How RollON achieves 95% test coverage, config-driven branding, and robust checkout flows in a reusable React/TypeScript e-commerce template." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/article-rollon-ecommerce-architecture.html" />
+<meta name="theme-color" content="#09090b" />
+<link rel="icon" type="image/svg+xml" href="/images/logo-mark.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cinematic.css">
+<style>
+  :root {
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --border: rgba(200, 169, 126, 0.15);
+    --gold: #c8a97e;
+    --gold-light: #e8c996;
+    --violet: #8b5cf6;
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(9, 9, 11, 0.85);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-left: 28px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover {
+    color: var(--gold);
+  }
+  .article-container {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 0 24px;
+  }
+  .article-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 24px;
+  }
+  .tag {
+    background: rgba(200, 169, 126, 0.1);
+    color: var(--gold);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.75rem;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .lead {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    margin-top: 56px;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  p {
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+  }
+  pre {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    margin: 32px 0;
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--card);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--gold);
+    font-size: 0.9em;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+  blockquote {
+    border-left: 3px solid var(--gold);
+    margin: 32px 0;
+    padding-left: 20px;
+    font-style: italic;
+    color: var(--muted);
+  }
+  ul {
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(200,169,126,0.04), rgba(168,85,247,0.04));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 40px 0;
+  }
+  .highlight-box h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 120px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="brand">
+    <img src="/images/logo-mark.svg" alt="Fahad Ibrahim" style="width:28px;height:28px;border-radius:6px;" />
+    Fahad Ibrahim
+  </a>
+  <nav>
+    <a href="/case-studies.html">Case Studies</a>
+    <a href="/journey.html">Journey</a>
+    <a href="/writing.html">Writing</a>
+    <a href="/resume.html">Resume</a>
+    <a href="/services.html">Services</a>
+  </nav>
+</header>
+
+<main class="article-container">
+  <a href="/writing.html" class="back-link">← Back to Writing</a>
+  
+  <div class="article-meta">
+    <span class="tag">E-Commerce Architecture</span>
+    <span>•</span>
+    <span>August 20, 2026</span>
+    <span>•</span>
+    <span>12 min read</span>
+  </div>
+
+  <h1>Config-Driven E-Commerce at Scale: The RollON Architecture</h1>
+  
+  <p class="lead">How RollON achieves 95% test coverage, config-driven branding, and robust checkout flows in a reusable React/TypeScript e-commerce template — without sacrificing flexibility or performance.</p>
+
+  <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
+
+  <h2>The Problem: Every E-Commerce Project Starts From Scratch</h2>
+  <p>E-commerce seems solved: product catalog, cart, checkout, admin dashboard. Yet every project rebuilds these primitives with slight variations. Brands want custom branding, products have variant matrices, checkout flows differ by region, and accessibility requirements vary by client.</p>
+  
+  <p>RollON was built to solve this: a <strong>production-grade e-commerce template</strong> that's config-driven rather than hardcoded, so each deployment is a new configuration, not a new codebase. The result: ship a branded store in days, not months, while maintaining 95% test coverage and WCAG 2.1 AA compliance.</p>
+
+  <h2>Architecture: Configuration as Code</h2>
+  <p>Instead of embedding business logic in components, RollON externalizes everything into typed configuration:</p>
+
+  <ul>
+    <li><strong>Product Catalog</strong> — Defined in TypeScript interfaces with variant support (size, color, bundle), pricing rules, and inventory thresholds. The catalog is a pure data structure; UI components render whatever shape the data takes.</li>
+    <li><strong>Branding Layer</strong> — Colors, typography, logo, and layout density are pulled from a single `config.ts` file. Deploy to a new client by changing config, not rewriting CSS.</li>
+    <li><strong>Checkout Pipeline</strong> — A state machine orchestrates cart → address → payment → confirmation. Each stage is independently testable and replaceable.</li>
+  </ul>
+
+  <pre><code>// Simplified RollON config-driven product
+export interface ProductConfig {
+  id: string;
+  name: string;
+  variants: Variant[];
+  pricing: PricingRule[];
+  images: string[];
+  metadata: Record<string, string>;
+}
+
+export const catalog: ProductConfig[] = [
+  {
+    id: "tshirt-classic",
+    name: "Classic Tee",
+    variants: [
+      { sku: "TSH-S", size: "S", color: "Black", price: 29 },
+      { sku: "TSH-M", size: "M", color: "Black", price: 29 },
+    ],
+    pricing: [{ minQty: 10, discount: 0.15 }], // 15% off bulk
+    images: ["/products/tee-black-1.jpg"],
+    metadata: { material: "100% cotton", origin: "Bangladesh" },
+  },
+];</code></pre>
+
+  <h2>Testing Strategy: 95% Coverage Without Test Debt</h2>
+  <p>RollON maintains <strong>117 automated tests</strong> with 95% coverage across unit and Playwright E2E suites. The key insight: test the config system, not the components.</p>
+
+  <blockquote>"If your e-commerce tests hardcode product names, they're testing the wrong thing. Test that the catalog renders any valid config, that the cart math works for any pricing rule, and that checkout rejects invalid states. Product-specific tests are configuration validation, not architecture tests."</blockquote>
+
+  <p>Our test pyramid:</p>
+  <ul>
+    <li><strong>Unit tests (Vitest)</strong> — Pricing math, variant selection, cart persistence, form validation</li>
+    <li><strong>Integration tests</strong> — Checkout state machine transitions, address validation, payment webhooks</li>
+    <li><strong>E2E tests (Playwright)</strong> — Full purchase flows, admin dashboard CRUD, accessibility audits</li>
+  </ul>
+
+  <h2>Performance: Why Bundle Size Matters for E-Commerce</h2>
+  <p>E-commerce sites live or die by conversion rate. Every 100ms of load time costs ~1% in conversions. RollON is optimized at multiple levels:</p>
+
+  <ul>
+    <li><strong>Code splitting</strong> — Admin dashboard, checkout, and catalog load independently. A visitor browsing products never downloads admin code.</li>
+    <li><strong>Image optimization</strong> — Responsive srcset with WebP/AVIF fallbacks. Product images lazy-load with blur-up placeholders.</li>
+    <li><strong>CSP-hardened</strong> — Strict Content Security Policy prevents XSS without breaking inline styles or analytics.</li>
+  </ul>
+
+  <h2>Key Takeaways & Lessons Learned</h2>
+  <ol>
+    <li><strong>Config over convention</strong> — In a template, "convention" becomes a constraint. Externalizing decisions into typed config lets each deployment customize without forking.</li>
+    <li><strong>Test the machine, not the instance</strong> — Test that pricing math works for any rule, not that a specific product costs $29. This cuts test count while increasing coverage breadth.</li>
+    <li><strong>Accessibility is non-negotiable</strong> — WCAG 2.1 AA compliance isn't a feature; it's a baseline. Keyboard navigation, screen reader labels, and color contrast are built in from day one.</li>
+  </ol>
+
+  <div class="highlight-box">
+    <h3>RollON in Production</h3>
+    <p>RollON is a reusable template, not a single deployed store. The production-ready patterns here power client deployments across retail, streetwear, and jewelry verticals. Each client gets their own branded instance with the same tested core.</p>
+    <p style="margin-bottom:0;"><strong>Stack:</strong> React 19 · TypeScript · Tailwind · Zustand · Vitest · Playwright · Vercel</p>
+  </div>
+
+  <div style="margin-top: 60px; padding: 32px; background: var(--card); border: 1px solid var(--border); border-radius: 16px;">
+    <h3 style="margin-top: 0; font-family: 'Playfair Display', serif; color: var(--gold);">Explore the Code</h3>
+    <p style="margin-bottom: 20px;">RollON is an open-source e-commerce template. Fork it, study it, ship with it.</p>
+    <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank" class="btn" style="background: var(--gold); color: var(--bg); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">View on GitHub →</a>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Fahad Ibrahim • Hope Theory • Dhaka, Bangladesh</p>
+</footer>
+
+</body>
+</html>
