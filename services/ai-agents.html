@@ -12,7 +12,7 @@
     --surface: #12121a;
     --card: #1a1a2e;
     --border: rgba(0,240,255,0.12);
-    --cyan: #00f0ff;
+    --accent: #c8a97e;
     --green: #00ff88;
     --purple: #a855f7;
     --pink: #ff00aa;
@@ -24,10 +24,10 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Playfair Display', serif;
     line-height: 1.6;
   }
-  a { color: var(--cyan); text-decoration: none; }
+  a { color: var(--accent); text-decoration: none; }
   a:hover { opacity: 0.8; }
 
   nav {
@@ -42,10 +42,10 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  nav .brand { font-size: 16px; font-weight: 800; color: var(--cyan); }
+  nav .brand { font-size: 16px; font-weight: 800; color: var(--accent); }
   nav .links { display: flex; gap: 24px; list-style: none; }
   nav .links a { font-size: 13px; font-weight: 500; color: var(--muted); }
-  nav .links a:hover { color: var(--cyan); }
+  nav .links a:hover { color: var(--accent); }
 
   .hero {
     min-height: 60vh;
@@ -230,7 +230,7 @@
     color: var(--muted);
     font-size: 13px;
   }
-  footer strong { color: var(--cyan); }
+  footer strong { color: var(--accent); }
 
   @media (max-width: 768px) {
     nav .links { display: none; }
