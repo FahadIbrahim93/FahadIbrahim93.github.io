@@ -149,6 +149,32 @@
   .btn:hover {
     opacity: 0.9;
   }
+  .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .bento-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px;
+    transition: transform .35s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .4s ease;
+    display: flex; flex-direction: column; gap: 10px;
+    transform-style: preserve-3d; perspective: 1000px;
+  }
+  .bento-card:hover {
+    border-color: rgba(200,169,126,0.28);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.45), 0 0 0 1px rgba(200,169,126,0.08) inset;
+  }
+  .bento-icon { font-size: 22px; opacity: 0.9; }
+  .bento-card h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; }
+  .bento-card p { font-size: 13.5px; color: var(--muted); line-height: 1.6; margin: 0; }
+  .bento-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .bento-tags span {
+    padding: 4px 10px; background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 11px; font-family: 'JetBrains Mono', monospace;
+    color: var(--muted); font-weight: 500;
+  }
+  @media (max-width: 720px) {
+    .bento-grid { grid-template-columns: 1fr; }
+  }
   footer {
     border-top: 1px solid var(--border);
     padding: 48px;
@@ -179,16 +205,25 @@
   <h1>Technical Writing & Insights</h1>
   <p class="subtitle">Deep dives into software architecture, AI-assisted development workflows, and high-performance frontend engineering.</p>
 
-  <a href="/article-bugsmasher-architecture.html" class="article-card">
-    <div class="article-meta">ARCHITECTURE • AUGUST 18, 2026 • 8 MIN READ</div>
-    <div class="article-title">Architecting BugSmasher: Zero-Dependency React Game Engines & 678 Automated Tests</div>
-    <div class="article-snippet">A deep dive into building BugSmasher—a production-grade React game engine with 646 Vitest units, 32 Firebase E2E simulations, custom canvas state management, and 60fps rendering without external game libraries.</div>
-  </a>
-
-  <div class="article-card" style="opacity: 0.7; cursor: default;">
-    <div class="article-meta">PWA & OFFLINE • COMING SOON</div>
-    <div class="article-title">Offline-First Local Storage Sync in JG Mart: Managing State with Zero Cloud Lock-In</div>
-    <div class="article-snippet">How we architected robust client-side persistence and optimistic UI updates for hyperlocal grocery delivery in Dhaka Garden City.</div>
+  <div class="bento-grid" style="margin-bottom: 32px;">
+    <a href="/article-bugsmasher-architecture.html" class="article-card bento-card" style="text-decoration:none;">
+      <div class="bento-icon" aria-hidden="true">🧪</div>
+      <h3 class="article-title" style="font-family:'Playfair Display',serif; font-size:1.25rem; margin:0;">Architecting BugSmasher</h3>
+      <p class="article-snippet">Zero-dependency React game engine, 678 automated tests, and custom 60fps canvas rendering without external game libraries.</p>
+      <div class="article-meta">ARCHITECTURE • 8 MIN READ</div>
+    </a>
+    <div class="article-card" style="opacity: 0.7; cursor: default;">
+      <div class="bento-icon" aria-hidden="true">📦</div>
+      <div class="article-title" style="font-family:'Playfair Display',serif; font-size:1.25rem; margin:0;">Offline-First Sync in JG Mart</div>
+      <p class="article-snippet">Client-side persistence and optimistic UI updates for hyperlocal grocery delivery in Dhaka Garden City.</p>
+      <div class="article-meta">PWA & OFFLINE • COMING SOON</div>
+    </div>
+    <div class="article-card" style="opacity: 0.7; cursor: default;">
+      <div class="bento-icon" aria-hidden="true">🤖</div>
+      <div class="article-title" style="font-family:'Playfair Display',serif; font-size:1.25rem; margin:0;">AI-Assisted Delivery Loops</div>
+      <p class="article-snippet">How multi-agent workflows and prompt engineering cut shipping time by ~60% without skipping quality gates.</p>
+      <div class="article-meta">AI & WORKFLOW • COMING SOON</div>
+    </div>
   </div>
 
   <div class="cta-section">
