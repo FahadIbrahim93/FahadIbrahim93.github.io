@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resume — Fahad Ibrahim | Hope Theory</title>
+<meta name="description" content="Fahad Ibrahim's resume: Full-Stack Developer & Technical Founder at Hope Theory. React 19, TypeScript, Tailwind, Supabase, Firebase, Vitest." />
+<link rel="stylesheet" href="/css/styles.css" />
+<style>
+  /* ... existing styles ... */
+  .resume-pdf { max-width: 210mm; margin: 0 auto; padding: 20mm; background: #fff; color: #111; font-family: 'Inter', sans-serif; line-height: 1.6; }
+  .resume-pdf h1 { font-size: 28pt; margin-bottom: 4pt; color: #000; }
+  .resume-pdf .contact { font-size: 10pt; color: #555; margin-bottom: 16pt; }
+  .resume-pdf h2 { font-size: 14pt; margin-top: 18pt; margin-bottom: 8pt; color: #000; border-bottom: 1px solid #ddd; padding-bottom: 4pt; }
+  .resume-pdf .job { margin-bottom: 12pt; }
+  .resume-pdf .job-title { font-weight: 700; font-size: 11pt; }
+  .resume-pdf .job-meta { font-size: 9pt; color: #666; margin-bottom: 4pt; }
+  .resume-pdf ul { margin: 4pt 0; padding-left: 18pt; }
+  .resume-pdf li { font-size: 10pt; margin-bottom: 3pt; }
+  .resume-pdf .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .resume-pdf .skill-category { font-size: 9pt; }
+  .resume-pdf .skill-category strong { display: block; font-size: 10pt; margin-bottom: 2pt; }
+  .resume-pdf a { color: #000; text-decoration: none; }
+  @media print { body { background: #fff; } .resume-pdf { padding: 0; margin: 0; } }
+</style>
+</head>
+<body>
+<div class="resume-pdf">
+  <h1>Fahad Ibrahim</h1>
+  <div class="contact">
+    Full-Stack Developer & Technical Founder · Hope Theory<br/>
+    Dhaka, Bangladesh (UTC+6) · hopetheorybd@gmail.com · github.com/FahadIbrahim93
+  </div>
+
+  <h2>Summary</h2>
+  <p>Production-grade full-stack developer specializing in React 19, TypeScript, and scalable e-commerce/real-time systems. Shipped 3 major products: BugSmasher (678 tests), RollON (95% coverage), JG Mart (offline-first PWA). Strong advocate for WCAG 2.1 AA accessibility, test-driven development, and zero-dependency architecture.</p>
+
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-category"><strong>Frontend</strong>React 19, TypeScript, Tailwind CSS, Vite, GSAP, Lenis, Framer Motion, PixiJS</div>
+    <div class="skill-category"><strong>Backend & Data</strong>Node.js, Supabase, Firebase Auth/Firestore, REST APIs, Zustand, PostgreSQL</div>
+    <div class="skill-category"><strong>Testing & DevOps</strong>Vitest, Playwright, ESLint, GitHub Actions, Vercel, GitHub Pages</div>
+    <div class="skill-category"><strong>AI & Automation</strong>Hermes Agent, Claude Code, Multi-Agent Orchestration, Prompt Engineering</div>
+  </div>
+
+  <h2>Featured Projects</h2>
+  <div class="job">
+    <div class="job-title">BugSmasher — Accessible Arcade Game</div>
+    <div class="job-meta">React 19, TypeScript, Canvas 2D, Firebase · 678 tests (646 Vitest + 32 Firebase) · 79% coverage</div>
+    <ul>
+      <li>Custom 60fps canvas rendering engine without external game libraries</li>
+      <li>Server-authoritative anti-cheat leaderboards with one-time session tokens</li>
+      <li>Keyboard-first, reduced-motion, colorblind accessibility modes</li>
+      <li>Offline-first PWA with cloud sync via Firebase</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-title">RollON MVP — Config-Driven E-Commerce</div>
+    <div class="job-meta">React 19, TypeScript, Tailwind, Supabase · 117 tests (106 unit + 11 Playwright) · 95% coverage</div>
+    <ul>
+      <li>Zero-config branding system with TypeScript-driven store configuration</li>
+      <li>Full checkout state machine with cart, variants, and admin dashboard</li>
+      <li>CSP-hardened, WCAG 2.1 AA accessible, CI green on every commit</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-title">JG Mart — Hyperlocal Grocery Delivery PWA</div>
+    <div class="job-meta">Vanilla JS, PWA, Supabase, Tailwind · 1,700 families · 51% margin</div>
+    <ul>
+      <li>Offline-first architecture with IndexedDB persistence</li>
+      <li>WhatsApp-native ordering flow for Dhaka market</li>
+      <li>Operator dashboard with real-time order state management</li>
+      <li>Zero cloud lock-in, works without network</li>
+    </ul>
+  </div>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <div class="job-title">Technical Founder</div>
+    <div class="job-meta">Hope Theory · Dhaka, Bangladesh · 2024 – Present</div>
+    <ul>
+      <li>Founded and shipped 3 production-grade products in under 6 months</li>
+      <li>Lead full-stack architecture, accessibility, and test strategy</li>
+      <li>Manage Supabase backends, Firebase Auth, and CI/CD pipelines</li>
+    </ul>
+  </div>
+
+  <h2>Education</h2>
+  <div class="job">
+    <div class="job-title">Bachelor of Science in Computer Science</div>
+    <div class="job-meta">University of Dhaka · 2018 – 2022</div>
+  </div>
+
+  <div style="margin-top: 24pt; font-size: 9pt; color: #888;">
+    Portfolio: fahadibrahim93.github.io · GitHub: github.com/FahadIbrahim93 · LinkedIn: in/hopetheory-
+  </div>
+</div>
+</body>
+</html>
