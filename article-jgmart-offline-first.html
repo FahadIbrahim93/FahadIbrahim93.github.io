@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Offline-First PWA Architecture in JG Mart — Fahad Ibrahim</title>
+<meta name="description" content="How JG Mart serves 1,700 families with offline-first PWA architecture, WhatsApp-native ordering, and zero cloud lock-in persistence." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/article-jgmart-offline-first.html" />
+<meta name="theme-color" content="#09090b" />
+<link rel="icon" type="image/svg+xml" href="/images/logo-mark.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cinematic.css">
+<style>
+  :root {
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --border: rgba(200, 169, 126, 0.15);
+    --gold: #c8a97e;
+    --gold-light: #e8c996;
+    --violet: #8b5cf6;
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+  }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(9, 9, 11, 0.85);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    margin-left: 28px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  nav a:hover {
+    color: var(--gold);
+  }
+  .article-container {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 0 24px;
+  }
+  .article-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 24px;
+  }
+  .tag {
+    background: rgba(200, 169, 126, 0.1);
+    color: var(--gold);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.75rem;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .lead {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    margin-top: 56px;
+    margin-bottom: 20px;
+    color: var(--gold);
+  }
+  p {
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+  }
+  pre {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    margin: 32px 0;
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--card);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--gold);
+    font-size: 0.9em;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+  blockquote {
+    border-left: 3px solid var(--gold);
+    margin: 32px 0;
+    padding-left: 20px;
+    font-style: italic;
+    color: var(--muted);
+  }
+  ul {
+    margin-bottom: 24px;
+    padding-left: 24px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(200,169,126,0.04), rgba(168,85,247,0.04));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin: 40px 0;
+  }
+  .highlight-box h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 48px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 120px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="brand">
+    <img src="/images/logo-mark.svg" alt="Fahad Ibrahim" style="width:28px;height:28px;border-radius:6px;" />
+    Fahad Ibrahim
+  </a>
+  <nav>
+    <a href="/case-studies.html">Case Studies</a>
+    <a href="/journey.html">Journey</a>
+    <a href="/writing.html">Writing</a>
+    <a href="/resume.html">Resume</a>
+    <a href="/services.html">Services</a>
+  </nav>
+</header>
+
+<main class="article-container">
+  <a href="/writing.html" class="back-link">← Back to Writing</a>
+  
+  <div class="article-meta">
+    <span class="tag">PWA Architecture</span>
+    <span>•</span>
+    <span>August 18, 2026</span>
+    <span>•</span>
+    <span>10 min read</span>
+  </div>
+
+  <h1>Offline-First PWA Architecture in JG Mart: Zero Cloud Lock-In</h1>
+  
+  <p class="lead">How we architected robust client-side persistence and optimistic UI updates for hyperlocal grocery delivery in Dhaka Garden City — serving 1,700 families across 27 buildings with zero-dependency vanilla JavaScript.</p>
+
+  <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
+
+  <h2>The Problem: Delivery Apps Break When Networks Collapse</h2>
+  <p>In Dhaka, network reliability is a feature, not a given. 4G drops between buildings, WiFi dead zones in stairwells, and bandwidth throttling during peak hours are daily realities. A grocery delivery PWA that requires constant connectivity isn't just annoying — it's unusable.</p>
+  
+  <p>When we designed <strong>JG Mart</strong> for Japan Garden City, the constraint was absolute: every feature must work offline, sync when connectivity returns, and never lose an order in transit. No React, no build step, no framework — just vanilla JavaScript, service workers, and a custom persistence layer.</p>
+
+  <h2>Architecture: The Three-Layer Sync Stack</h2>
+  <p>We built a three-layer architecture that separates concerns cleanly:</p>
+
+  <ul>
+    <li><strong>Layer 1: Local-First State</strong> — All cart, order, and user data lives in IndexedDB via a thin abstraction layer. The UI reads from this local store instantly, never waiting for network.</li>
+    <li><strong>Layer 2: Background Sync</strong> — A service worker queues mutations when offline and replays them when connectivity returns, using exponential backoff and deduplication.</li>
+    <li><strong>Layer 3: Supabase Realtime</strong> — When online, the app subscribes to Supabase Realtime channels for live order status updates, falling back to polling if the WebSocket drops.</li>
+  </ul>
+
+  <pre><code>// Simplified JG Mart persistence layer
+class JGDataStore {
+  constructor() {
+    this.db = new Map(); // In-memory index
+    this.queue = [];      // Mutation queue for sync
+    this.online = navigator.onLine;
+  }
+
+  async get(key) {
+    // 1. Check memory
+    if (this.db.has(key)) return this.db.get(key);
+    // 2. Check IndexedDB
+    const record = await this.idb.get(key);
+    if (record) this.db.set(key, record);
+    return record;
+  }
+
+  async put(key, value) {
+    // Optimistic local write
+    this.db.set(key, value);
+    await this.idb.put(key, value);
+    
+    if (this.online) {
+      await this.syncToSupabase(key, value);
+    } else {
+      this.queue.push({ key, value, ts: Date.now() });
+    }
+  }
+}</code></pre>
+
+  <h2>WhatsApp-Native Ordering: Why We Chose Familiar UX</h2>
+  <p>Instead of building a custom checkout flow, we integrated WhatsApp deep-linking. Users browse the catalog, add items to cart, and on checkout — the app generates a formatted WhatsApp message with their order details and opens it directly.</p>
+
+  <div class="highlight-box">
+    <h3>Why This Works for Emerging Markets</h3>
+    <p>WhatsApp penetration in Bangladesh exceeds 90% among smartphone users. By using WhatsApp as the ordering channel, we eliminated the need for user accounts, payment processing, and order confirmation pages. The user's WhatsApp chat history <em>is</em> the order record.</p>
+  </div>
+
+  <h2>Performance: Zero Dependencies, 82 Products, Sub-3s Load</h2>
+  <p>JG Mart ships as a single HTML file with inline CSS and JavaScript. No build step, no bundler, no framework. Yet it handles:</p>
+
+  <ul>
+    <li>82 products with variant support (size, weight, bundle)</li>
+    <li>Cart persistence across sessions</li>
+    <li>Order history with status tracking</li>
+    <li>Bilingual UI (English + Bengali)</li>
+    <li>Operator dispatch dashboard</li>
+  </ul>
+
+  <blockquote>"The best framework is no framework. JG Mart proves that vanilla JS, when architected well, can outperform bundled alternatives for constrained use cases."</blockquote>
+
+  <h2>Key Takeaways & Lessons Learned</h2>
+  <ol>
+    <li><strong>Optimistic UI is non-negotiable</strong> — Users expect instant feedback. Write to local state first, sync later. Never block the UI on network round-trips.</li>
+    <li><strong>Service workers are tricky</strong> — Cache strategies must be explicit. We use stale-while-revalidate for catalog data and network-first for order mutations.</li>
+    <li><strong>WhatsApp is a platform</strong> — Treat it as your backend. Order confirmation, customer support, and delivery tracking all flow through the same chat thread users already trust.</li>
+  </ol>
+
+  <div style="margin-top: 60px; padding: 32px; background: var(--card); border: 1px solid var(--border); border-radius: 16px;">
+    <h3 style="margin-top: 0; font-family: 'Playfair Display', serif; color: var(--gold);">Explore the Code</h3>
+    <p style="margin-bottom: 20px;">JG Mart is part of our open portfolio showcase at Hope Theory.</p>
+    <a href="https://github.com/FahadIbrahim93/jgmart-hermes" target="_blank" class="btn" style="background: var(--gold); color: var(--bg); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">View on GitHub →</a>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 Fahad Ibrahim • Hope Theory • Dhaka, Bangladesh</p>
+</footer>
+
+</body>
+</html>
