@@ -41,3 +41,8 @@ Do BugSmasher first — it's your strongest story (678 tests + anti-cheat).
 - ✅ Portfolio repo README rewritten recruiter-facing
 - ✅ Profile repo homepage → portfolio site
 - ✅ Content queue: week-1 X + LinkedIn posts ready in `content-queue/`
+
+## 4. Submit RokdaRadar a11y PR (1 min) — NEW
+Same PAT limitation as carbonledger. Branch is pushed and ready:
+https://github.com/tkrupesh14/RokdaRadar/compare/main...FahadIbrahim93:fix/a11y-campaign-pages
+Full PR title/body pre-written in /h/AI/rokdaradar/PR-READY.md — copy-paste it.
