@@ -30,14 +30,19 @@ for f in sorted(x for x in os.listdir(".") if x.endswith(".html")):
         if in_style and ("<link" in line or "<meta" in line):
             failures.append(f"{f}:{i}: HTML tag inside <style>: {line.strip()[:60]}")
 
-    # 4. All local href/src targets exist on disk
+    # 4. All local href/src targets exist on disk (absolute AND relative)
     for m in re.findall(r'(?:href|src|srcset)="([^"]+)"', c):
         for part in m.split(","):
             url = part.strip().split(" ")[0]
-            if not url.startswith("/"):
+            if url.startswith(("http", "mailto:", "#", "data:")) or "family=" in m:
                 continue
-            path = url.lstrip("/").split("?")[0] or "index.html"
-            if not any(os.path.exists(p) for p in (path, path + ".html", os.path.join(path, "index.html"))):
+            if url.startswith("/"):
+                path = url.lstrip("/").split("?")[0] or "index.html"
+                candidates = [path, path + ".html", os.path.join(path, "index.html")]
+            else:
+                path = url.split("?")[0]
+                candidates = [path, os.path.join(path, "index.html")]
+            if not any(os.path.exists(p) for p in candidates):
                 failures.append(f"{f}: broken local ref: {url}")
 
     # 5. Images have alt
