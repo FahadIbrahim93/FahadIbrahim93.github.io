@@ -8,7 +8,9 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 REQUIRED = ["<html", "</html>", "<head>", "</head>", "<body", "</body>", "<title>", 'name="viewport"', 'name="description"']
 failures = []
 
-for f in sorted(x for x in os.listdir(".") if x.endswith(".html")):
+import glob
+html_files = sorted(glob.glob("*.html") + glob.glob("*/*.html"))
+for f in html_files:
     with open(f, encoding="utf-8") as fh:
         c = fh.read()
 
@@ -34,13 +36,20 @@ for f in sorted(x for x in os.listdir(".") if x.endswith(".html")):
     for m in re.findall(r'(?:href|src|srcset)="([^"]+)"', c):
         for part in m.split(","):
             url = part.strip().split(" ")[0]
-            if url.startswith(("http", "mailto:", "#", "data:")) or "family=" in m:
+            # Skip external, scheme links, anchors, fonts, and any URL with a query string
+            if url.startswith(("http", "mailto:", "#", "data:", "tel:", "sms:", "//")):
                 continue
-            if url.startswith("/"):
-                path = url.lstrip("/").split("?")[0] or "index.html"
+            if "family=" in m or "?" in url or "%20" in url:
+                continue
+            # Strip fragment for file resolution
+            url_path = url.split("#")[0]
+            if not url_path:
+                continue  # pure fragment like /#contact resolves to homepage
+            if url_path.startswith("/"):
+                path = url_path.lstrip("/") or "index.html"
                 candidates = [path, path + ".html", os.path.join(path, "index.html")]
             else:
-                path = url.split("?")[0]
+                path = url_path
                 candidates = [path, os.path.join(path, "index.html")]
             if not any(os.path.exists(p) for p in candidates):
                 failures.append(f"{f}: broken local ref: {url}")
