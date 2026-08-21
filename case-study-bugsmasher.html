@@ -146,6 +146,16 @@
   </div>
 
   <div class="callout">
+    <div class="t">🎬 Demo Video</div>
+    <p>A 2-3 minute walkthrough of BugSmasher's gameplay, architecture, and testing strategy. <em>Video recording pending — script ready in <code>demo-scripts/bugsmasher-demo-script.md</code></em></p>
+    <div style="margin-top: 12px; padding: 32px; background: rgba(200,169,126,0.05); border: 1px dashed var(--border); border-radius: 12px; text-align: center; color: var(--muted);">
+      <div style="font-size: 40px; margin-bottom: 8px;">▶️</div>
+      <div style="font-size: 13px; font-weight: 600; color: var(--text-secondary);">Demo Video Coming Soon</div>
+      <div style="font-size: 12px; margin-top: 4px;">2-3 min gameplay + architecture walkthrough</div>
+    </div>
+  </div>
+
+  <div class="callout">
     <div class="t">⚡ Key Decisions</div>
     <p><b>Server-authoritative leaderboards:</b> Client never writes scores directly — all competitive writes go through Firebase callable paths with one-time session tokens. <b>Quality gates in CI:</b> 678 tests run on every commit via npm run ci. <b>Accessibility as gameplay:</b> Keyboard-first, reduced-motion, colorblind modes built-in. <b>Offline-first PWA:</b> Cloud sync via Firebase, works without network.</p>
   </div>
