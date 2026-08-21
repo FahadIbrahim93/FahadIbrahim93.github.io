@@ -14,9 +14,9 @@
 5. **Content** — 3 technical articles + case studies + demo video scripts ready for recording + week-1 X/LinkedIn queue
 6. **Recruiter funnel** — PDF resume with A4 print rules, resume links in CTAs and profile README
 7. **GitHub discovery** — repo topics/descriptions/homepages polished, profile README rewritten recruiter-facing, 6 repos pinned
-8. **OSS contributions** — 2 PRs submitted and live:
+8. **OSS contributions** — 2 PRs submitted:
    - RokdaRadar #25: WCAG 2.1 AA fixes for campaign/donate pages
-   - Carbonledger #50: AuditExplorer accessibility compliance
+   - Carbonledger #50: AuditExplorer accessibility compliance (branch rebased, needs force-push to update)
 
 ### Live Verification (curl-confirmed)
 - All 17 pages HTTP 200
@@ -26,13 +26,14 @@
 - Profile pins verified via API: BugSmasher, RollON, jgmart, viral-pet-nix, portfolio, profile README
 
 ### Remaining — need human action only
-1. **Demo videos unrecorded** — scripts ready in `demo-scripts/` (~20 min each to record)
-2. **Real-device mobile testing** — needs physical iOS/Android device
-3. **PR reviews/merges** — wait for maintainer feedback on #25 and #50
+1. **One git command** for carbonledger PR #50: `cd /h/AI/carbonledger-work && git push --force-with-lease origin fix/audit-explorer-a11y`
+2. **Demo videos unrecorded** — scripts ready in `demo-scripts/` (~20 min each to record)
+3. **Real-device mobile testing** — needs physical iOS/Android device
+4. **PR reviews/merges** — wait for maintainer feedback on #25 and #50
 
 ### Coach's Note
 The portfolio went from "looks good" to "verified good" to "shipped." The difference is the validator:
 every claim about quality is now backed by an executable check. That's the same discipline you show recruiters
 in your BugSmasher testing story — applied to your own site.
 
-**Next session priorities:** record one demo video, respond to PR review feedback, then stop polishing and start outreach.
+**Next session priorities:** run one git command, record one demo video, respond to PR review feedback, then stop polishing and start outreach.
