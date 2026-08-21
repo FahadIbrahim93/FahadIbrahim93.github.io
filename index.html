@@ -33,6 +33,7 @@
   /* HERO */
   .hero {
     min-height: 100vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,18 +41,20 @@
     position: relative;
     overflow: hidden;
   }
-  .hero::before {
-    content: '';
+  #hero-canvas {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(ellipse at 50% 30%, rgba(0,240,255,0.06) 0%, transparent 70%);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
     pointer-events: none;
   }
   .hero-content {
     max-width: 900px;
     text-align: center;
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    transition: opacity 0.3s, transform 0.3s;
   }
   .hero-badge {
     display: inline-block;
@@ -354,6 +357,10 @@
     .ventures-grid { grid-template-columns: 1fr; }
     .services-grid { grid-template-columns: 1fr; }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    #hero-canvas { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -370,8 +377,9 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
+<section class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content" id="hero-content">
     <div class="hero-badge">☤ Never GIVE UP on your HOPES</div>
     <h1>Hope Theory</h1>
     <p class="tagline">
@@ -570,6 +578,9 @@
   <p style="margin-top:8px;font-size:11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory. All rights reserved.</p>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
   // Smooth scroll for nav links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -579,6 +590,133 @@
       if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  // Three.js scroll-driven camera flythrough
+  (function() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0a0a0f, 0.035);
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+    camera.position.set(0, 2, 12);
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x0a0a0f, 0);
+
+    // Lights
+    const ambient = new THREE.AmbientLight(0x404060, 0.6);
+    scene.add(ambient);
+    const point = new THREE.PointLight(0x00f0ff, 1.2, 50);
+    point.position.set(0, 8, 5);
+    scene.add(point);
+    const point2 = new THREE.PointLight(0xa855f7, 0.8, 40);
+    point2.position.set(-5, 4, -10);
+    scene.add(point2);
+
+    // Abstract path / platforms
+    const platforms = [];
+    const geo = new THREE.BoxGeometry(3, 0.15, 3);
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0x1a1a2e,
+      emissive: 0x00f0ff,
+      emissiveIntensity: 0.15,
+      metalness: 0.6,
+      roughness: 0.3
+    });
+
+    for (let i = 0; i < 12; i++) {
+      const mesh = new THREE.Mesh(geo, mat.clone());
+      mesh.position.set(
+        Math.sin(i * 0.8) * 4,
+        Math.sin(i * 0.4) * 1.5,
+        -i * 4
+      );
+      mesh.rotation.y = i * 0.3;
+      scene.add(mesh);
+      platforms.push(mesh);
+    }
+
+    // Particles
+    const particleCount = 180;
+    const positions = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 60 - 10;
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const pMat = new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.08, transparent: true, opacity: 0.7 });
+    const particles = new THREE.Points(pGeo, pMat);
+    scene.add(particles);
+
+    // Glow rings
+    const ringGeo = new THREE.TorusGeometry(1.8, 0.04, 8, 48);
+    const ringMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.4 });
+    for (let i = 0; i < 5; i++) {
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.position.set(0, 0, -i * 8 - 4);
+      ring.rotation.x = Math.PI / 2;
+      scene.add(ring);
+    }
+
+    // Camera path state
+    const camState = { z: 12, y: 2, x: 0, lookZ: 0 };
+
+    // GSAP ScrollTrigger
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.to(camState, {
+        z: -28,
+        y: 1.2,
+        x: 1.5,
+        lookZ: -35,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.2,
+          onUpdate: () => {
+            const progress = ScrollTrigger.getById ? 0 : 0;
+            const content = document.getElementById('hero-content');
+            if (content) {
+              const p = Math.min(1, Math.max(0, (12 - camState.z) / 40));
+              content.style.opacity = 1 - p * 0.85;
+              content.style.transform = `scale(${1 - p * 0.15}) translateY(${-p * 40}px)`;
+            }
+          }
+        }
+      });
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      camera.position.set(camState.x, camState.y, camState.z);
+      camera.lookAt(camState.x * 0.3, camState.y * 0.5, camState.lookZ);
+
+      particles.rotation.y += 0.0008;
+      platforms.forEach((p, i) => {
+        p.rotation.y += 0.002 * (i % 2 === 0 ? 1 : -1);
+      });
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  })();
 </script>
 
 </body>
