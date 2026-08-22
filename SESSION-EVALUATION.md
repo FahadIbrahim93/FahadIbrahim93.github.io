@@ -4,26 +4,25 @@
 
 ---
 
-## Overall Score: 7 / 10
+## Overall Score: 8 / 10
 
 ### Verified Now
 - Portfolio: validator clean, 18 pages PASS
 - GitHub pins: 6 live, correct
 - Carbonledger PR #50: open and mergeable
+- ElizaOS PR #24572: open on elizaOS/eliza
 - Case studies: screenshots + srcsets repaired, synced to devjourney
 
 ### Discrepancies Found
-- RokdaRadar PR #25 is **closed**, not open/mergeable as claimed yesterday
-- ElizaOS PR was **never created** under `FahadIbrahim93`; the browser submission did not produce a PR
+- RokdaRadar PR #25 is **closed**; no open PR from FahadIbrahim93 remains
 
 ### Honest Count
-- Open/mergeable OSS PRs: **1 of 3**
-- Pending manual PR submissions: **2** (RokdaRadar #25 resubmit + ElizaOS)
+- Open/mergeable OSS PRs: **2 of 3** (ElizaOS + carbonledger)
 
 ### Next Actions
-1. Investigate RokdaRadar #25 closure reason
-2. Actually submit ElizaOS PR via browser
-3. Record demo video
+1. Resubmit RokdaRadar a11y PR if desired
+2. Record demo video
+3. Respond to maintainer reviews
 
 ---
 
