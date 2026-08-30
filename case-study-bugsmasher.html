@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>BugSmasher Case Study — 678 Tests, Anti-Cheat Leaderboards | Fahad Ibrahim</title>
+<title>BugSmasher Case Study — Anti-Cheat Leaderboards | Fahad Ibrahim</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Deep-dive case study: BugSmasher — accessible arcade game with server-authoritative anti-cheat leaderboards. React 19, TypeScript, Firebase. 678 tests." />
+<meta name="description" content="Deep-dive case study: BugSmasher — accessible arcade game with server-authoritative anti-cheat leaderboards. React 19, TypeScript, Firebase. Tests and CI tracked in repo STATUS.md." />
 <meta name="theme-color" content="#09090b" />
 <!-- Open Graph -->
 <meta property="og:url" content="https://fahadibrahim93.github.io/case-study-bugsmasher.html" />
-<meta property="og:description" content="How I built a replay-proof, server-authoritative leaderboard and a 678-test verification baseline for a browser arcade game." />
+<meta property="og:description" content="How I built a replay-proof, server-authoritative leaderboard for a browser arcade game. Verification is tracked in the repo STATUS.md ledger — not certified as of the last snapshot." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:description" content="Accessible arcade game with replay-proof leaderboard. React 19, TypeScript, Canvas 2D, Firebase. 678 tests, 79% coverage." />
-<!-- JSON-LD -->
-{
-  "@type": "Article",
-  "author": { "@type": "Person", "name": "Fahad Ibrahim" },
-  "about": { "@type": "SoftwareApplication", "name": "BugSmasher", "applicationCategory": "Game" }
-</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="twitter:description" content="Accessible arcade game with replay-proof leaderboard. React 19, TypeScript, Canvas 2D, Firebase. Tests and CI tracked in repo STATUS.md." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" rel="stylesheet">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
     --bg: #09090b;
     --surface: #0f0f12;
     --card: #141418;
@@ -113,7 +109,7 @@
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   "name": "BugSmasher",
-  "description": "Accessible arcade game with server-authoritative anti-cheat leaderboards. React 19, TypeScript, Canvas 2D, Firebase. 678 tests.",
+  "description": "Accessible arcade game with server-authoritative anti-cheat leaderboards. React 19, TypeScript, Canvas 2D, Firebase. Tests and CI tracked in repo STATUS.md.",
   "keywords": "React game, Canvas 2D, Firebase, anti-cheat, PWA",
   "author": {
     "@type": "Person",
@@ -139,7 +135,7 @@
 
 <div class="hero">
   <div class="kicker">Case Study · v2.5.0 · MIT</div>
-  <h1>BugSmasher — an accessible arcade game with a replay-proof leaderboard and 678 tests</h1>
+  <h1>BugSmasher — an accessible arcade game with a replay-proof leaderboard</h1>
   <div style="margin-top: 32px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border);">
     <picture>
       <source srcset="/images/case-studies/bugsmasher-400.webp 400w, /images/case-studies/bugsmasher-800.webp 800w" type="image/webp" media="(min-width: 800px)" />
@@ -159,14 +155,13 @@
   </div>
 </div>
 
-<div class="screenshots">    <img src="/images/case-studies/bugsmasher-mockup.png" alt="bugsmasher case study screenshot" loading="lazy" width="1200" height="800" style="width:100%;height:auto;display:block;border-radius:8px;margin-bottom:12px;" />    <p style="font-size:12px;color:var(--muted);text-align:center;">Screenshot — full walkthrough available on request</p>  </div>
 <main>
 
   <div class="metrics">
-    <div class="metric"><div class="val">678</div><div class="lbl">Tests Passing</div></div>
-    <div class="metric"><div class="val">79%</div><div class="lbl">Line Coverage</div></div>
-    <div class="metric"><div class="val">0</div><div class="lbl">ESLint Errors</div></div>
-    <div class="metric"><div class="val">5/5</div><div class="lbl">Playwright E2E</div></div>
+    <div class="metric"><div class="val">CI</div><div class="lbl">Tracked in STATUS.md</div></div>
+    <div class="metric"><div class="val">~79%</div><div class="lbl">Coverage snapshot</div></div>
+    <div class="metric"><div class="val">FAIL</div><div class="lbl">Emulator (1 test)</div></div>
+    <div class="metric"><div class="val">NOT</div><div class="lbl">Certified 10/10</div></div>
   </div>
 
   <div class="callout">
@@ -181,7 +176,7 @@
 
   <div class="callout">
     <div class="t">⚡ Key Decisions</div>
-    <p><b>Server-authoritative leaderboards:</b> Client never writes scores directly — all competitive writes go through Firebase callable paths with one-time session tokens. <b>Quality gates in CI:</b> 678 tests run on every commit via npm run ci. <b>Accessibility as gameplay:</b> Keyboard-first, reduced-motion, colorblind modes built-in. <b>Offline-first PWA:</b> Cloud sync via Firebase, works without network.</p>
+    <p><b>Server-authoritative leaderboards:</b> Client never writes scores directly — all competitive writes go through Firebase callable paths with one-time session tokens. <b>Quality gates in CI:</b> tests and coverage are tracked in repo <span style="font-family:'JetBrains Mono',monospace">docs/STATUS.md</span> — the project is not currently certified. <b>Accessibility as gameplay:</b> Keyboard-first, reduced-motion, colorblind modes built-in. <b>Offline-first PWA:</b> Cloud sync via Firebase, works without network.</p>
   </div>
 
   <section>
@@ -211,20 +206,20 @@
 
   <section>
     <h2><span class="num">03</span> A verification baseline you can audit</h2>
-    <p class="lead">Quality is enforced through layered gates that run in CI, not by vibes. The latest repository-reported verification:</p>
+    <p class="lead">Quality is enforced through layered gates in CI, not by vibes. The numbers below are the last documented snapshot in <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory/blob/main/docs/STATUS.md" target="_blank" rel="noopener">docs/STATUS.md</a> (2026-08-26 / 2026-08-29) — not a live certification.</p>
     <table>
       <tr><th>Signal</th><th>Result</th></tr>
-      <tr><td>Frontend tests</td><td class="mono">646 passing (Vitest)</td></tr>
-      <tr><td>Firebase tests</td><td class="mono">26 emulator/integration + 6 Functions schema</td></tr>
-      <tr><td>Line coverage</td><td class="mono">79.17%</td></tr>
-      <tr><td>Statement coverage</td><td class="mono">78.12%</td></tr>
-      <tr><td>Function coverage</td><td class="mono">84.57%</td></tr>
-      <tr><td>Branch coverage</td><td class="mono">66.02%</td></tr>
-      <tr><td>ESLint</td><td class="mono">0 errors</td></tr>
-      <tr><td>Playwright E2E</td><td class="mono">5/5 specs passing</td></tr>
-      <tr><td>Production build</td><td class="mono">Passing</td></tr>
+      <tr><td>Certification</td><td class="mono">NOT CERTIFIED 10/10</td></tr>
+      <tr><td>TypeScript</td><td class="mono">PASS</td></tr>
+      <tr><td>ESLint</td><td class="mono">PASS with 908 warnings</td></tr>
+      <tr><td>Functions build</td><td class="mono">PASS</td></tr>
+      <tr><td>Frontend tests</td><td class="mono">651/651 PASS (snapshot)</td></tr>
+      <tr><td>Coverage</td><td class="mono">~79% lines / ~78% statements</td></tr>
+      <tr><td>Firebase emulator</td><td class="mono">FAIL: 1 of 26 tests</td></tr>
+      <tr><td>Production build</td><td class="mono">Skipped after emulator failure</td></tr>
+      <tr><td>Playwright E2E</td><td class="mono">Skipped after quality failure</td></tr>
     </table>
-    <p class="dim">Total: 678 tests (646 Vitest + 32 Firebase). Quality gates run via <span style="font-family:'JetBrains Mono',monospace;color:var(--accent)">npm run ci</span>: typecheck, lint, coverage, emulator, and E2E.</p>
+    <p class="dim">Do not treat older “678 tests passing / 5/5 Playwright” figures as current. Fresh counts live in the repo ledger. Gates run via <span style="font-family:'JetBrains Mono',monospace;color:var(--accent)">npm run ci</span> when CI is green.</p>
   </section>
 
   <section>

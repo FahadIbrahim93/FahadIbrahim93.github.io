@@ -10,7 +10,7 @@ I shipped an arcade game with a leaderboard — then realized I'd built a cheati
 
 Any client-side score can be forged with devtools. So I redesigned it: scores are never written by the client. The server issues one-time session tokens that expire and are consumed atomically. Replaying a captured submission does nothing.
 
-Then I wrote tests for the attacks: token replay, expiry, cross-user use, score plausibility. 678 tests total, run on every commit.
+Then I wrote tests for the attacks: token replay, expiry, cross-user use, score plausibility. Current counts live in the repo STATUS.md ledger — I do not treat an older 678 figure as a live certified fact.
 
 The lesson generalizes beyond games: **treat any user-writable value as a security surface.**
 
@@ -23,7 +23,7 @@ Full architecture breakdown in the comments. 👇
 
 My best product decision was refusing to build an app.
 
-JG Mart delivers groceries to 1,700 families in Japan Garden City, Dhaka. The obvious move was an app. The right move was realizing nobody wanted one — they already live in WhatsApp.
+JG Mart is a grocery PWA sized for a 1,700-family complex in Japan Garden City, Dhaka — that number is the pilot catchment, not proven usage. The obvious move was an app. The right move was realizing nobody wanted one — they already live in WhatsApp.
 
 So: ordering happens natively in WhatsApp. A lightweight PWA handles the catalog and works offline after first load (Dhaka networks demand it). Zero download friction. Zero app-store gatekeeping.
 

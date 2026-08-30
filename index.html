@@ -198,8 +198,9 @@
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
     padding: calc(var(--nav-h) + 64px) 24px 80px;
-    position: relative; overflow: hidden;
+    position: relative; overflow: hidden; overflow-x: hidden;
   }
+  .hero-content { position: relative; z-index: 1; overflow-x: hidden; }
 
   /* Hero depth layers — parallax-ready */
   /* ================================================================
@@ -261,13 +262,16 @@
     50% { background-position: 100% 50%; }
   }
 
-  /* Hero entrance — staggered, refined */
-  html.js .hero-content > * {
+  /* Hero entrance — staggered, refined. Never hide the name (parent h1). */
+  html.js .hero-content > *:not(h1) {
     opacity: 0;
     animation: hero-in 1.1s cubic-bezier(.16,1,.3,1) forwards;
   }
+  html.js .hero-content > h1 {
+    opacity: 1;
+    visibility: visible;
+  }
   html.js .hero-content > *:nth-child(1) { animation-delay: .15s; }
-  html.js .hero-content > *:nth-child(2) { animation-delay: .30s; }
   html.js .hero-content > *:nth-child(3) { animation-delay: .45s; }
   html.js .hero-content > *:nth-child(4) { animation-delay: .58s; }
   html.js .hero-content > *:nth-child(5) { animation-delay: .68s; }
@@ -448,14 +452,14 @@
   }
   .manifesto-text strong { color: var(--text); font-weight: 600; }
 
-  /* Stagger word reveal for manifesto headline */
-  .word-reveal {
+  /* Stagger word reveal for manifesto headline only — do not hide hero name */
+  .manifesto-headline .word-reveal {
     display: inline-block;
     opacity: 0;
     transform: translateY(18px);
     transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
   }
-  .word-reveal.visible {
+  .manifesto-headline .word-reveal.visible {
     opacity: 1;
     transform: none;
   }
@@ -958,7 +962,7 @@
      ================================================================ */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    html.js .hero-content > * { opacity: 1; animation: none; }
+    html.js .hero-content > * { opacity: 1; visibility: visible; animation: none; }
     .hero-badge .dot, .scroll-cue::after,
     .ticker-track, .grain { animation: none; }
     .hero h1 { animation: none; -webkit-text-fill-color: var(--text); }
@@ -1088,12 +1092,12 @@
         <div class="stat-label">Avg Ship Time</div>
       </div>
       <div class="stat">
-        <div class="stat-value" data-count="800" data-suffix="+">800+</div>
-        <div class="stat-label">Automated Tests</div>
+        <div class="stat-value" data-count="117" data-suffix="">117</div>
+        <div class="stat-label">RollON Tests</div>
       </div>
       <div class="stat">
-        <div class="stat-value" data-count="60" data-suffix="%">60%</div>
-        <div class="stat-label">Faster w/ AI</div>
+        <div class="stat-value" data-count="87" data-suffix="%">87%</div>
+        <div class="stat-label">RollON Coverage</div>
       </div>
     </div>
   </div>
@@ -1154,17 +1158,6 @@
   </div>
 </section>
 
-<!-- TESTIMONIAL — social proof, editorial quote -->
-<section class="section testimonial" id="testimonial">
-  <div class="testimonial-inner reveal">
-    <div class="section-title">Testimonial</div>
-    <blockquote class="testimonial-quote">
-      "Fahad doesn't just write code — he understands the business problem and builds the right thing. Our app went from concept to live in 2 weeks."
-    </blockquote>
-    <cite class="testimonial-author">— Operations Lead, JG Mart Pilot</cite>
-  </div>
-</section>
-
 <!-- PROJECTS -->
 <section class="section" id="work">
   <div class="section-title reveal">Selected Work</div>
@@ -1183,7 +1176,7 @@
       </div>
       <div class="project-body">
         <h3>🐞 BugSmasher</h3>
-        <p>Full-stack arcade clicker-defense game with auth, XP progression, 16 achievements, and real-time global leaderboards. Server-authoritative scoring with one-time session tokens. Offline-first PWA with cloud sync. 678 automated tests.</p>
+        <p>Full-stack arcade clicker-defense game with auth, XP progression, 16 achievements, and real-time global leaderboards. Server-authoritative scoring with one-time session tokens. Offline-first PWA with cloud sync. Tests and CI tracked in repo STATUS.md (not currently certified).</p>
         <div class="tech">
           <span class="tech-tag">React 19</span>
           <span class="tech-tag">TypeScript</span>
@@ -1235,7 +1228,7 @@
       </div>
       <div class="project-body">
         <h3>🛵 JG Mart</h3>
-        <p>Hyperlocal grocery delivery PWA for 1,700 families in Japan Garden City, Dhaka. WhatsApp-native ordering, bilingual (বাংলা/EN), 82 products across 10 categories, order tracking, and operator dispatch panel. Zero-framework, offline-cached.</p>
+        <p>Hyperlocal grocery delivery PWA built for a 1,700-family residential complex in Japan Garden City, Dhaka (pilot target, not proven usage). WhatsApp-native ordering, bilingual (বাংলা/EN), 82 products across 10 categories, order tracking, and operator dispatch panel. Zero-framework, offline-cached.</p>
         <div class="tech">
           <span class="tech-tag">Vanilla JS</span>
           <span class="tech-tag">PWA</span>
@@ -1262,13 +1255,13 @@
         <h3>🎮 Nix — Timeline Dodge</h3>
         <p>Single-file viral mini-game in vanilla HTML/JS and Canvas — zero dependencies, MIT licensed. Dodge the timeline, collect hearts, evolve Nix. WebAudio synth SFX, shareable scores, PWA-ready. Built for social virality and short skill sessions.</p>
         <div class="tech">
-          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">Vanilla HTML</span>
           <span class="tech-tag">Canvas 2D</span>
           <span class="tech-tag">WebAudio</span>
           <span class="tech-tag">0 deps</span>
         </div>
         <div class="links">
-          <a href="https://fahadibrahim93.github.io/viral-pet-nix" target="_blank" rel="noopener" class="live-link">→ Play Now</a>
+          <a href="https://viral-pet-nix.vercel.app" target="_blank" rel="noopener" class="live-link">→ Play Now</a>
           <a href="https://github.com/FahadIbrahim93/viral-pet-nix" target="_blank" rel="noopener">→ GitHub</a>
         </div>
       </div>
@@ -1302,10 +1295,10 @@
           <p class="case-intro">
             BugSmasher ships auth, XP progression, 16 achievements, and real-time global leaderboards.
             One-time session tokens prevent score tampering. Offline-first PWA with cloud sync.
-            678 automated tests, deployed in 2 weeks.
+            Tests and CI are tracked in repo STATUS.md — not currently certified. Shipped in 2 weeks.
           </p>
           <div class="case-metrics-inline">
-            <div class="case-metric"><div class="val">678</div><div class="lbl">Tests</div></div>
+            <div class="case-metric"><div class="val">CI</div><div class="lbl">STATUS.md</div></div>
             <div class="case-metric"><div class="val">2 wks</div><div class="lbl">Ship Time</div></div>
             <div class="case-metric"><div class="val">16</div><div class="lbl">Achievements</div></div>
             <div class="case-metric"><div class="val">RT</div><div class="lbl">Leaderboards</div></div>
@@ -1343,13 +1336,13 @@
     <div class="case-panel" data-case="jgmart" role="tabpanel">
       <div class="case-banner">
         <div class="case-story">
-          <h3>Grocery delivery for 1,700 families — without the app friction.</h3>
+          <h3>Grocery delivery for a 1,700-family complex — without the app friction.</h3>
           <p class="case-intro">
             Japan Garden City, Dhaka: 27 buildings, 4 clusters, one Krishi Market 800m away.
-            WhatsApp-native PWA with 51% margin model, cluster-based routing, and operator dispatch.
+            WhatsApp-native PWA sized for that complex as the pilot target. 51% margin model, cluster-based routing, and operator dispatch.
           </p>
           <div class="case-metrics-inline">
-            <div class="case-metric"><div class="val">1,700</div><div class="lbl">Families</div></div>
+            <div class="case-metric"><div class="val">1,700</div><div class="lbl">Complex size</div></div>
             <div class="case-metric"><div class="val">82</div><div class="lbl">Products</div></div>
             <div class="case-metric"><div class="val">51%</div><div class="lbl">Margin</div></div>
             <div class="case-metric"><div class="val">250K</div><div class="lbl">BDT Ask</div></div>
@@ -1480,9 +1473,9 @@
       <div class="date">2024 – Present</div>
     </div>
     <ul>
-      <li>Built BugSmasher (React 19 + TypeScript + Firebase) — arcade game with auth, XP system, and server-authoritative real-time leaderboards. 678 automated tests, deployed in 2 weeks.</li>
+      <li>Built BugSmasher (React 19 + TypeScript + Firebase) — arcade game with auth, XP system, and server-authoritative real-time leaderboards. Tests and CI tracked in repo STATUS.md; shipped in 2 weeks.</li>
       <li>Developed RollON (React 19 + TypeScript + Tailwind) — e-commerce platform with cart, variants, checkout, and admin dashboard. 117 tests, 87% coverage, WCAG 2.1 AA compliant.</li>
-      <li>Shipped JG Mart — hyperlocal grocery PWA serving a 1,700-family residential complex with WhatsApp-native ordering.</li>
+      <li>Shipped JG Mart — hyperlocal grocery PWA built for a 1,700-family residential complex (pilot target) with WhatsApp-native ordering.</li>
       <li>Integrated AI agents into the development workflow, cutting shipping time by ~60% while maintaining quality gates (lint → test → build → deploy).</li>
     </ul>
   </div>
@@ -1590,6 +1583,18 @@
 <script>
   // Mark JS availability so reveal animations degrade gracefully without it
   document.documentElement.classList.add('js');
+
+  // Fail-open: if GSAP never clears the parent h1, force the name visible
+  setTimeout(function () {
+    var h1 = document.querySelector('.hero h1');
+    if (!h1) return;
+    h1.style.opacity = '1';
+    h1.style.visibility = 'visible';
+    h1.querySelectorAll('.word-reveal').forEach(function (w) {
+      w.style.opacity = '1';
+      w.style.visibility = 'visible';
+    });
+  }, 1500);
 
   // Loader curtain — dismiss immediately on load, max 2.5s safety
   (function () {

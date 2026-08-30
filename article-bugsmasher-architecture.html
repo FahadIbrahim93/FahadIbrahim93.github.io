@@ -4,8 +4,8 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Architecting BugSmasher: Zero-Dependency React Game Engines & 678 Automated Tests — Fahad Ibrahim</title>
-<meta name="description" content="A deep dive into building BugSmasher—a production-grade React game engine with 678 tests, custom canvas rendering, and zero runtime bloat." />
+<title>Architecting BugSmasher: A React + Canvas Game Engine Without External Libraries — Fahad Ibrahim</title>
+<meta name="description" content="A deep dive into building BugSmasher—a React + Canvas game engine without external libraries. Tests and CI are tracked in repo STATUS.md, not claimed as a live certified count." />
 <link rel="canonical" href="https://fahadibrahim93.github.io/article-bugsmasher-architecture.html" />
 <meta name="theme-color" content="#09090b" />
 <!-- Fonts -->
@@ -174,8 +174,8 @@
 {
   "@context": "https://schema.org",
   "@type": "TechArticle",
-  "headline": "Architecting BugSmasher: Zero-Dependency React Game Engines & 678 Automated Tests",
-  "description": "A deep dive into building BugSmasher\u2014a production-grade React game engine with 678 tests, custom canvas rendering, and zero runtime bloat.",
+  "headline": "Architecting BugSmasher: A React + Canvas Game Engine Without External Libraries",
+  "description": "A deep dive into building BugSmasher\u2014a React + Canvas game engine without external libraries. Tests and CI tracked in repo STATUS.md.",
   "keywords": "React, TypeScript, Canvas 2D, Firebase, game architecture, testing",
   "author": {
     "@type": "Person",
@@ -222,16 +222,16 @@
     <span>8 min read</span>
   </div>
 
-  <h1>Architecting BugSmasher: Zero-Dependency React Game Engines & 678 Automated Tests</h1>
+  <h1>Architecting BugSmasher: A React + Canvas Game Engine Without External Libraries</h1>
   
-  <p class="lead">How we built a high-performance React game engine with 646 Vitest units, 32 Firebase E2E simulations, custom canvas state management, and 60fps rendering without external game libraries.</p>
+  <p class="lead">How we built a high-performance React game engine with custom canvas state management and 60fps rendering without external game libraries. Verification lives in the repo STATUS.md ledger — not as a frozen “678 passing” headline.</p>
 
   <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
 
   <h2>The Challenge: React vs. Game Loops</h2>
   <p>React is fundamentally built for declarative UI rendering, state diffing, and component trees. Game loops require deterministic requestAnimationFrame ticks, mutable transform matrices, and low-latency physics calculations. Reconciling these two paradigms usually results in either heavy abstraction layers or janky frame drops.</p>
   
-  <p>When we set out to build <strong>BugSmasher</strong> under Hope Theory, the constraint was absolute: deliver a buttery 60fps arcade experience inside a modern web app while maintaining 100% test coverage and robust backend persistence.</p>
+  <p>When we set out to build <strong>BugSmasher</strong> under Hope Theory, the constraint was absolute: deliver a buttery 60fps arcade experience inside a modern web app with a serious verification baseline and robust backend persistence — without claiming coverage we had not certified.</p>
 
   <h2>Architecture & State Management</h2>
   <p>Instead of relying on heavy third-party game frameworks like Phaser or Pixi.js which bloat bundle sizes and complicate React state synchronization, we architected a bespoke rendering pipeline:</p>
@@ -262,12 +262,12 @@ class GameEngine {
   }
 }</code></pre>
 
-  <h2>Testing Strategy: 678 Automated Suites</h2>
-  <p>Quality in game development is notoriously difficult to guarantee without manual QA. We solved this by treating game mechanics as pure deterministic functions that can be tested in headless Node environments.</p>
+  <h2>Testing Strategy: Tracked in STATUS.md, Not Certified</h2>
+  <p>Quality in game development is notoriously difficult to guarantee without manual QA. We treat game mechanics as pure deterministic functions that can be tested in headless Node environments. Current pass/fail counts are the repo ledger’s job — see <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory/blob/main/docs/STATUS.md" target="_blank" rel="noopener">docs/STATUS.md</a>.</p>
 
   <blockquote>"If your game logic is tightly coupled to DOM elements or requestAnimationFrame, your tests will be brittle. Decouple physics from rendering, and you can test 10,000 game ticks in under 2 seconds."</blockquote>
 
-  <p>Our test suite comprises <strong>646 Vitest unit tests</strong> covering collision detection matrices, score multipliers, state transitions, and audio trigger queues, alongside <strong>32 Firebase integration tests</strong> verifying multiplayer state synchronization and leaderboard commits.</p>
+  <p>The last documented snapshot (2026-08-26) recorded 651/651 frontend tests passing, ~79% line coverage, Firebase emulator failing 1 of 26 tests, Playwright skipped, and certification <strong>NOT CERTIFIED 10/10</strong>. Older “678 tests / 5/5 Playwright” figures are stale and are not current facts.</p>
 
   <h2>Key Takeaways & Lessons Learned</h2>
   <ol>

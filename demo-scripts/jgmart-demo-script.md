@@ -4,7 +4,7 @@
 **Target**: Recruiters, product managers, startup founders
 
 ## Opening (0:00-0:15)
-"Hi, I'm Fahad Ibrahim. This is JG Mart — a hyperlocal grocery delivery PWA for Japan Garden City, Dhaka. It serves 1,700 families across 27 buildings with WhatsApp-native ordering and zero cloud lock-in."
+"Hi, I'm Fahad Ibrahim. This is JG Mart — a hyperlocal grocery delivery PWA for Japan Garden City, Dhaka. It's built for a 1,700-family residential complex as the pilot target — 27 buildings — with WhatsApp-native ordering and zero cloud lock-in."
 
 ## Show: User Flow (0:15-0:45)
 - Open app on mobile

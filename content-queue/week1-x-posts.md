@@ -10,7 +10,7 @@ Building a browser game leaderboard taught me this: if the client can write the 
 
 So BugSmasher's client never writes scores. Server-issued one-time tokens, consumed atomically, replay-proof by design.
 
-678 tests including the attack paths. Details: https://fahadibrahim93.github.io/case-study-bugsmasher.html
+Attack-path tests live in the repo; current counts are in STATUS.md, not a frozen 678. Details: https://fahadibrahim93.github.io/case-study-bugsmasher.html
 
 ---
 
@@ -28,7 +28,7 @@ RollON takes the opposite bet: one TypeScript config file IS the brand. Change i
 ## Post 3 — Wednesday (hook: constraint as feature)
 **Voice: storytelling, community**
 
-1,700 families. 27 buildings. One grocery market 800m away.
+A 1,700-family complex (pilot target). 27 buildings. One grocery market 800m away.
 
 The insight for JG Mart wasn't an app — it was that nobody wanted to download one. So ordering happens in WhatsApp, the PWA works offline after first load, and there's zero app-store friction.
 
@@ -41,7 +41,7 @@ Case study: https://fahadibrahim93.github.io/case-study-jgmart.html
 
 "Testing slows you down" is what people say before their third weekend of manual regression.
 
-BugSmasher runs 678 tests on every commit. Shipping speed went UP, not down — because confidence compounds. You stop being afraid of your own codebase.
+BugSmasher’s tests and CI are tracked in the repo STATUS.md ledger — not a live “678 passing” claim. Shipping speed still went UP when the gates were honest, because confidence compounds. You stop being afraid of your own codebase.
 
 ---
 

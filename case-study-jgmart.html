@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>JG Mart Case Study — Offline-First Grocery PWA for 1,700 Families | Fahad Ibrahim</title>
+<title>JG Mart Case Study — Offline-First Grocery PWA | Fahad Ibrahim</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Case study: JG Mart — hyperlocal grocery PWA serving 1,700 families in Dhaka. WhatsApp-native ordering, Supabase backend, offline-first architecture." />
+<meta name="description" content="Case study: JG Mart — hyperlocal grocery PWA built for a 1,700-family residential complex in Dhaka (pilot target). WhatsApp-native ordering, Supabase backend, offline-first architecture." />
 <meta name="theme-color" content="#09090b" />
 <!-- Open Graph -->
 <meta property="og:url" content="https://fahadibrahim93.github.io/case-study-jgmart.html" />
 <meta property="og:description" content="How I built a WhatsApp-native grocery delivery PWA for Japan Garden City, Dhaka — 27 buildings, 4 clusters, 82 products, zero app friction." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:description" content="Hyperlocal grocery delivery PWA serving 1,700 families. WhatsApp-native ordering, Supabase, 51% margin model." />
-<!-- JSON-LD -->
-{
-  "@type": "Article",
-  "author": { "@type": "Person", "name": "Fahad Ibrahim" },
-  "about": { "@type": "SoftwareApplication", "name": "JG Mart", "applicationCategory": "Shopping" }
-</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="twitter:description" content="Hyperlocal grocery delivery PWA sized for a 1,700-family complex (pilot target). WhatsApp-native ordering, Supabase, 51% margin model." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" rel="stylesheet">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
     --bg: #09090b;
     --surface: #0f0f12;
     --card: #141418;
@@ -113,7 +109,7 @@
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   "name": "JG Mart",
-  "description": "Hyperlocal grocery delivery PWA serving 1,700 families in Dhaka. WhatsApp-native ordering, offline-first architecture.",
+  "description": "Hyperlocal grocery delivery PWA built for a 1,700-family residential complex in Dhaka (pilot target). WhatsApp-native ordering, offline-first architecture.",
   "keywords": "PWA, WhatsApp API, Supabase, hyperlocal delivery",
   "author": {
     "@type": "Person",
@@ -139,7 +135,7 @@
 
 <div class="hero">
   <div class="kicker">Case Study · v1.0 · MIT</div>
-  <h1>JG Mart — hyperlocal grocery delivery PWA for 1,700 families</h1>
+  <h1>JG Mart — hyperlocal grocery delivery PWA for a 1,700-family complex</h1>
   <div style="margin-top: 32px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border);">
     <picture>
       <source srcset="/images/case-studies/jgmart-400.webp 400w, /images/case-studies/jgmart-800.webp 800w" type="image/webp" media="(min-width: 800px)" />
@@ -158,11 +154,10 @@
   </div>
 </div>
 
-<div class="screenshots">    <img src="/images/case-studies/jgmart-mockup.png" alt="jgmart case study screenshot" loading="lazy" width="1200" height="800" style="width:100%;height:auto;display:block;border-radius:8px;margin-bottom:12px;" />    <p style="font-size:12px;color:var(--muted);text-align:center;">Screenshot — full walkthrough available on request</p>  </div>
 <main>
 
   <div class="metrics">
-    <div class="metric"><div class="val">1,700</div><div class="lbl">Families</div></div>
+    <div class="metric"><div class="val">1,700</div><div class="lbl">Complex size</div></div>
     <div class="metric"><div class="val">27</div><div class="lbl">Buildings</div></div>
     <div class="metric"><div class="val">4</div><div class="lbl">Clusters</div></div>
     <div class="metric"><div class="val">51%</div><div class="lbl">Margin</div></div>
@@ -185,7 +180,7 @@
 
   <section>
     <h2><span class="num">01</span> The challenge</h2>
-    <p class="lead">Japan Garden City, Dhaka: 1,700 families across 27 buildings, 4 clusters. One Krishi Market 800m away. Residents needed same-day groceries without app-store friction or middleman markups.</p>
+    <p class="lead">Japan Garden City, Dhaka: a 1,700-family residential complex across 27 buildings, 4 clusters — the intended pilot catchment, not a proven usage count. One Krishi Market 800m away. Residents needed same-day groceries without app-store friction or middleman markups.</p>
     <p>The existing solution was a WhatsApp group with manual order taking — error-prone, unscalable, and impossible to track. The challenge wasn't building an app; it was building a system that families would actually use without downloading anything.</p>
   </section>
 
@@ -277,7 +272,7 @@
     </ul>
     <div class="callout warn">
       <div class="t">Honest scope</div>
-      <p>This is a pre-seed pilot, not a Series A platform. The architecture is solid, the model is proven at 1,700 families, and the tech is ready to scale. What's missing is the capital and operational infrastructure for city-wide deployment.</p>
+      <p>This is a pre-seed pilot, not a Series A platform. The architecture is sized for a 1,700-family complex as the pilot target. What's missing is the capital and operational infrastructure for city-wide deployment — and third-party proof of live household usage is not claimed here.</p>
     </div>
   </section>
 

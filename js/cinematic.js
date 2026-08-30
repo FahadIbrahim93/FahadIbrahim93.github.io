@@ -86,20 +86,36 @@
    * Creates a cinematic "opening scene" — not just static content.
    * ================================================================ */
   var heroContent = document.querySelector('.hero-content');
+  var heroH1 = document.querySelector('.hero h1');
+
+  function forceHeroNameVisible() {
+    if (!heroH1) return;
+    heroH1.style.opacity = '1';
+    heroH1.style.visibility = 'visible';
+    gsap.set(heroH1, { autoAlpha: 1, y: 0, visibility: 'visible', opacity: 1 });
+    var nameWords = heroH1.querySelectorAll('.word-reveal');
+    if (nameWords.length) gsap.set(nameWords, { autoAlpha: 1, y: 0, opacity: 1, visibility: 'visible' });
+  }
+  setTimeout(forceHeroNameVisible, 1500);
+
+  if (heroH1) {
+    gsap.set(heroH1, { autoAlpha: 1, y: 0, visibility: 'visible', opacity: 1 });
+  }
+
   if (heroContent && !reduced) {
-    // Set all hero children to invisible, then choreograph their entrance
-    var heroChildren = heroContent.children;
-    gsap.set(heroChildren, { autoAlpha: 0, y: 30 });
+    var badge = heroContent.querySelector('.hero-badge');
+    var tagline = heroContent.querySelector('.tagline');
+    var cta = heroContent.querySelector('.hero-cta');
+    var stats = heroContent.querySelector('.hero-stats');
+    var hideable = [badge, tagline, cta, stats].filter(Boolean);
+    gsap.set(hideable, { autoAlpha: 0, y: 30 });
 
     var tl = gsap.timeline({ delay: 0.4 });
 
-    // 1. Badge fades in (first)
-    tl.to(heroChildren[0], {
-      autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out',
-    }, 0);
+    if (badge) {
+      tl.to(badge, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0);
+    }
 
-    // 2. H1 word-by-word reveal
-    var heroH1 = document.querySelector('.hero h1');
     if (heroH1) {
       var text = heroH1.textContent.trim();
       heroH1.innerHTML = '';
@@ -117,28 +133,24 @@
         }
       });
 
-      // Words start at their final position (no flash of hidden content)
-      gsap.set('.word-reveal', { autoAlpha: 1, y: 0 });
-
-      tl.to('.word-reveal', {
+      gsap.set(heroH1, { autoAlpha: 1, y: 0, visibility: 'visible', opacity: 1 });
+      var nameSpans = heroH1.querySelectorAll('.word-reveal');
+      tl.fromTo(nameSpans, { y: 18, opacity: 0 }, {
         y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power3.out',
       }, 0.25);
     }
 
-    // 3. Tagline fades up
-    tl.to(heroChildren[2], {
-      autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out',
-    }, 0.6);
-
-    // 4. CTAs slide in
-    tl.to(heroChildren[3], {
-      autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out',
-    }, 0.75);
-
-    // 5. Stats fade up last
-    tl.to(heroChildren[4], {
-      autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out',
-    }, 0.9);
+    if (tagline) {
+      tl.to(tagline, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.6);
+    }
+    if (cta) {
+      tl.to(cta, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.75);
+    }
+    if (stats) {
+      tl.to(stats, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.9);
+    }
+  } else {
+    forceHeroNameVisible();
   }
 
   /* ================================================================
@@ -529,13 +541,56 @@
     }
 
     // Hero content fades and lifts
-    var heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-      gsap.to(heroContent, {
+    var heroContentFade = document.querySelector('.hero-content');
+    if (heroContentFade) {
+      gsap.to(heroContentFade, {
         y: -60, opacity: 0, ease: 'none',
         scrollTrigger: { trigger: '.hero', start: '30% top', end: 'bottom top', scrub: 1 }
       });
     }
+  }
+
+  /* ================================================================
+   * FAIL-OPEN: deep links (#work, #contact) must not land on a blank viewport.
+   * Reveal any entrance tween whose trigger is already on screen.
+   * ================================================================ */
+  function revealViewportNow() {
+    if (!window.ScrollTrigger) return;
+    window.ScrollTrigger.refresh();
+    window.ScrollTrigger.getAll().forEach(function (st) {
+      if (!st.animation) return;
+      if (st.vars && st.vars.scrub) return;
+      var el = st.trigger;
+      if (!el || !el.getBoundingClientRect) return;
+      var r = el.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) {
+        st.animation.progress(1);
+      }
+    });
+    document.querySelectorAll('.project-thumb img').forEach(function (img) {
+      var r = img.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) {
+        gsap.set(img, { clipPath: 'inset(0 0% 0 0)' });
+      }
+    });
+  }
+
+  function scheduleViewportReveal() {
+    requestAnimationFrame(function () {
+      revealViewportNow();
+      requestAnimationFrame(revealViewportNow);
+    });
+  }
+
+  scheduleViewportReveal();
+  window.addEventListener('load', scheduleViewportReveal);
+  window.addEventListener('hashchange', scheduleViewportReveal);
+  if (location.hash) {
+    var hashTarget = document.querySelector(location.hash);
+    if (hashTarget && window.__lenis) {
+      window.__lenis.scrollTo(hashTarget, { immediate: true, offset: -80 });
+    }
+    scheduleViewportReveal();
   }
 
 })();
