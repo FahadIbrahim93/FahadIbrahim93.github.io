@@ -5,7 +5,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Config-Driven E-Commerce at Scale: The RollON Architecture — Fahad Ibrahim</title>
-<meta name="description" content="How RollON achieves 95% test coverage, config-driven branding, and robust checkout flows in a reusable React/TypeScript e-commerce template." />
+<meta name="description" content="How RollON achieves 117 tests and 87% coverage, config-driven branding, and robust checkout flows in a reusable React/TypeScript e-commerce template." />
 <link rel="canonical" href="https://fahadibrahim93.github.io/article-rollon-ecommerce-architecture.html" />
 <meta name="theme-color" content="#09090b" />
 <!-- Fonts -->
@@ -188,7 +188,7 @@
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": "Config-Driven E-Commerce at Scale: The RollON Architecture",
-  "description": "How RollON maintains 117 automated tests with 95% coverage across unit and Playwright E2E suites using config-driven architecture.",
+  "description": "How RollON maintains 117 automated tests with 87% coverage across unit and Playwright E2E suites using config-driven architecture.",
   "keywords": "React, TypeScript, e-commerce, Zustand, Playwright, testing",
   "author": {
     "@type": "Person",
@@ -237,14 +237,14 @@
 
   <h1>Config-Driven E-Commerce at Scale: The RollON Architecture</h1>
   
-  <p class="lead">How RollON achieves 95% test coverage, config-driven branding, and robust checkout flows in a reusable React/TypeScript e-commerce template — without sacrificing flexibility or performance.</p>
+  <p class="lead">How RollON achieves 117 tests and 87% coverage, config-driven branding, and robust checkout flows in a reusable React/TypeScript e-commerce template — without sacrificing flexibility or performance.</p>
 
   <hr style="border:0; border-top:1px solid var(--border); margin: 40px 0;">
 
   <h2>The Problem: Every E-Commerce Project Starts From Scratch</h2>
   <p>E-commerce seems solved: product catalog, cart, checkout, admin dashboard. Yet every project rebuilds these primitives with slight variations. Brands want custom branding, products have variant matrices, checkout flows differ by region, and accessibility requirements vary by client.</p>
   
-  <p>RollON was built to solve this: a <strong>production-grade e-commerce template</strong> that's config-driven rather than hardcoded, so each deployment is a new configuration, not a new codebase. The result: ship a branded store in days, not months, while maintaining 95% test coverage and WCAG 2.1 AA compliance.</p>
+  <p>RollON was built to solve this: a <strong>production-grade e-commerce template</strong> that's config-driven rather than hardcoded, so each deployment is a new configuration, not a new codebase. The result: ship a branded store in days, not months, while maintaining 117 tests, 87% coverage, and WCAG 2.1 AA compliance.</p>
 
   <h2>Architecture: Configuration as Code</h2>
   <p>Instead of embedding business logic in components, RollON externalizes everything into typed configuration:</p>
@@ -279,8 +279,8 @@ export const catalog: ProductConfig[] = [
   },
 ];</code></pre>
 
-  <h2>Testing Strategy: 95% Coverage Without Test Debt</h2>
-  <p>RollON maintains <strong>117 automated tests</strong> with 95% coverage across unit and Playwright E2E suites. The key insight: test the config system, not the components.</p>
+  <h2>Testing Strategy: 117 Tests, 87% Coverage Without Test Debt</h2>
+  <p>RollON maintains <strong>117 automated tests</strong> with 87% coverage across unit and Playwright E2E suites (106 unit + 11 Playwright), matching the current repo README. The key insight: test the config system, not the components.</p>
 
   <blockquote>"If your e-commerce tests hardcode product names, they're testing the wrong thing. Test that the catalog renders any valid config, that the cart math works for any pricing rule, and that checkout rejects invalid states. Product-specific tests are configuration validation, not architecture tests."</blockquote>
 

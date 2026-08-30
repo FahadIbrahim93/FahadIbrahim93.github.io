@@ -112,14 +112,14 @@
       <div class="metric"><div class="val">2 wks</div><div class="lbl">Ship Time</div></div>
       <div class="metric"><div class="val">16</div><div class="lbl">Achievements</div></div>
       <div class="metric"><div class="val">100%</div><div class="lbl">PWA Offline</div></div>
-      <div class="metric"><div class="val">678</div><div class="lbl">Tests</div></div>
+      <div class="metric"><div class="val">CI</div><div class="lbl">STATUS.md</div></div>
     </div>
-    <p>Built a production-ready arcade game with auth, XP progression, achievements, and global leaderboards. Offline-first PWA with cloud sync via Firebase.</p>
+    <p>Built a production-ready arcade game with auth, XP progression, achievements, and global leaderboards. Offline-first PWA with cloud sync via Firebase. Tests and CI are tracked in repo STATUS.md — not currently certified.</p>
     <ul>
       <li>Firebase auth with callable write paths and schema validation</li>
       <li>Server-authoritative leaderboards: one-time session tokens, replay-proof score submission</li>
-      <li>646 Vitest + 32 Firebase emulator/integration tests, 79% line coverage</li>
-      <li>Quality gates: lint, tests, production build — CI-ready</li>
+      <li>Last STATUS.md snapshot: ~79% coverage, frontend tests passing, emulator failing, Playwright skipped</li>
+      <li>Quality gates exist in CI; do not treat older 678 / 5/5 Playwright figures as current</li>
     </ul>
     <div class="links">
       <a href="/article-bugsmasher-architecture.html">Read Technical Deep Dive</a>
@@ -197,14 +197,14 @@
       <div class="metric"><div class="val">2</div><div class="lbl">Live Hosts</div></div>
       <div class="metric"><div class="val">PWA</div><div class="lbl">Ready</div></div>
     </div>
-    <p>Single-file viral mini-game: dodge the timeline, collect hearts, evolve Nix. Built as a constraint experiment — one HTML file, zero dependencies, instant load, shareable scores.</p>
+    <p>Vanilla single-file HTML/JS mini-game — not React. Dodge the timeline, collect hearts, evolve Nix. One HTML file, zero dependencies, instant load, shareable scores. Live at viral-pet-nix.vercel.app.</p>
     <ul>
       <li>Canvas 2D render loop with WebAudio synthesized SFX</li>
       <li>Optimized for social sharing and short skill sessions</li>
       <li>Deployed on both GitHub Pages and Vercel</li>
     </ul>
     <div class="links">
-      <a href="https://fahadibrahim93.github.io/viral-pet-nix" target="_blank" rel="noopener">Play Live</a>
+      <a href="https://viral-pet-nix.vercel.app" target="_blank" rel="noopener">Play Live</a>
       <a href="https://github.com/FahadIbrahim93/viral-pet-nix" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
@@ -256,12 +256,12 @@
       </picture>
     </div>
     <div class="metrics">
-      <div class="metric"><div class="val">1,700</div><div class="lbl">Families</div></div>
+      <div class="metric"><div class="val">1,700</div><div class="lbl">Complex size</div></div>
       <div class="metric"><div class="val">27</div><div class="lbl">Buildings</div></div>
       <div class="metric"><div class="val">4</div><div class="lbl">Clusters</div></div>
       <div class="metric"><div class="val">51%</div><div class="lbl">Margin</div></div>
     </div>
-    <p>Hyperlocal grocery delivery PWA for Japan Garden City, Dhaka. WhatsApp-native ordering, Supabase backend, 51% margin model, zero app friction.</p>
+    <p>Hyperlocal grocery delivery PWA for Japan Garden City, Dhaka. Sized for a 1,700-family residential complex as the pilot target — not a proven usage count. WhatsApp-native ordering, Supabase backend, 51% margin model, zero app friction.</p>
     <ul>
       <li>WhatsApp-first ordering removes app-store friction</li>
       <li>Cluster-based routing across 27 buildings, 4 clusters</li>

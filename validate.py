@@ -59,6 +59,14 @@ for f in html_files:
         if "alt=" not in img:
             failures.append(f"{f}: <img> missing alt: {img[:60]}")
 
+    # 6. JSON-LD / CSS must not leak as visible text
+    if re.search(r"<!-- JSON-LD -->\s*\{", c):
+        failures.append(f"{f}: JSON-LD dump without <script> wrapper")
+    if re.search(r"</noscript>\s+--[a-z-]+:", c):
+        failures.append(f"{f}: CSS variables leaked outside <style>")
+    if re.search(r"</script>\s*<link[^>]*>\s*<link[^>]*>\s*<link[^>]*>\s*<noscript>.*</noscript>\s+--", c, re.S):
+        failures.append(f"{f}: orphan </script> before leaked CSS")
+
 if failures:
     print(f"FAIL ({len(failures)} issues):")
     for x in failures:
