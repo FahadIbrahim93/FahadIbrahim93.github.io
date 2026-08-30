@@ -22,6 +22,78 @@
   // Global scroll progress for hero-scene.js to read (0..1 through hero)
   window.__scrollProgress = 0;
 
+  // Deep links: do not let the browser restore scrollY=0 over our hash jump
+  if (location.hash && 'scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  var hashUserScrolled = false;
+  function markHashUserScroll() { hashUserScrolled = true; }
+  window.addEventListener('wheel', markHashUserScroll, { passive: true, once: true });
+  window.addEventListener('touchmove', markHashUserScroll, { passive: true, once: true });
+  window.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'PageDown' || e.key === 'PageUp' || e.key === 'Home' || e.key === 'End' || e.key === ' ') {
+      hashUserScrolled = true;
+    }
+  }, { passive: true, once: true });
+
+  function hashTargetEl() {
+    var raw = location.hash;
+    if (!raw || raw === '#') return null;
+    try { return document.querySelector(raw); } catch (err) { return null; }
+  }
+
+  function hashScrollTop(target) {
+    var nav = document.querySelector('.nav');
+    var navH = nav ? nav.getBoundingClientRect().height : 64;
+    return Math.max(0, Math.round(window.scrollY + target.getBoundingClientRect().top - navH - 8));
+  }
+
+  function lenisScrollLimit() {
+    var l = window.__lenis;
+    if (!l) return 0;
+    if (typeof l.limit === 'number') return l.limit;
+    if (l.limit && typeof l.limit.y === 'number') return l.limit.y;
+    if (l.dimensions && l.dimensions.limit && typeof l.dimensions.limit.y === 'number') {
+      return l.dimensions.limit.y;
+    }
+    return 0;
+  }
+
+  function scrollToHash() {
+    var target = hashTargetEl();
+    if (!target) return false;
+    var top = hashScrollTop(target);
+    var lenis = window.__lenis;
+    if (lenis) {
+      if (typeof lenis.resize === 'function') lenis.resize();
+      if (lenisScrollLimit() > 0) {
+        lenis.scrollTo(top, { immediate: true, force: true });
+      } else {
+        window.scrollTo(0, top);
+      }
+    } else {
+      window.scrollTo(0, top);
+    }
+    // If Lenis clamped to 0 (stale limit) or native hash never ran, force it
+    if (window.scrollY < 16 && top > 80) {
+      window.scrollTo(0, top);
+      if (lenis && typeof lenis.scrollTo === 'function') {
+        lenis.scrollTo(top, { immediate: true, force: true });
+      }
+    }
+    return true;
+  }
+
+  function hashMissesViewport() {
+    var target = hashTargetEl();
+    if (!target) return false;
+    var nav = document.querySelector('.nav');
+    var navH = nav ? nav.getBoundingClientRect().height : 64;
+    var top = target.getBoundingClientRect().top;
+    return window.scrollY < 16 || top > navH + 160 || top < -40;
+  }
+
   /* ================================================================
    * 1. LENIS — smooth scroll
    * ================================================================ */
@@ -58,6 +130,7 @@
     });
 
     window.__lenis = lenis;
+    if (location.hash) scrollToHash();
   } else if (!reduced) {
     // Fallback: still track scroll progress without Lenis
     window.addEventListener('scroll', function () {
@@ -68,6 +141,34 @@
       }
     }, { passive: true });
   }
+
+  /* ================================================================
+   * 1b. HASH DEEP LINKS — run even if GSAP fails to load
+   * Lenis swallows the browser's initial hash jump (limit often 0
+   * before first layout). Re-apply on load and retry within ~1s.
+   * ================================================================ */
+  function applyHashScroll() {
+    if (!location.hash || location.hash === '#') return;
+    if (hashUserScrolled) return;
+    scrollToHash();
+  }
+
+  applyHashScroll();
+  requestAnimationFrame(function () {
+    applyHashScroll();
+    requestAnimationFrame(applyHashScroll);
+  });
+  window.addEventListener('load', applyHashScroll);
+  window.addEventListener('hashchange', function () {
+    hashUserScrolled = false;
+    scrollToHash();
+  });
+  [80, 200, 450, 800].forEach(function (ms) {
+    setTimeout(function () {
+      if (hashUserScrolled) return;
+      if (hashMissesViewport()) applyHashScroll();
+    }, ms);
+  });
 
   /* ================================================================
    * 2. GSAP + SCROLLTRIGGER SETUP
@@ -92,13 +193,25 @@
     if (!heroH1) return;
     heroH1.style.opacity = '1';
     heroH1.style.visibility = 'visible';
-    gsap.set(heroH1, { autoAlpha: 1, y: 0, visibility: 'visible', opacity: 1 });
+    heroH1.style.color = '#f4f4f5';
+    heroH1.style.webkitTextFillColor = '#f4f4f5';
+    heroH1.style.background = 'none';
+    heroH1.style.webkitBackgroundClip = 'border-box';
+    heroH1.style.backgroundClip = 'border-box';
+    if (window.gsap) {
+      gsap.set(heroH1, { autoAlpha: 1, y: 0, visibility: 'visible', opacity: 1 });
+    }
     var nameWords = heroH1.querySelectorAll('.word-reveal');
-    if (nameWords.length) gsap.set(nameWords, { autoAlpha: 1, y: 0, opacity: 1, visibility: 'visible' });
+    if (nameWords.length && window.gsap) {
+      gsap.set(nameWords, { autoAlpha: 1, y: 0, opacity: 1, visibility: 'visible' });
+    }
   }
   setTimeout(forceHeroNameVisible, 1500);
 
   if (heroH1) {
+    // Keep the two words as a single text node. Do not split into
+    // .word-reveal spans — parent background-clip + child transforms
+    // painted both glyphs on top of each other.
     gsap.set(heroH1, { autoAlpha: 1, y: 0, visibility: 'visible', opacity: 1 });
   }
 
@@ -117,27 +230,7 @@
     }
 
     if (heroH1) {
-      var text = heroH1.textContent.trim();
-      heroH1.innerHTML = '';
-      heroH1.setAttribute('aria-label', text);
-
-      var words = text.split(/\s+/);
-      words.forEach(function (word, i) {
-        var span = document.createElement('span');
-        span.className = 'word-reveal';
-        span.textContent = word;
-        span.style.display = 'inline-block';
-        heroH1.appendChild(span);
-        if (i < words.length - 1) {
-          heroH1.appendChild(document.createTextNode(' '));
-        }
-      });
-
       gsap.set(heroH1, { autoAlpha: 1, y: 0, visibility: 'visible', opacity: 1 });
-      var nameSpans = heroH1.querySelectorAll('.word-reveal');
-      tl.fromTo(nameSpans, { y: 18, opacity: 0 }, {
-        y: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power3.out',
-      }, 0.25);
     }
 
     if (tagline) {
@@ -582,15 +675,22 @@
     });
   }
 
-  scheduleViewportReveal();
-  window.addEventListener('load', scheduleViewportReveal);
-  window.addEventListener('hashchange', scheduleViewportReveal);
-  if (location.hash) {
-    var hashTarget = document.querySelector(location.hash);
-    if (hashTarget && window.__lenis) {
-      window.__lenis.scrollTo(hashTarget, { immediate: true, offset: -80 });
-    }
-    scheduleViewportReveal();
+  function applyHashThenReveal() {
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    applyHashScroll();
+    requestAnimationFrame(function () {
+      revealViewportNow();
+      applyHashScroll();
+      requestAnimationFrame(function () {
+        revealViewportNow();
+        applyHashScroll();
+      });
+    });
   }
+
+  scheduleViewportReveal();
+  window.addEventListener('load', applyHashThenReveal);
+  window.addEventListener('hashchange', applyHashThenReveal);
+  if (location.hash) applyHashThenReveal();
 
 })();
