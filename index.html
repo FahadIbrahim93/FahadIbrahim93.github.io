@@ -88,6 +88,7 @@
     --text: #f4f4f5;
     --text-secondary: #a1a1aa;
     --muted: #71717a;
+    --nav-h: 64px;
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -244,22 +245,17 @@
   }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-  /* H1 — editorial weight, refined gradient */
-  /* H1 — editorial display type, premium weight */
+  /* H1 — solid paint. Do not use background-clip:text on this node:
+     splitting the name into transformed spans made both words clip
+     onto the same gradient layer and overlap. */
   .hero h1 {
     font-family: 'Inter', sans-serif;
     font-size: clamp(48px, 8vw, 96px);
     font-weight: 700; line-height: 1.05; margin-bottom: 24px; letter-spacing: -1px;
-    background: linear-gradient(135deg, #f4f4f5 0%, #c8a97e 45%, #f4f4f5 100%);
-    background-size: 200% 200%;
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-pan 12s ease-in-out infinite;
-    filter: drop-shadow(0 0 1px rgba(0,0,0,0.35));
-  }
-  @keyframes gradient-pan {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+    color: var(--text);
+    -webkit-text-fill-color: var(--text);
+    background: none;
+    filter: none;
   }
 
   /* Hero entrance — staggered, refined. Never hide the name (parent h1). */
@@ -965,7 +961,7 @@
     html.js .hero-content > * { opacity: 1; visibility: visible; animation: none; }
     .hero-badge .dot, .scroll-cue::after,
     .ticker-track, .grain { animation: none; }
-    .hero h1 { animation: none; -webkit-text-fill-color: var(--text); }
+    .hero h1 { animation: none; color: var(--text); -webkit-text-fill-color: var(--text); }
     .hero-bg { opacity: 0.35; }
     .stat-label { animation: none; -webkit-text-fill-color: var(--muted); }
     .word-reveal { opacity: 1; transform: none; transition: none; }
@@ -1476,7 +1472,7 @@
       <li>Built BugSmasher (React 19 + TypeScript + Firebase) — arcade game with auth, XP system, and server-authoritative real-time leaderboards. Tests and CI tracked in repo STATUS.md; shipped in 2 weeks.</li>
       <li>Developed RollON (React 19 + TypeScript + Tailwind) — e-commerce platform with cart, variants, checkout, and admin dashboard. 117 tests, 87% coverage, WCAG 2.1 AA compliant.</li>
       <li>Shipped JG Mart — hyperlocal grocery PWA built for a 1,700-family residential complex (pilot target) with WhatsApp-native ordering.</li>
-      <li>Integrated AI agents into the development workflow, cutting shipping time by ~60% while maintaining quality gates (lint → test → build → deploy).</li>
+      <li>Integrated AI agents into the development workflow while maintaining quality gates (lint → test → build → deploy).</li>
     </ul>
   </div>
 
@@ -1584,15 +1580,22 @@
   // Mark JS availability so reveal animations degrade gracefully without it
   document.documentElement.classList.add('js');
 
-  // Fail-open: if GSAP never clears the parent h1, force the name visible
+  // Fail-open: force a readable painted name, not just opacity
   setTimeout(function () {
     var h1 = document.querySelector('.hero h1');
     if (!h1) return;
     h1.style.opacity = '1';
     h1.style.visibility = 'visible';
+    h1.style.color = '#f4f4f5';
+    h1.style.webkitTextFillColor = '#f4f4f5';
+    h1.style.background = 'none';
+    h1.style.webkitBackgroundClip = 'border-box';
+    h1.style.backgroundClip = 'border-box';
     h1.querySelectorAll('.word-reveal').forEach(function (w) {
       w.style.opacity = '1';
       w.style.visibility = 'visible';
+      w.style.color = '#f4f4f5';
+      w.style.webkitTextFillColor = '#f4f4f5';
     });
   }, 1500);
 
