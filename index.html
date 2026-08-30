@@ -198,8 +198,9 @@
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
     padding: calc(var(--nav-h) + 64px) 24px 80px;
-    position: relative; overflow: hidden;
+    position: relative; overflow: hidden; overflow-x: hidden;
   }
+  .hero-content { position: relative; z-index: 1; overflow-x: hidden; }
 
   /* Hero depth layers — parallax-ready */
   /* ================================================================
@@ -261,13 +262,16 @@
     50% { background-position: 100% 50%; }
   }
 
-  /* Hero entrance — staggered, refined */
-  html.js .hero-content > * {
+  /* Hero entrance — staggered, refined. Never hide the name (parent h1). */
+  html.js .hero-content > *:not(h1) {
     opacity: 0;
     animation: hero-in 1.1s cubic-bezier(.16,1,.3,1) forwards;
   }
+  html.js .hero-content > h1 {
+    opacity: 1;
+    visibility: visible;
+  }
   html.js .hero-content > *:nth-child(1) { animation-delay: .15s; }
-  html.js .hero-content > *:nth-child(2) { animation-delay: .30s; }
   html.js .hero-content > *:nth-child(3) { animation-delay: .45s; }
   html.js .hero-content > *:nth-child(4) { animation-delay: .58s; }
   html.js .hero-content > *:nth-child(5) { animation-delay: .68s; }
@@ -448,14 +452,14 @@
   }
   .manifesto-text strong { color: var(--text); font-weight: 600; }
 
-  /* Stagger word reveal for manifesto headline */
-  .word-reveal {
+  /* Stagger word reveal for manifesto headline only — do not hide hero name */
+  .manifesto-headline .word-reveal {
     display: inline-block;
     opacity: 0;
     transform: translateY(18px);
     transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
   }
-  .word-reveal.visible {
+  .manifesto-headline .word-reveal.visible {
     opacity: 1;
     transform: none;
   }
@@ -958,7 +962,7 @@
      ================================================================ */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    html.js .hero-content > * { opacity: 1; animation: none; }
+    html.js .hero-content > * { opacity: 1; visibility: visible; animation: none; }
     .hero-badge .dot, .scroll-cue::after,
     .ticker-track, .grain { animation: none; }
     .hero h1 { animation: none; -webkit-text-fill-color: var(--text); }
@@ -1092,8 +1096,8 @@
         <div class="stat-label">RollON Tests</div>
       </div>
       <div class="stat">
-        <div class="stat-value" data-count="60" data-suffix="%">60%</div>
-        <div class="stat-label">Faster w/ AI</div>
+        <div class="stat-value" data-count="87" data-suffix="%">87%</div>
+        <div class="stat-label">RollON Coverage</div>
       </div>
     </div>
   </div>
@@ -1579,6 +1583,18 @@
 <script>
   // Mark JS availability so reveal animations degrade gracefully without it
   document.documentElement.classList.add('js');
+
+  // Fail-open: if GSAP never clears the parent h1, force the name visible
+  setTimeout(function () {
+    var h1 = document.querySelector('.hero h1');
+    if (!h1) return;
+    h1.style.opacity = '1';
+    h1.style.visibility = 'visible';
+    h1.querySelectorAll('.word-reveal').forEach(function (w) {
+      w.style.opacity = '1';
+      w.style.visibility = 'visible';
+    });
+  }, 1500);
 
   // Loader curtain — dismiss immediately on load, max 2.5s safety
   (function () {
