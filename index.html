@@ -257,6 +257,23 @@
     animation: gradient-pan 12s ease-in-out infinite;
     filter: drop-shadow(0 0 1px rgba(0,0,0,0.35));
   }
+  /* JS wraps the name in spans; transparent fill on the parent would hide them */
+  html.js .hero h1 {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: #f4f4f5;
+    color: #f4f4f5;
+    animation: none;
+  }
+  html.js .hero h1 .word-reveal {
+    background: linear-gradient(135deg, #f4f4f5 0%, #c8a97e 45%, #f4f4f5 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-pan 12s ease-in-out infinite;
+  }
   @keyframes gradient-pan {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -1590,9 +1607,13 @@
     if (!h1) return;
     h1.style.opacity = '1';
     h1.style.visibility = 'visible';
+    h1.style.color = '#f4f4f5';
+    h1.style.webkitTextFillColor = '#f4f4f5';
     h1.querySelectorAll('.word-reveal').forEach(function (w) {
       w.style.opacity = '1';
       w.style.visibility = 'visible';
+      w.style.color = '#f4f4f5';
+      w.style.webkitTextFillColor = '#f4f4f5';
     });
   }, 1500);
 

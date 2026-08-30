@@ -92,6 +92,8 @@
     if (!heroH1) return;
     heroH1.style.opacity = '1';
     heroH1.style.visibility = 'visible';
+    heroH1.style.color = '#f4f4f5';
+    heroH1.style.webkitTextFillColor = '#f4f4f5';
     gsap.set(heroH1, { autoAlpha: 1, y: 0, visibility: 'visible', opacity: 1 });
     var nameWords = heroH1.querySelectorAll('.word-reveal');
     if (nameWords.length) gsap.set(nameWords, { autoAlpha: 1, y: 0, opacity: 1, visibility: 'visible' });
