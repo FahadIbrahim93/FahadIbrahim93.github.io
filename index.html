@@ -78,17 +78,30 @@
     --surface: #0f0f12;
     --card: #141418;
     --card2: #1a1a1f;
-    --border: rgba(255,255,255,0.07);
-    --border-hover: rgba(255,255,255,0.14);
+    --border: rgba(255,255,255,0.12);
+    --border-strong: rgba(255,255,255,0.2);
+    --border-hover: rgba(255,255,255,0.22);
     --accent: #c8a97e;
     --accent-glow: rgba(200,169,126,0.15);
     --violet: #8b5cf6;
     --violet-glow: rgba(139,92,246,0.12);
     --green: #34d399;
+    --teal: #2dd4bf;
     --text: #f4f4f5;
     --text-secondary: #a1a1aa;
     --muted: #71717a;
     --nav-h: 64px;
+    /* spacing + hard shadow grammar (Hope Theory — not FreeBuff) */
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --space-5: 48px;
+    --space-6: 72px;
+    --radius: 12px;
+    --shadow-hard: 4px 4px 0 rgba(0,0,0,0.85);
+    --shadow-hard-lg: 6px 6px 0 rgba(0,0,0,0.9);
+    --shadow-hard-accent: 4px 4px 0 rgba(200,169,126,0.45);
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -231,13 +244,30 @@
   .hero:hover .hero-mouse-light { opacity: 1; }
 
   /* Badge — refined, not neon */
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 14px; margin-bottom: 18px;
+    border: 2px solid var(--border-strong);
+    border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(200,169,126,0.06);
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.75);
+  }
+  .hero-value {
+    max-width: 720px; margin: 0 auto 28px;
+    font-size: clamp(18px, 2.4vw, 22px);
+    line-height: 1.45; font-weight: 600; color: var(--text);
+  }
+  .hero-value strong { color: var(--accent); font-weight: 700; }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 8px 16px; border: 1px solid rgba(200,169,126,0.25); border-radius: 100px;
+    padding: 8px 16px; border: 2px solid rgba(200,169,126,0.35); border-radius: 100px;
     font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-    color: #c8a97e; margin-bottom: 28px;
+    color: #c8a97e; margin-bottom: 20px;
     background: rgba(200,169,126,0.08);
     backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-hard-accent);
   }
   .hero-badge .dot {
     width: 7px; height: 7px; border-radius: 50%; background: #c8a97e;
@@ -287,28 +317,48 @@
   /* CTAs — refined, generous */
   .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
   .btn {
-    display: inline-block; padding: 14px 34px; border-radius: 10px;
-    font-size: 14px; font-weight: 600; letter-spacing: 0.3px; transition: all .25s cubic-bezier(.34,1.56,.64,1);
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 28px; border-radius: var(--radius);
+    font-size: 14px; font-weight: 700; letter-spacing: 0.2px;
+    border: 2px solid transparent; cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
   }
   .btn-primary {
-    background: linear-gradient(135deg, #c8a97e 0%, #b8935e 100%);
-    color: #09090b; border: none; border-radius: 10px;
-    padding: 14px 28px; font-weight: 700; font-size: 14px;
-    letter-spacing: 0.3px; cursor: pointer;
-    position: relative; overflow: hidden;
-    transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease;
-    box-shadow: 0 0 0 0 rgba(200,169,126,0);
+    background: var(--accent);
+    color: #09090b;
+    border-color: #09090b;
+    box-shadow: var(--shadow-hard);
   }
   .btn-primary:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 8px 24px rgba(200,169,126,0.3);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.9);
     color: #09090b;
   }
-  .btn-secondary {
-    background: transparent; color: var(--text); border: 1px solid var(--border-hover);
-    transition: transform .25s cubic-bezier(.34,1.56,.64,1), border-color .25s ease, color .25s ease;
+  .btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.9);
   }
-  .btn-secondary:hover { border-color: var(--text-secondary); color: var(--text); transform: translateY(-2px); }
+  .btn-secondary {
+    background: var(--card);
+    color: var(--text);
+    border: 2px solid var(--border-strong);
+    box-shadow: var(--shadow-hard);
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.9);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 2px solid var(--border);
+    box-shadow: none;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--border-strong); }
 
   /* Stats — refined, glass-morphism */
   .hero-stats {
@@ -317,7 +367,8 @@
   }
   .stat {
     padding: 24px 16px; background: var(--card);
-    border: 1px solid var(--border); border-radius: 14px;
+    border: 2px solid var(--border-strong); border-radius: var(--radius);
+    box-shadow: var(--shadow-hard);
     backdrop-filter: blur(10px);
   }
   .stat-value {
@@ -537,21 +588,50 @@
      ================================================================ */
   .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
   .project-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 18px; overflow: hidden;
-    transition: transform .35s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .4s ease;
+    background: var(--card); border: 2px solid var(--border-strong);
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: var(--shadow-hard);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
     display: flex; flex-direction: column; position: relative;
     transform-style: preserve-3d; perspective: 1000px;
   }
+  .project-card[data-type="game"] { border-color: rgba(139,92,246,0.55); }
+  .project-card[data-type="commerce"] { border-color: rgba(200,169,126,0.55); }
+  .project-card[data-type="ops"] { border-color: rgba(45,212,191,0.5); }
+  .project-cat {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .project-card[data-type="game"] .project-cat { color: #c4b5fd; }
+  .project-card[data-type="commerce"] .project-cat { color: var(--accent); }
+  .project-card[data-type="ops"] .project-cat { color: var(--teal); }
+  .project-outcome {
+    font-size: 13px; color: var(--text-secondary); margin: -4px 0 14px;
+    padding: 8px 12px; border-left: 3px solid var(--border-strong);
+    background: rgba(255,255,255,0.02);
+  }
+  .project-card[data-type="game"] .project-outcome { border-left-color: rgba(139,92,246,0.7); }
+  .project-card[data-type="commerce"] .project-outcome { border-left-color: rgba(200,169,126,0.7); }
+  .project-card[data-type="ops"] .project-outcome { border-left-color: rgba(45,212,191,0.7); }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: auto; padding-top: 8px; }
+  .links .btn { padding: 10px 16px; font-size: 13px; }
+  .links a:not(.btn) {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 10px 14px; font-size: 13px; font-weight: 600;
+    color: var(--text-secondary); border: 2px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .links a:not(.btn):hover { color: var(--text); border-color: var(--border-strong); }
 
   /* Featured project — hero card with gold accent */
   .project-card:first-child {
-    border-color: rgba(200,169,126,0.35);
-    box-shadow: 0 0 0 1px rgba(200,169,126,0.1) inset, 0 24px 56px rgba(0,0,0,0.45);
+    box-shadow: var(--shadow-hard-lg);
   }
   .project-card:first-child:hover {
-    border-color: rgba(200,169,126,0.55);
-    box-shadow: 0 0 0 1px rgba(200,169,126,0.2) inset, 0 32px 72px rgba(0,0,0,0.55);
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.92);
   }
   .project-card:first-child .project-thumb::after {
     content: 'Featured'; position: absolute; top: 12px; right: 12px;
@@ -562,11 +642,8 @@
   }
 
   .project-card:hover {
-    border-color: rgba(200,169,126,0.28);
-    transform: translateY(-5px);
-    box-shadow:
-      0 24px 56px rgba(0,0,0,0.45),
-      0 0 0 1px rgba(200,169,126,0.08) inset;
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.92);
   }
 
   .card-glare {
@@ -628,7 +705,7 @@
     color: var(--text-secondary); font-weight: 500; letter-spacing: 0.3px;
   }
 
-  .links { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  /* .links primary rule above */
   .links a {
     font-size: 13px; font-weight: 600;
     display: inline-flex; align-items: center; gap: 6px;
@@ -882,6 +959,50 @@
     font-size: 14px; font-weight: 600; color: var(--text); word-break: break-word;
   }
 
+
+  /* ================================================================
+     CONVERSION BAND — end CTA (Hope Theory hard-shadow grammar)
+     ================================================================ */
+  .convert-band {
+    margin: var(--space-6) auto 0;
+    max-width: 920px;
+    padding: clamp(36px, 6vw, 56px) clamp(24px, 5vw, 48px);
+    background: linear-gradient(160deg, rgba(200,169,126,0.1) 0%, var(--card) 45%, rgba(139,92,246,0.08) 100%);
+    border: 2px solid var(--border-strong);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hard-lg);
+    text-align: center;
+  }
+  .convert-band .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px;
+  }
+  .convert-band h2 {
+    font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.5px;
+    margin-bottom: 12px; color: var(--text);
+  }
+  .convert-band p {
+    max-width: 560px; margin: 0 auto 28px;
+    color: var(--text-secondary); font-size: 16px; line-height: 1.55;
+  }
+  .convert-actions {
+    display: flex; flex-wrap: wrap; gap: 14px; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .convert-note { font-size: 13px; color: var(--muted); }
+
+  .contact-card {
+    border: 2px solid var(--border-strong) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: var(--shadow-hard);
+  }
+  .contact-card:hover {
+    transform: translate(-2px, -2px) !important;
+    box-shadow: 6px 6px 0 rgba(0,0,0,0.9) !important;
+    border-color: rgba(200,169,126,0.45) !important;
+  }
+
   /* ================================================================
      FOOTER — minimal, refined
      ================================================================ */
@@ -1068,15 +1189,15 @@
     <div class="hero-mouse-light"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-badge"><span class="dot" aria-hidden="true"></span> Open to Remote Roles</div>
+    <div class="hero-eyebrow"><span class="dot" aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#c8a97e;box-shadow:0 0 8px rgba(200,169,126,0.6);"></span> Hope Theory · Dhaka · Open to remote</div>
     <h1>Fahad Ibrahim</h1>
-    <p class="tagline">
-      Full-Stack Developer specializing in <strong>React 19, TypeScript &amp; Supabase</strong><br/>
-      I build and ship web apps and games people can actually use — clear scope, real demos, honest status.
+    <p class="hero-value">Ship <strong>React / TypeScript / Supabase</strong> products people can click — clear scope, real demos, honest status.</p>
+    <p class="tagline" style="margin-top:-8px;margin-bottom:32px;">
+      Full-stack builds and games with public demos. No invented metrics. BugSmasher is live but not release-certified.
     </p>
     <div class="hero-cta">
-      <a href="#work" class="btn btn-primary">View Projects</a>
-      <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+      <a href="#work" class="btn btn-primary">View live projects</a>
+      <a href="#contact" class="btn btn-secondary">Let's talk</a>
     </div>
     <div class="hero-stats">
       <div class="stat">
@@ -1161,7 +1282,7 @@
   <p class="section-intro reveal">Public demos you can click through. Status notes are honest — BugSmasher is live but not release-certified (see STATUS.md).</p>
   <div class="projects-grid">
 
-    <article class="project-card reveal">
+    <article class="project-card reveal" data-type="game">
       <div class="card-glare" aria-hidden="true"></div>
       <div class="project-thumb">
         <picture>
@@ -1171,7 +1292,9 @@
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
+        <div class="project-cat">Game · Full-stack arcade</div>
         <h3>🐞 BugSmasher</h3>
+        <p class="project-outcome">Auth, XP, achievements, live leaderboards — not currently release-certified (STATUS.md).</p>
         <p>Full-stack arcade clicker-defense game with auth, XP progression, 16 achievements, and real-time global leaderboards. Server-authoritative scoring with one-time session tokens. Offline-first PWA with cloud sync. Tests and CI tracked in repo STATUS.md (not currently certified).</p>
         <div class="tech">
           <span class="tech-tag">React 19</span>
@@ -1181,13 +1304,13 @@
           <span class="tech-tag">PWA</span>
         </div>
         <div class="links">
-          <a href="https://bugsmasher-hopetheory.vercel.app" target="_blank" rel="noopener" class="live-link">→ Play Live</a>
-          <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank" rel="noopener">→ GitHub</a>
+          <a href="https://bugsmasher-hopetheory.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Play live</a>
+          <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </article>
 
-    <article class="project-card reveal">
+    <article class="project-card reveal" data-type="commerce">
       <div class="card-glare" aria-hidden="true"></div>
       <div class="project-thumb">
         <picture>
@@ -1197,8 +1320,10 @@
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
+        <div class="project-cat">Commerce · Storefront</div>
         <h3>🛒 RollON</h3>
-        <p>Production-grade e-commerce platform with catalog, cart, variants, checkout flow, and admin dashboard. Config-driven branding, CSP-hardened, WCAG 2.1 AA accessible. 117 tests (106 unit + 11 Playwright E2E), 87% coverage, CI green.</p>
+        <p class="project-outcome">Catalog → cart → checkout + admin; 117 tests, 87% coverage, CI green.</p>
+        <p>E-commerce platform with catalog, cart, variants, checkout flow, and admin dashboard. Config-driven branding, CSP-hardened, WCAG 2.1 AA accessible. 117 tests (106 unit + 11 Playwright E2E), 87% coverage, CI green.</p>
         <div class="tech">
           <span class="tech-tag">React 19</span>
           <span class="tech-tag">TypeScript</span>
@@ -1207,13 +1332,13 @@
           <span class="tech-tag">Playwright</span>
         </div>
         <div class="links">
-          <a href="https://rollon-delta.vercel.app" target="_blank" rel="noopener" class="live-link">→ Shop Live</a>
-          <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank" rel="noopener">→ GitHub</a>
+          <a href="https://rollon-delta.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Shop live</a>
+          <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </article>
 
-    <article class="project-card reveal">
+    <article class="project-card reveal" data-type="ops">
       <div class="card-glare" aria-hidden="true"></div>
       <div class="project-thumb">
         <picture>
@@ -1223,7 +1348,9 @@
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
+        <div class="project-cat">Ops · Hyperlocal commerce</div>
         <h3>🛵 JG Mart</h3>
+        <p class="project-outcome">Pilot target ~1,700-family complex — WhatsApp order + dispatch panel (not proven usage).</p>
         <p>Hyperlocal grocery delivery PWA built for a 1,700-family residential complex in Japan Garden City, Dhaka (pilot target, not proven usage). WhatsApp-native ordering, bilingual (বাংলা/EN), 82 products across 10 categories, order tracking, and operator dispatch panel. Zero-framework, offline-cached.</p>
         <div class="tech">
           <span class="tech-tag">Vanilla JS</span>
@@ -1232,13 +1359,13 @@
           <span class="tech-tag">WhatsApp API</span>
         </div>
         <div class="links">
-          <a href="https://jg-mart.vercel.app" target="_blank" rel="noopener" class="live-link">→ Browse Store</a>
-          <a href="https://github.com/FahadIbrahim93/jgmart-hermes" target="_blank" rel="noopener">→ GitHub</a>
+          <a href="https://jg-mart.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Browse store</a>
+          <a href="https://github.com/FahadIbrahim93/jgmart-hermes" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </article>
 
-    <article class="project-card reveal">
+    <article class="project-card reveal" data-type="game">
       <div class="card-glare" aria-hidden="true"></div>
       <div class="project-thumb">
         <picture>
@@ -1248,7 +1375,9 @@
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
+        <div class="project-cat">Game · Viral mini</div>
         <h3>🎮 Nix — Timeline Dodge</h3>
+        <p class="project-outcome">Single-file canvas game, zero deps, MIT — built for short skill sessions.</p>
         <p>Single-file viral mini-game in vanilla HTML/JS and Canvas — zero dependencies, MIT licensed. Dodge the timeline, collect hearts, evolve Nix. WebAudio synth SFX, shareable scores, PWA-ready. Built for social virality and short skill sessions.</p>
         <div class="tech">
           <span class="tech-tag">Vanilla HTML</span>
@@ -1257,8 +1386,8 @@
           <span class="tech-tag">0 deps</span>
         </div>
         <div class="links">
-          <a href="https://viral-pet-nix.vercel.app" target="_blank" rel="noopener" class="live-link">→ Play Now</a>
-          <a href="https://github.com/FahadIbrahim93/viral-pet-nix" target="_blank" rel="noopener">→ GitHub</a>
+          <a href="https://viral-pet-nix.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">Play now</a>
+          <a href="https://github.com/FahadIbrahim93/viral-pet-nix" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </article>
@@ -1509,16 +1638,22 @@
 
 <!-- CONTACT -->
 <section class="section" id="contact">
-  <div class="section-title reveal">Get In Touch</div>
-  <h2 class="reveal">Let's Work Together</h2>
-  <p class="section-intro reveal">
-    I'm currently open to remote full-stack roles (React / TypeScript / Supabase), freelance builds, and reliable remote ops work — shipping, support, and keeping systems healthy. Based in Dhaka, Bangladesh (UTC+6); comfortable across time zones. AI training/annotation available when useful.
-  </p>
-  <div class="hire-cta reveal" style="margin-top:24px; margin-bottom: 32px;">
-    <a href="mailto:hopetheorybd@gmail.com?subject=Let's%20work%20together" class="btn btn-primary" style="padding: 16px 32px; font-size: 16px; display: inline-block;">💼 Hire Me — Let's Talk</a>
-    <p style="margin-top: 10px; font-size: 13px; color: var(--muted);">Typically respond within 24 hours</p>
+  <div class="convert-band reveal">
+    <div class="eyebrow">Next step</div>
+    <h2>Ready when you are</h2>
+    <p>
+      Remote full-stack (React / TypeScript / Supabase), freelance builds, and reliable remote ops —
+      shipping, support, keeping systems healthy. Dhaka (UTC+6). Dual-track: product engineering + ops.
+    </p>
+    <div class="convert-actions">
+      <a href="mailto:hopetheorybd@gmail.com?subject=Let's%20work%20together" class="btn btn-primary">Email Hope Theory</a>
+      <a href="https://linkedin.com/in/hopetheory-" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
+    </div>
+    <p class="convert-note">Typically reply within 24 hours · hopetheorybd@gmail.com</p>
   </div>
-  <div class="contact-grid">
+  <div class="section-title reveal" style="margin-top:48px;">Channels</div>
+  <h2 class="reveal" style="font-size:clamp(22px,3vw,28px);">Or reach out directly</h2>
+  <div class="contact-grid" style="margin-top:24px;">
     <a class="contact-card reveal" href="mailto:hopetheorybd@gmail.com">
       <div class="icon" aria-hidden="true">📧</div>
       <div class="label">Email</div>
