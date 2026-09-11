@@ -378,44 +378,64 @@
     if (isNaN(target)) return;
     var suffix = el.dataset.suffix || '';
     var decimals = parseInt(el.dataset.decimals || '0', 10);
-    var obj = { val: 0 };
-    var display = document.createElement('span');
-    display.className = 'stat-reel';
-    display.setAttribute('aria-hidden', 'true');
-    el.textContent = '';
-    el.appendChild(display);
 
     function fmt(v) {
       return v.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
     }
 
-    // Build reel digits/string
-    var current = document.createElement('span');
-    current.className = 'stat-reel-current';
-    current.textContent = fmt(0);
-    var next = document.createElement('span');
-    next.className = 'stat-reel-next';
-    next.textContent = fmt(target);
-    display.appendChild(current);
-    display.appendChild(next);
+    // Keep the real number visible by default (screenshot-safe / ST-miss-safe).
+    // Old path cleared to 0 immediately and relied on ScrollTrigger — that could stick at 0.
+    var finalText = fmt(target);
+    el.textContent = finalText;
+    if (typeof gsap === 'undefined' || reduced) return;
 
-    gsap.to(obj, {
-      val: target,
-      duration: 1.8,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 92%',
-        toggleActions: 'play none none none',
-      },
-      onUpdate: function () {
-        current.textContent = fmt(Math.round(obj.val));
-      },
-      onComplete: function () {
-        current.textContent = fmt(target);
-        display.classList.add('stat-reel-done');
-      },
+    var started = false;
+    function startReel() {
+      if (started) return;
+      started = true;
+      var obj = { val: 0 };
+      var display = document.createElement('span');
+      display.className = 'stat-reel';
+      display.setAttribute('aria-hidden', 'true');
+      el.textContent = '';
+      el.appendChild(display);
+
+      var current = document.createElement('span');
+      current.className = 'stat-reel-current';
+      current.textContent = fmt(0);
+      var next = document.createElement('span');
+      next.className = 'stat-reel-next';
+      next.textContent = finalText;
+      display.appendChild(current);
+      display.appendChild(next);
+
+      gsap.to(obj, {
+        val: target,
+        duration: 1.8,
+        ease: 'power2.out',
+        onUpdate: function () {
+          current.textContent = fmt(Math.round(obj.val));
+        },
+        onComplete: function () {
+          current.textContent = finalText;
+          display.classList.add('stat-reel-done');
+        },
+      });
+    }
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 95%',
+      once: true,
+      onEnter: startReel,
     });
+    // Hero stats are above the fold — do not wait for a scroll event.
+    requestAnimationFrame(function () {
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.95) startReel();
+    });
+    window.setTimeout(function () {
+      if (!started) el.textContent = finalText;
+    }, 2500);
   }
 
   document.querySelectorAll('.stat-value[data-count]').forEach(function (el) {
