@@ -25,10 +25,13 @@ public deployment reference, while the portfolio's live action points to the
 Vly product URL.
 
 The latest rebuilt app deployment is tracked by LearnWebDev-AI Pages workflow
-run `35070816649`. Keep the Vly frontend environment configured with
-`VITE_CONVEX_URL` and the matching Convex production account, deploy key, and
-auth issuer before treating auth, catalog data, saved progress, bookings,
-showcase submissions, and waitlist behavior as production-ready.
+run `35071298219`, commit `e2aaccc102fe12e63f9b658d1a2f1c099c617586` (PR #7).
+The live app has been verified with the Convex-backed landing page, Lesson 1,
+seeded catalog, and auth/guest UI. Its current Convex target is the development
+deployment `dev:acrobatic-gull-252`; migrate to a production Convex deployment
+before relying on production persistence. Stripe and Resend server secrets
+are also still required before real checkout, transactional email, and related
+operations are production-ready.
 
 ## Repository settings
 
