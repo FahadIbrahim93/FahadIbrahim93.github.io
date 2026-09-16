@@ -17,6 +17,11 @@ framework build, install dependencies, or deploy application secrets. This
 matches the current Pages setting and keeps the static asset paths unchanged.
 Do not edit `gh-pages` manually; changes belong on `main`.
 
+The featured LearnWebDev-AI project has its own independently deployed app at
+https://fahadibrahim93.github.io/LearnWebDev-AI/. Its application repository
+and Pages deployment are separate from this portfolio repository; verify that
+URL before changing the portfolio card's live link.
+
 ## Repository settings
 
 In **Settings → Pages**, keep **Build and deployment** set to **Deploy from a
