@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Résumé — Fahad Ibrahim | Full-Stack Developer</title>
+<meta name="description" content="Résumé of Fahad Ibrahim — Full-Stack Developer (React 19, TypeScript, Supabase, Firebase). Dhaka, Bangladesh. Open to remote roles." />
+<link rel="canonical" href="https://fahadibrahim93.github.io/resume.html" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#09090b" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'" rel="stylesheet" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile" />
+<meta property="og:url" content="https://fahadibrahim93.github.io/resume.html" />
+<meta property="og:title" content="Résumé — Fahad Ibrahim" />
+<meta property="og:description" content="Full-Stack Developer (React 19, TypeScript, Supabase, Firebase). Dhaka, Bangladesh. Open to remote roles." />
+<meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Résumé — Fahad Ibrahim" />
+<meta name="twitter:description" content="Full-Stack Developer résumé: React 19, TypeScript, Supabase, Firebase. Dhaka, Bangladesh." />
+<meta name="twitter:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<style>
+  :root {
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --card2: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent: #c8a97e;
+    --accent-glow: rgba(200,169,126,0.15);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139,92,246,0.12);
+    --green: #34d399;
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --muted: #71717a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.55; }
+  a { color: var(--accent); text-decoration:none; }
+  .toolbar {
+    max-width: 820px; margin: 0 auto; padding: 20px 24px;
+    display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .toolbar a.back { font-size:13px; font-weight:600; }
+  .toolbar button {
+    background: rgba(200,169,126,0.1); color: var(--accent); border:1px solid rgba(200,169,126,0.4);
+    padding:10px 20px; border-radius:8px; font-weight:600; font-size:13px; cursor:pointer;
+  }
+  .page {
+    max-width: 820px; margin: 0 auto 60px; padding: 48px;
+    background: var(--card); border:1px solid var(--border); border-radius:14px;
+  }
+  h1 { font-size:32px; font-weight:800; letter-spacing:-1px; }
+  .role { color: var(--accent); font-weight:600; font-size:16px; margin-top:4px; }
+  .contact-line { color: var(--muted); font-size:13px; margin-top:10px; }
+  .contact-line a { color: var(--muted); }
+  .contact-line a:hover { color: var(--accent); }
+  h2 {
+    font-size:12px; letter-spacing:2.5px; text-transform:uppercase; color: var(--accent);
+    margin: 32px 0 14px; padding-bottom:8px; border-bottom:1px solid var(--border);
+  }
+  .summary { font-size:14px; color: var(--text); }
+  .job { margin-bottom:20px; }
+  .job-head { display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; }
+  .job-head h3 { font-size:15px; font-weight:700; }
+  .job-head .co { color: var(--accent); font-weight:500; font-size:13px; }
+  .job-head .date { color: var(--muted); font-size:12px; font-family:'JetBrains Mono',monospace; }
+  .job ul { list-style:none; margin-top:8px; }
+  .job li { font-size:13.5px; padding:3px 0 3px 18px; position:relative; color: var(--text); }
+  .job li::before { content:'\25b9'; position:absolute; left:0; color: var(--green); font-weight:700; }
+  .skills-row { display:grid; grid-template-columns:140px 1fr; gap:8px; font-size:13.5px; padding:5px 0; }
+  .skills-row .k { color: var(--muted); font-weight:600; text-transform:uppercase; font-size:11px; letter-spacing:1px; padding-top:2px; }
+  .metric-strip { display:flex; gap:12px; flex-wrap:wrap; margin-top:14px; }
+  .metric { background: rgba(200,169,126,0.05); border:1px solid var(--border); border-radius:8px; padding:10px 16px; text-align:center; }
+  .metric .v { font-family:'JetBrains Mono',monospace; font-weight:700; color: var(--green); font-size:16px; }
+  .metric .l { font-size:10px; color: var(--muted); text-transform:uppercase; letter-spacing:1px; }
+
+  /* ================================================================
+     BENTO CAPABILITIES — editorial cards, scannable
+     ================================================================ */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .bento-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px;
+    transition: transform .35s cubic-bezier(.4,0,.2,1), border-color .35s ease, box-shadow .4s ease;
+    display: flex; flex-direction: column; gap: 10px;
+    transform-style: preserve-3d; perspective: 1000px;
+  }
+  .bento-card:hover {
+    border-color: rgba(200,169,126,0.28);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.45), 0 0 0 1px rgba(200,169,126,0.08) inset;
+  }
+  .bento-icon { font-size: 22px; opacity: 0.9; }
+  .bento-card h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; }
+  .bento-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+  .bento-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .bento-tags span {
+    padding: 4px 10px; background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 11px; font-family: 'JetBrains Mono', monospace;
+    color: var(--text-secondary); font-weight: 500;
+  }
+
+  @media (max-width: 720px) {
+    .bento-grid { grid-template-columns: 1fr; }
+  }
+  @media print {
+    body { background:#fff; color:#111; }
+    .toolbar { display:none; }
+    .page { border:none; background:#fff; padding:0; max-width:100%; }
+    h2 { color:#0a7a85; border-color:#ddd; }
+    .role, .job-head .co, a { color:#0a7a85; }
+    .job li::before { color:#0a7a85; }
+    .metric { border-color:#ddd; background:#f6f6f6; }
+    .metric .v { color:#0a7a85; }
+    .contact-line, .contact-line a, .skills-row .k, .metric .l { color:#555; }
+    .summary, .job li, .skills-row { color:#222; }
+    h1 { color:#111; }
+  }
+  @media (max-width:640px){ .page{ padding:28px 20px; } }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Fahad Ibrahim",
+  "url": "https://fahadibrahim93.github.io/",
+  "image": "https://fahadibrahim93.github.io/images/og.png",
+  "jobTitle": "Full-Stack Developer",
+  "email": "mailto:hopetheorybd@gmail.com",
+  "sameAs": [
+    "https://github.com/FahadIbrahim93",
+    "https://linkedin.com/in/hopetheory-",
+    "https://x.com/hopetheory__"
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="toolbar">
+  <a class="back" href="/">← Back to Portfolio</a>
+  <button onclick="window.print()">🖨 Print / Save as PDF</button>
+  <a href="/resume-pdf.html" target="_blank" rel="noopener" class="btn-primary">📄 Open PDF Resume</a>
+</div>
+
+<div class="page">
+  <h1>Fahad Ibrahim</h1>
+  <div class="role">Full-Stack Developer — React · TypeScript · Supabase · Firebase</div>
+  <div class="contact-line">
+    Dhaka, Bangladesh (UTC+6) · <a href="mailto:hopetheorybd@gmail.com">hopetheorybd@gmail.com</a> ·
+    <a href="https://github.com/FahadIbrahim93">github.com/FahadIbrahim93</a> ·
+    <a href="https://linkedin.com/in/hopetheory-">linkedin.com/in/hopetheory-</a> ·
+    <a href="https://fahadibrahim93.github.io">fahadibrahim93.github.io</a>
+  </div>
+
+  <h2>Summary</h2>
+  <p class="summary">
+    Full-stack developer shipping production React/TypeScript applications end-to-end: architecture,
+    implementation, automated testing, CI, and deployment. Four live products including a
+    real-time multiplayer game (Firebase), an e-commerce platform (87% test coverage, WCAG 2.1 AA),
+    and a hyperlocal grocery PWA built for a 1,700-family residential complex (pilot target). AI-augmented workflow keeps lint, test, build, and deploy gates in the loop.
+  </p>
+  <div class="metric-strip">
+    <div class="metric"><div class="v">4</div><div class="l">Live Products</div></div>
+    <div class="metric"><div class="v">117</div><div class="l">RollON Tests</div></div>
+    <div class="metric"><div class="v">87%</div><div class="l">Best Coverage</div></div>
+    <div class="metric"><div class="v">2 wks</div><div class="l">Avg Ship Time</div></div>
+  </div>
+
+  <h2>Experience</h2>
+  <div class="job">
+    <div class="job-head">
+      <div><h3>Full-Stack Developer</h3><div class="co">Hope Theory — Self-Employed</div></div>
+      <div class="date">2024 – Present</div>
+    </div>
+    <ul>
+      <li>BugSmasher: React 19 + TypeScript + Firebase arcade game — auth, XP, 16 achievements, server-authoritative real-time leaderboards with one-time session tokens. Tests and CI tracked in repo STATUS.md; offline-first PWA, shipped in 2 weeks.</li>
+      <li>RollON: production e-commerce platform — catalog, cart, variants, checkout, admin dashboard. 117 tests (unit + Playwright E2E), 87% coverage, WCAG 2.1 AA, CSP-hardened, GitHub Actions CI green.</li>
+      <li>JG Mart: hyperlocal grocery PWA sized for a 1,700-family complex (pilot target) — WhatsApp-native ordering, bilingual UI, 82 products, order tracking, operator dispatch. Vanilla JS, zero framework, service-worker cached.</li>
+      <li>Own the full lifecycle: architecture → implementation → testing → CI → deployment (Vercel / Firebase Hosting / GitHub Pages).</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-head">
+      <div><h3>Founder &amp; Lead Developer</h3><div class="co">Hope Theory</div></div>
+      <div class="date">2023 – Present</div>
+    </div>
+    <ul>
+      <li>Run Bengali AI training, voice recording, and annotation workflows for emerging-market LLM projects.</li>
+      <li>Operate multi-agent AI automation (Hermes Agent) across 6 business ventures.</li>
+      <li>Daily production use of Gemini, OpenRouter, and Groq APIs for content and workflow generation.</li>
+    </ul>
+  </div>
+
+  <h2>Selected Projects</h2>
+  <div class="job">
+    <ul>
+      <li><strong>BugSmasher</strong> — live: bugsmasher-hopetheory.vercel.app · React 19, Firebase, Canvas 2D, PWA</li>
+      <li><strong>RollON</strong> — live: rollon-delta.vercel.app · React 19, TypeScript, Tailwind, Zustand, Playwright</li>
+      <li><strong>JG Mart</strong> — live: jg-mart.vercel.app · Vanilla JS PWA, Supabase, WhatsApp ordering</li>
+      <li><strong>Nix — Timeline Dodge</strong> — live: viral-pet-nix.vercel.app · vanilla single-file HTML/Canvas game, 0 dependencies (not React)</li>
+    </ul>
+  </div>
+
+  <h2>Skills</h2>
+  <div class="bento-grid">
+    <div class="bento-card">
+      <div class="bento-icon" aria-hidden="true">⚛️</div>
+      <h3>Frontend</h3>
+      <p>Strict TypeScript, performant motion, and production-grade UI systems.</p>
+      <div class="bento-tags">
+        <span>React 19</span><span>TypeScript</span><span>Tailwind</span><span>GSAP</span><span>Vite</span>
+      </div>
+    </div>
+    <div class="bento-card">
+      <div class="bento-icon" aria-hidden="true">🗄️</div>
+      <h3>Backend &amp; Data</h3>
+      <p>Auth, APIs, and real-time data modeling across Supabase and Firebase.</p>
+      <div class="bento-tags">
+        <span>Supabase</span><span>Firebase</span><span>Node.js</span><span>REST</span><span>Zustand</span>
+      </div>
+    </div>
+    <div class="bento-card">
+      <div class="bento-icon" aria-hidden="true">🧪</div>
+      <h3>Quality &amp; DevOps</h3>
+      <p>CI/CD, accessibility, and test coverage as a first-class requirement.</p>
+      <div class="bento-tags">
+        <span>Vitest</span><span>Playwright</span><span>CI</span><span>WCAG 2.1 AA</span>
+      </div>
+    </div>
+    <div class="bento-card">
+      <div class="bento-icon" aria-hidden="true">🤖</div>
+      <h3>AI &amp; Automation</h3>
+      <p>Multi-agent workflows, prompt engineering, and AI-assisted delivery without quality loss.</p>
+      <div class="bento-tags">
+        <span>Hermes</span><span>Claude Code</span><span>Multi-Agent</span>
+      </div>
+    </div>
+    <div class="bento-card">
+      <div class="bento-icon" aria-hidden="true">🎮</div>
+      <h3>Interactive &amp; Canvas</h3>
+      <p>Games and motion-heavy experiences with Canvas 2D, WebAudio, and PWA offline-first behavior.</p>
+      <div class="bento-tags">
+        <span>Canvas 2D</span><span>WebAudio</span><span>PWA</span>
+      </div>
+    </div>
+    <div class="bento-card">
+      <div class="bento-icon" aria-hidden="true">🧭</div>
+      <h3>Shipping &amp; Growth</h3>
+      <p>From idea to live product fast, with case studies, metrics, and iteration built in.</p>
+      <div class="bento-tags">
+        <span>Strategy</span><span>Case Studies</span><span>Metrics</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>Education</h2>
+  <div class="job">
+    <div class="job-head">
+      <div><h3>BSc — Computer Science &amp; Engineering</h3><div class="co">Ahsanullah University of Science and Technology</div></div>
+      <div class="date">2012 – 2017</div>
+    </div>
+    <ul>
+      <li>Software engineering, algorithms, distributed systems, databases.</li>
+    </ul>
+  </div>
+</div>
+
+
+<footer style="text-align:center; padding:40px 24px; border-top:1px solid var(--border); margin-top:40px;">
+  <p style="margin-bottom:8px; font-weight:600;">Fahad Ibrahim · Hope Theory</p>
+  <p style="font-size:13px; color:var(--muted); margin-bottom:16px;">"Never GIVE UP on your HOPES"</p>
+  <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:16px;">
+    <a href="mailto:hopetheorybd@gmail.com" style="color:var(--accent); text-decoration:none; font-size:13px;">📧 Email</a>
+    <a href="https://github.com/FahadIbrahim93" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; font-size:13px;">GitHub</a>
+    <a href="https://linkedin.com/in/hopetheory-" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; font-size:13px;">LinkedIn</a>
+    <a href="https://x.com/hopetheory__" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:none; font-size:13px;">X / Twitter</a>
+    <a href="/case-studies.html" style="color:var(--accent); text-decoration:none; font-size:13px;">Case Studies</a>
+    <a href="/services.html" style="color:var(--accent); text-decoration:none; font-size:13px;">Services</a>
+  </div>
+  <p style="font-size:11px; color:var(--muted); opacity:0.6;">© 2026 Hope Theory. All rights reserved.</p>
+</footer>
+</body>
+</html>

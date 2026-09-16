@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 — Page Not Found | Fahad Ibrahim</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#09090b" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" rel="stylesheet" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
+<style>
+  :root {
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --card2: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent: #c8a97e;
+    --accent-glow: rgba(200,169,126,0.15);
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139,92,246,0.12);
+    --green: #34d399;
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --muted: #71717a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; min-height: 100vh; display: flex; flex-direction: column; }
+  a { color: var(--accent); text-decoration:none; }
+  a:hover { text-decoration: underline; }
+
+  header { padding: 28px 32px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  header .brand { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+  header a.back { font-size: 13px; font-weight: 600; padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; }
+
+  main { flex: 1; max-width: 700px; margin: 0 auto; padding: 80px 32px; text-align: center; }
+  .error-code { font-family: 'JetBrains Mono', monospace; font-size: clamp(80px, 15vw, 140px); font-weight: 900; letter-spacing: -4px; line-height: 1; color: var(--accent); opacity: 0.3; }
+  .error-title { font-size: clamp(22px, 4vw, 32px); font-weight: 800; letter-spacing: -1px; margin: 16px 0; }
+  .error-desc { font-size: 16px; color: var(--muted); max-width: 480px; margin: 0 auto 32px; }
+  .error-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .error-actions a { padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 14px; }
+  .error-actions .primary { background: var(--accent); color: #04141a; }
+  .error-actions .ghost { border: 1px solid var(--border); color: var(--accent); }
+
+  .suggestions { margin-top: 48px; text-align: left; }
+  .suggestions h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 12px; }
+  .suggestions ul { list-style: none; }
+  .suggestions li { padding: 8px 0; }
+  .suggestions a { font-size: 15px; font-weight: 500; }
+  .suggestions a:hover { text-decoration: underline; }
+
+  footer { text-align: center; padding: 32px 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+  footer strong { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    header, main { padding-left: 18px; padding-right: 18px; }
+    .error-code { font-size: 80px; }
+  }
+</style>
+
+</head>
+<body>
+<header>
+  <div class="brand">fahad<span style="color: var(--accent)">.ibrahim</span></div>
+  <a class="back" href="/">← Home</a>
+</header>
+
+<main>
+  <div class="error-code">404</div>
+  <h1 class="error-title">Page not found</h1>
+  <p class="error-desc">
+    The page you're looking for doesn't exist or has been moved. 
+    No worries — let's get you back on track.
+  </p>
+  <div class="error-actions">
+    <a href="/" class="primary">← Back to Portfolio</a>
+    <a href="/case-studies.html" class="ghost">Case Studies</a>
+    <a href="/journey.html" class="ghost">Journey</a>
+  </div>
+
+  <div class="suggestions">
+    <h3>Popular pages</h3>
+    <ul>
+      <li><a href="/case-study-bugsmasher.html">🐞 BugSmasher — Case Study</a></li>
+      <li><a href="/case-study-rollon.html">🛒 RollON — Case Study</a></li>
+      <li><a href="/case-study-jgmart.html">🛵 JG Mart — Case Study</a></li>
+      <li><a href="/case-study-insectiles.html">🎮 Insectiles — Case Study</a></li>
+      <li><a href="/journey.html">🗺️ Project Journey</a></li>
+      <li><a href="/resume.html">📄 Résumé</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <p>Built by <strong>Fahad Ibrahim</strong> · <strong>Hope Theory</strong> ☤</p>
+  <p style="margin-top: 8px; font-size: 11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory</p>
+</footer>
+
+</body>
+</html>

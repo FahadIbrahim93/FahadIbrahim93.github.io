@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8c996"/>
+      <stop offset="50%" stop-color="#c8a97e"/>
+      <stop offset="100%" stop-color="#9b8260"/>
+    </linearGradient>
+    <linearGradient id="violetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="200" height="200" rx="44" fill="#09090b"/>
+  <rect x="12" y="12" width="176" height="176" rx="36" fill="none" stroke="rgba(200,169,126,0.25)" stroke-width="1.5"/>
+
+  <!-- Monogram: F + H intertwined -->
+  <path d="M 68 52 L 68 148" stroke="url(#goldGrad)" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <path d="M 68 52 L 132 52" stroke="url(#goldGrad)" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <path d="M 68 100 L 112 100" stroke="url(#goldGrad)" stroke-width="18" stroke-linecap="round" fill="none"/>
+
+  <path d="M 132 52 L 132 148" stroke="url(#violetGrad)" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <path d="M 96 148 L 168 148" stroke="url(#violetGrad)" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <path d="M 132 100 L 168 100" stroke="url(#violetGrad)" stroke-width="18" stroke-linecap="round" fill="none"/>
+
+  <circle cx="112" cy="100" r="7" fill="#09090b" stroke="url(#goldGrad)" stroke-width="3"/>
+</svg>

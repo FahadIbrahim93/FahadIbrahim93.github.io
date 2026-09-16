@@ -12,7 +12,7 @@
     --surface: #12121a;
     --card: #1a1a2e;
     --border: rgba(0,240,255,0.12);
-    --cyan: #00f0ff;
+    --accent: #c8a97e;
     --green: #00ff88;
     --purple: #a855f7;
     --pink: #ff00aa;
@@ -24,10 +24,10 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'Playfair Display', serif;
     line-height: 1.6;
   }
-  a { color: var(--cyan); text-decoration: none; }
+  a { color: var(--accent); text-decoration: none; }
   a:hover { opacity: 0.8; }
 
   nav {
@@ -42,10 +42,10 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  nav .brand { font-size: 16px; font-weight: 800; color: var(--cyan); }
+  nav .brand { font-size: 16px; font-weight: 800; color: var(--accent); }
   nav .links { display: flex; gap: 24px; list-style: none; }
   nav .links a { font-size: 13px; font-weight: 500; color: var(--muted); }
-  nav .links a:hover { color: var(--cyan); }
+  nav .links a:hover { color: var(--accent); }
 
   .hero {
     min-height: 60vh;
@@ -230,7 +230,7 @@
     color: var(--muted);
     font-size: 13px;
   }
-  footer strong { color: var(--cyan); }
+  footer strong { color: var(--accent); }
 
   @media (max-width: 768px) {
     nav .links { display: none; }
@@ -238,17 +238,21 @@
     .section { padding: 40px 16px; }
   }
 </style>
+<link rel="canonical" href="https://fahadibrahim93.github.io/services/ai-agents.html" />
+<meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 </head>
 <body>
 
 <nav>
   <div class="brand">☤ Hope Theory</div>
   <ul class="links">
-    <li><a href="/docs/index.html">Home</a></li>
-    <li><a href="/docs/services/fullstack.html">Full-Stack</a></li>
-    <li><a href="/docs/services/ai-agents.html">AI Agents</a></li>
-    <li><a href="/docs/services/bengali-ai.html">Bengali AI</a></li>
-    <li><a href="/docs/index.html#contact">Contact</a></li>
+    <li><a href="/">Home</a></li>
+    <li><a href="/services/fullstack.html">Full-Stack</a></li>
+    <li><a href="/services/ai-agents.html">AI Agents</a></li>
+    <li><a href="/services/bengali-ai.html">Bengali AI</a></li>
+    <li><a href="/#contact">Contact</a></li>
   </ul>
 </nav>
 

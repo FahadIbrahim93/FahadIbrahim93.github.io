@@ -1,0 +1,220 @@
+/**
+ * hero-scene.js — WebGL hero background for fahadibrahim93.github.io
+ * Three.js particle nebula + wireframe geometry, mouse-reactive.
+ *
+ * UPGRADED: Camera path now responds to scroll depth via __scrollProgress
+ * (driven by cinematic.js / Lenis). Particles and geometry rotate based on
+ * scroll position, creating a "fly-through" effect as user scrolls.
+ *
+ * Guardrails: DPR cap, pause when offscreen/hidden, reduced-motion skip,
+ * mobile skip (CSS aurora carries the look), try/catch WebGL fallback.
+ *
+ * PERF: Three.js (~735KB) is dynamically imported ONLY after shouldRun()
+ * passes, so mobile / reduced-motion users never download it.
+ */
+
+const canvas = document.getElementById('hero-canvas');
+const hero = document.querySelector('.hero');
+
+function shouldRun() {
+  if (!canvas || !hero) return false;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  // Desktop-class viewports only — phones get the CSS aurora layer
+  if (window.innerWidth < 900) return false;
+  return true;
+}
+
+if (shouldRun()) {
+  // Lazy-load the heavy Three.js bundle only when we'll actually use it
+  import('./vendor/three.module.min.js')
+    .then((THREE) => {
+      try {
+        initScene(THREE);
+      } catch (err) {
+        // WebGL unavailable — canvas stays transparent, CSS aurora remains.
+        console.info('[hero-scene] WebGL init skipped:', err.message);
+      }
+    })
+    .catch((err) => {
+      console.info('[hero-scene] Three.js load skipped:', err.message);
+    });
+}
+
+function initScene(THREE) {
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true,
+    powerPreference: 'low-power'
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x0a0a0f, 0.016);
+
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 200);
+  camera.position.set(0, 0, 30);
+
+  // ---------- Particle nebula ----------
+  const COUNT = 1400;
+  const positions = new Float32Array(COUNT * 3);
+  const colors = new Float32Array(COUNT * 3);
+  // Particle palette — warm gold + violet premium (no neon cyan/green)
+  const gold   = new THREE.Color(0xc8a97e);
+  const violet = new THREE.Color(0x8b5cf6);
+  const warm   = new THREE.Color(0xf4f4f5);
+
+  for (let i = 0; i < COUNT; i++) {
+    const r = 18 + Math.random() * 26;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    positions[i * 3]     = r * Math.sin(phi) * Math.cos(theta) * 1.4;
+    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.7;
+    positions[i * 3 + 2] = r * Math.cos(phi) * 0.8 - 6;
+
+    const roll = Math.random();
+    const c = roll < 0.55 ? gold : roll < 0.85 ? violet : warm;
+    colors[i * 3] = c.r;
+    colors[i * 3 + 1] = c.g;
+    colors[i * 3 + 2] = c.b;
+  }
+
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  pGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  const pMat = new THREE.PointsMaterial({
+    size: 0.14,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.75,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    sizeAttenuation: true
+  });
+  const particles = new THREE.Points(pGeo, pMat);
+  scene.add(particles);
+
+  // ---------- Wireframe centerpiece — gold + violet ----------
+  const icoOuter = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(9, 1),
+    new THREE.MeshBasicMaterial({
+      color: 0xc8a97e, wireframe: true, transparent: true, opacity: 0.18
+    })
+  );
+  const icoInner = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(13.5, 0),
+    new THREE.MeshBasicMaterial({
+      color: 0x8b5cf6, wireframe: true, transparent: true, opacity: 0.10
+    })
+  );
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(16, 0.03, 8, 120),
+    new THREE.MeshBasicMaterial({
+      color: 0xc8a97e, transparent: true, opacity: 0.18
+    })
+  );
+  ring.rotation.x = Math.PI / 2.4;
+  scene.add(icoOuter, icoInner, ring);
+
+  // ---------- Interaction state ----------
+  const mouse = { x: 0, y: 0 };
+  const eased = { x: 0, y: 0 };
+  window.addEventListener('pointermove', (e) => {
+    mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = (e.clientY / window.innerHeight) * 2 - 1;
+  }, { passive: true });
+
+  // ---------- Resize ----------
+  function resize() {
+    const w = hero.clientWidth;
+    const h = hero.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // ---------- Pause when offscreen or tab hidden ----------
+  let inView = true;
+  new IntersectionObserver((entries) => {
+    inView = entries[0].isIntersecting;
+  }, { threshold: 0 }).observe(hero);
+
+  let running = true;
+  document.addEventListener('visibilitychange', () => {
+    running = !document.hidden;
+  });
+
+  // ---------- Scroll fade (legacy, enhanced by cinematic.js parallax) ----------
+  let scrollFade = 1;
+  function onScroll() {
+    const y = window.scrollY;
+    const h = hero.clientHeight || 1;
+    scrollFade = Math.max(0, 1 - y / (h * 0.85));
+    // Don't set canvas opacity here — cinematic.js handles hero parallax fade
+    // Only set it if cinematic.js hasn't loaded (fallback)
+    if (!window.__scrollProgress && window.__scrollProgress !== 0) {
+      canvas.style.opacity = scrollFade.toFixed(3);
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ---------- Render loop ----------
+  const clock = new THREE.Clock();
+  renderer.setAnimationLoop(() => {
+    if (!running || !inView || scrollFade <= 0.01) return;
+    const t = clock.getElapsedTime();
+
+    // Read scroll progress from cinematic.js (0..1 through hero)
+    const sp = window.__scrollProgress || 0;
+
+    eased.x += (mouse.x - eased.x) * 0.04;
+    eased.y += (mouse.y - eased.y) * 0.04;
+
+    // Scroll-driven particle rotation (the "fly-through" effect)
+    // As user scrolls, the nebula rotates faster and the camera pushes forward
+    const scrollRotY = sp * Math.PI * 0.6;  // up to 108° rotation
+    const scrollRotX = sp * 0.3;
+    particles.rotation.y = t * 0.02 + eased.x * 0.12 + scrollRotY;
+    particles.rotation.x = eased.y * 0.08 + scrollRotX;
+
+    // Wireframe geometry responds to scroll — orbits widen, rotation accelerates
+    const scrollBoost = 1 + sp * 2.5; // 1x → 3.5x rotation speed
+    icoOuter.rotation.y = t * 0.08 * scrollBoost;
+    icoOuter.rotation.x = t * 0.04 * scrollBoost;
+    icoInner.rotation.y = -t * 0.05 * scrollBoost;
+    icoInner.rotation.z = t * 0.03 * scrollBoost;
+    ring.rotation.z = t * 0.06 * scrollBoost;
+
+    // Scale geometry with scroll (pull back, then zoom through)
+    const scrollScale = 1 + sp * 0.4;
+    icoOuter.scale.setScalar(scrollScale);
+    icoInner.scale.setScalar(scrollScale * 1.1);
+    ring.scale.setScalar(scrollScale * 0.9);
+
+    // Camera path: mouse reactive + scroll-driven depth + Y descent
+    // As scroll increases, camera pushes forward (Z decreases) and descends
+    const camZ = 30 - sp * 18;        // 30 → 12 (zoom into the scene)
+    const camY = -sp * 6;             // gentle descent
+    const camX = eased.x * 2.2 + sp * eased.x * 3; // wider mouse sway with scroll
+
+    camera.position.x += (camX - camera.position.x) * 0.06;
+    camera.position.y += (camY - eased.y * 1.6 - camera.position.y) * 0.06;
+    camera.position.z += (camZ - camera.position.z) * 0.06;
+    camera.lookAt(0, 0, -sp * 4);
+
+    // Particle opacity pulses with scroll
+    pMat.opacity = 0.75 - sp * 0.3;
+
+    // Ring opacity brightens as you approach
+    ring.material.opacity = 0.22 + sp * 0.15;
+
+    renderer.render(scene, camera);
+  });
+
+  // Signal success for tests/debugging
+  canvas.dataset.webgl = 'active';
+}
