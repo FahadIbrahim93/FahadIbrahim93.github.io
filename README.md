@@ -7,6 +7,12 @@ Portfolio of **Fahad Ibrahim** — full-stack developer (React 19, TypeScript, S
 
 **→ [Visit the live site](https://fahadibrahim93.github.io)**
 
+Deployment is reproducible from `main`: the
+[GitHub Pages workflow](.github/workflows/deploy-pages.yml) publishes the
+repository root to the legacy `gh-pages` source branch. See
+[DEPLOYMENT.md](DEPLOYMENT.md) for settings, validation, rollback, and live
+verification steps.
+
 ---
 
 ## What's inside

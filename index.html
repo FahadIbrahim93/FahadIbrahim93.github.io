@@ -1201,7 +1201,7 @@
     <img src="/images/logo-mark.svg" alt="" aria-hidden="true" style="width:22px;height:22px;vertical-align:middle;margin-right:8px;opacity:0.9;" />
     fahad<span>.ibrahim</span>
   </a>
-  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">☰</button>
+  <button class="nav-toggle" aria-label="Toggle navigation menu" title="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">☰</button>
   <ul class="nav-links" id="nav-menu">
     <li><a href="#work">Work</a></li>
     <li><a href="#case-study">Case Study</a></li>
@@ -1339,7 +1339,8 @@
           <span class="tech-tag">Stripe</span>
         </div>
         <div class="links">
-          <a href="https://github.com/FahadIbrahim93/LearnWebDev-AI" target="_blank" rel="noopener" class="btn btn-primary">Explore repo</a>
+          <a href="https://github.com/FahadIbrahim93/LearnWebDev-AI" target="_blank" rel="noopener noreferrer" class="btn btn-primary" title="Open the LearnWebDev-AI GitHub repository">View GitHub repo</a>
+          <a href="https://github.com/FahadIbrahim93/LearnWebDev-AI/blob/main/index.html" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" title="Open the product entry source; no public deployment is configured yet">Open product source</a>
         </div>
       </div>
     </article>
@@ -1867,10 +1868,14 @@
   toggle.addEventListener('click', () => {
     const open = menu.classList.toggle('open');
     toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    toggle.setAttribute('title', open ? 'Close navigation menu' : 'Open navigation menu');
   });
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
     menu.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open navigation menu');
+    toggle.setAttribute('title', 'Open navigation menu');
   }));
 </script>
 
