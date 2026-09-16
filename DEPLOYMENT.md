@@ -17,10 +17,18 @@ framework build, install dependencies, or deploy application secrets. This
 matches the current Pages setting and keeps the static asset paths unchanged.
 Do not edit `gh-pages` manually; changes belong on `main`.
 
-The featured LearnWebDev-AI project has its own independently deployed app at
-https://fahadibrahim93.github.io/LearnWebDev-AI/. Its application repository
-and Pages deployment are separate from this portfolio repository; verify that
-URL before changing the portfolio card's live link.
+The featured LearnWebDev-AI project has its own independently deployed
+canonical product URL at https://aiweblearn.freebuff.app/. Its application
+repository and deployment are separate from this portfolio repository. The
+GitHub Pages URL at https://fahadibrahim93.github.io/LearnWebDev-AI/ remains a
+public deployment reference, while the portfolio's live action points to the
+Vly product URL.
+
+The latest rebuilt app deployment is tracked by LearnWebDev-AI Pages workflow
+run `35070816649`. Keep the Vly frontend environment configured with
+`VITE_CONVEX_URL` and the matching Convex production account, deploy key, and
+auth issuer before treating auth, catalog data, saved progress, bookings,
+showcase submissions, and waitlist behavior as production-ready.
 
 ## Repository settings
 
