@@ -1,7 +1,7 @@
 # fahadibrahim93.github.io
 
 [![Live Site](https://img.shields.io/badge/live-fahadibrahim93.github.io-c8a97e?style=flat-square)](https://fahadibrahim93.github.io)
-[![Validate](https://img.shields.io/badge/validate.py-18%20pages%20pass-34d399?style=flat-square)](validate.py)
+[![Validate](https://github.com/FahadIbrahim93/FahadIbrahim93.github.io/actions/workflows/validate.yml/badge.svg)](https://github.com/FahadIbrahim93/FahadIbrahim93.github.io/actions/workflows/validate.yml)
 
 Portfolio of **Fahad Ibrahim** — full-stack developer (React 19, TypeScript, Supabase, Firebase) and technical founder at Hope Theory. Static site, zero build step, deployed on GitHub Pages.
 
