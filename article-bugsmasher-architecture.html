@@ -287,7 +287,7 @@ class GameEngine {
 
   <blockquote>"If your game logic is tightly coupled to DOM elements or requestAnimationFrame, your tests will be brittle. Decouple physics from rendering, and you can test 10,000 game ticks in under 2 seconds."</blockquote>
 
-  <p>The last documented snapshot (2026-08-26) recorded 651/651 frontend tests passing, ~79% line coverage, Firebase emulator failing 1 of 26 tests, Playwright skipped, and certification <strong>NOT CERTIFIED 10/10</strong>. Older “678 tests / 5/5 Playwright” figures are stale and are not current facts.</p>
+  <p>The current documented baseline (2026-08-30, <strong>main @ bbc7250</strong>) is green across the board: 752/752 frontend tests (40 files), 81.70% line coverage with enforced floors, Firebase emulator 26/26, Playwright 5/5, production build passing, and zero production-dependency vulnerabilities. Certification remains <strong>NOT CERTIFIED 10/10</strong> — the remaining gaps are ESLint warnings (910 → 0), accessibility evidence, and operations, all tracked in the repo ledger. Older “651 tests / failing emulator / Playwright skipped” figures from the 2026-08-26 snapshot are superseded.</p>
 
   <h2>Key Takeaways & Lessons Learned</h2>
   <ol>

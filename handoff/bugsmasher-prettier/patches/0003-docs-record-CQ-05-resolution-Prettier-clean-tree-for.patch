@@ -1,0 +1,74 @@
+From 3de4d682ced41ff473139281c6a6d1ec8194f636 Mon Sep 17 00:00:00 2001
+From: FahadIbrahim93 <hopetheorybd@gmail.com>
+Date: Fri, 18 Sep 2026 21:15:56 +0000
+Subject: [PATCH 3/3] =?UTF-8?q?docs:=20record=20CQ-05=20resolution=20?=
+ =?UTF-8?q?=E2=80=94=20Prettier-clean=20tree,=20format=20gate=20in=20CI?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ README.md      |  2 +-
+ docs/STATUS.md | 27 ++++++++++++++-------------
+ 2 files changed, 15 insertions(+), 14 deletions(-)
+
+diff --git a/README.md b/README.md
+index e909991..59028c3 100644
+--- a/README.md
++++ b/README.md
+@@ -92,4 +92,4 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md), [AGENTS.md](./AGENTS.md) and [docs/AGE
+ ## Status
+ 
+ **10/10 certification:** NOT CERTIFIED  
+-**Next priority:** lint, prettier, accessibility, and operations evidence — then the live taskboard.
++**Next priority:** ESLint warnings (910 → 0), accessibility, and operations evidence — then the live taskboard.
+diff --git a/docs/STATUS.md b/docs/STATUS.md
+index f13afba..dfe58be 100644
+--- a/docs/STATUS.md
++++ b/docs/STATUS.md
+@@ -10,28 +10,29 @@ The P0 emulator-test defect (P0-CI-01) is fixed and verified: the monotonic-scor
+ 
+ ### Verified baseline (2026-08-30, `main` @ `bbc7250`)
+ 
+-| Gate                         | Result                                                                                              |
+-| ---------------------------- | --------------------------------------------------------------------------------------------------- |
+-| TypeScript                   | PASS                                                                                                |
+-| ESLint                       | PASS with 0 errors / 910 warnings                                                                   |
+-| Functions build + unit tests | PASS (6/6)                                                                                          |
+-| Frontend tests               | 752/752 PASS (40 files)                                                                             |
+-| Coverage                     | 81.70% lines / 80.78% statements / 85.99% functions / 70.92% branches (floors 80/80/75/70 enforced) |
+-| Firebase emulator            | PASS (26/26)                                                                                        |
+-| Production build             | PASS (vendor chunk 690.96 kB, 206.81 kB gzip)                                                       |
+-| Playwright E2E               | PASS (5/5)                                                                                          |
+-| `npm audit --omit=dev`       | 0 vulnerabilities                                                                                   |
+-| `prettier --check .`         | **FAIL: ~181 files unformatted (not a CI gate yet)**                                                |
++| Gate                         | Result                                                                                                       |
++| ---------------------------- | ------------------------------------------------------------------------------------------------------------ |
++| TypeScript                   | PASS                                                                                                         |
++| ESLint                       | PASS with 0 errors / 910 warnings                                                                            |
++| Functions build + unit tests | PASS (6/6)                                                                                                   |
++| Frontend tests               | 752/752 PASS (40 files)                                                                                      |
++| Coverage                     | 81.70% lines / 80.78% statements / 85.99% functions / 70.92% branches (floors 80/80/75/70 enforced)          |
++| Firebase emulator            | PASS (26/26)                                                                                                 |
++| Production build             | PASS (vendor chunk 690.96 kB, 206.81 kB gzip)                                                                |
++| Playwright E2E               | PASS (5/5)                                                                                                   |
++| `npm audit --omit=dev`       | 0 vulnerabilities                                                                                            |
++| `prettier --check .`         | **PASS — tree Prettier-clean (180 files reformatted 2026-09-18); `format:check` now a hard CI gate (CQ-05)** |
+ 
+ ### Resolved since previous baseline
+ 
++- CQ-05 (2026-09-18): 180 files reformatted with Prettier; `npm run format:check` added to CI as a hard gate. Gates re-verified on the formatted tree: typecheck, ESLint (0 errors), 752/752 tests, production build.
+ - P0-CI-01: emulator regression test fixed and verified (26/26).
+ - P0-CI-02: full gate suite green on the exact `main` commit (GitHub Actions + local re-run).
+ 
+ ## Current P0/P1 direction
+ 
+ 1. Eliminate static-analysis and React correctness debt (910 ESLint warnings → 0; CQ-01/CQ-02/CQ-03).
+-2. Bring the tree Prettier-clean and gate formatting in CI (CQ-05).
++2. ~~Bring the tree Prettier-clean and gate formatting in CI (CQ-05).~~ DONE 2026-09-18.
+ 3. Raise coverage toward the 85/85/85/75 targets (T-01), especially branch coverage.
+ 4. Harden competitive-integrity validation (S-04/S-05).
+ 5. Certify performance and accessibility with evidence (PERF-01..04, AX-01..05).
+-- 
+2.34.1
+
