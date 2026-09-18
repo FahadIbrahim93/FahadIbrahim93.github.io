@@ -1,0 +1,29 @@
+From efc090795edc1f9734f5ab3eaee46c228df3dfc6 Mon Sep 17 00:00:00 2001
+From: FahadIbrahim93 <hopetheorybd@gmail.com>
+Date: Fri, 18 Sep 2026 21:13:06 +0000
+Subject: [PATCH 2/3] ci: enforce prettier --check as a hard quality gate
+ (CQ-05)
+
+Adds the format step to the CI quality job immediately after eslint so
+formatting debt cannot re-accumulate.
+---
+ .github/workflows/ci.yml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index 9d47437..669e839 100644
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -35,6 +35,9 @@ jobs:
+       - name: Lint (eslint — hard gate)
+         run: npm run lint:eslint
+ 
++      - name: Format (prettier — hard gate)
++        run: npm run format:check
++
+       - name: Dependency audit (production deps — hard gate)
+         # 0 production vulnerabilities (2026-08-16). Dev-tooling chain
+         # (firebase-tools/gaxios via npm audit --all) remains waived with
+-- 
+2.34.1
+

@@ -167,7 +167,7 @@
 
   <div class="metrics">
     <div class="metric"><div class="val">CI</div><div class="lbl">Tracked in STATUS.md</div></div>
-    <div class="metric"><div class="val">~79%</div><div class="lbl">Coverage snapshot</div></div>
+    <div class="metric"><div class="val">81.7%</div><div class="lbl">Coverage (CI floors)</div></div>
     <div class="metric"><div class="val">FAIL</div><div class="lbl">Emulator (1 test)</div></div>
     <div class="metric"><div class="val">NOT</div><div class="lbl">Certified 10/10</div></div>
   </div>
@@ -214,20 +214,21 @@
 
   <section>
     <h2><span class="num">03</span> A verification baseline you can audit</h2>
-    <p class="lead">Quality is enforced through layered gates in CI, not by vibes. The numbers below are the last documented snapshot in <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory/blob/main/docs/STATUS.md" target="_blank" rel="noopener">docs/STATUS.md</a> (2026-08-26 / 2026-08-29) — not a live certification.</p>
+    <p class="lead">Quality is enforced through layered gates in CI, not by vibes. The numbers below are the documented baseline in <a href="https://github.com/FahadIbrahim93/BugSmasher-HopeTheory/blob/main/docs/STATUS.md" target="_blank" rel="noopener">docs/STATUS.md</a> (2026-08-30, <span style="font-family:'JetBrains Mono',monospace">main @ bbc7250</span>) — not a live certification.</p>
     <table>
       <tr><th>Signal</th><th>Result</th></tr>
       <tr><td>Certification</td><td class="mono">NOT CERTIFIED 10/10</td></tr>
       <tr><td>TypeScript</td><td class="mono">PASS</td></tr>
-      <tr><td>ESLint</td><td class="mono">PASS with 908 warnings</td></tr>
-      <tr><td>Functions build</td><td class="mono">PASS</td></tr>
-      <tr><td>Frontend tests</td><td class="mono">651/651 PASS (snapshot)</td></tr>
-      <tr><td>Coverage</td><td class="mono">~79% lines / ~78% statements</td></tr>
-      <tr><td>Firebase emulator</td><td class="mono">FAIL: 1 of 26 tests</td></tr>
-      <tr><td>Production build</td><td class="mono">Skipped after emulator failure</td></tr>
-      <tr><td>Playwright E2E</td><td class="mono">Skipped after quality failure</td></tr>
+      <tr><td>ESLint</td><td class="mono">PASS — 0 errors / 910 warnings</td></tr>
+      <tr><td>Functions build + unit tests</td><td class="mono">PASS (6/6)</td></tr>
+      <tr><td>Frontend tests</td><td class="mono">752/752 PASS (40 files)</td></tr>
+      <tr><td>Coverage</td><td class="mono">81.70% lines / 85.99% functions (floors enforced)</td></tr>
+      <tr><td>Firebase emulator</td><td class="mono">PASS (26/26)</td></tr>
+      <tr><td>Production build</td><td class="mono">PASS</td></tr>
+      <tr><td>Playwright E2E</td><td class="mono">PASS (5/5)</td></tr>
+      <tr><td>npm audit (prod deps)</td><td class="mono">0 vulnerabilities</td></tr>
     </table>
-    <p class="dim">Do not treat older “678 tests passing / 5/5 Playwright” figures as current. Fresh counts live in the repo ledger. Gates run via <span style="font-family:'JetBrains Mono',monospace;color:var(--accent)">npm run ci</span> when CI is green.</p>
+    <p class="dim">Older “651 tests / failing emulator / Playwright skipped” figures (2026-08-26 snapshot) are superseded. Fresh counts live in the repo ledger.</p>
   </section>
 
   <section>
