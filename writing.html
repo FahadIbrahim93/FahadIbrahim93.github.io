@@ -184,6 +184,14 @@
     font-size: 0.9rem;
     margin-top: 120px;
   }
+
+  header { flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 720px) {
+    header { padding: 20px 20px; }
+    nav { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+    nav a { margin-left: 0; }
+    .article-meta { margin-bottom: 8px; }
+  }
 </style>
 </head>
 <body>
