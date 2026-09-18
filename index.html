@@ -1519,7 +1519,10 @@
 
 <!-- CASE STUDY — tabbed switcher -->
 <section class="section" id="case-study">
-  <div class="section-title reveal">Deep Dive</div>
+  <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:12px;">
+    <div class="section-title reveal">Deep Dive</div>
+    <a href="/case-studies.html" style="font-size:13px; font-weight:600; color:var(--accent);">All case studies &rarr;</a>
+  </div>
   <h2 class="reveal">Case Studies</h2>
   <div class="case-tabs reveal" role="tablist" aria-label="Case studies">
     <button class="case-tab" role="tab" aria-selected="false" data-case="bugsmasher">BugSmasher</button>
@@ -1948,7 +1951,7 @@
       });
     }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
 
-    sections.forEach(function (s) { obs.observe(s.section); }
+    sections.forEach(function (s) { obs.observe(s.section); });
   })();
 
   // Hero mouse-reactive light (desktop only)
