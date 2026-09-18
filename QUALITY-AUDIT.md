@@ -30,3 +30,23 @@
 - [ ] Record demo videos (scripts in `demo-scripts/`)
 - [ ] Lighthouse audit on real mobile device
 - [ ] Submit carbonledger PR (above)
+
+---
+
+## Polish Pass — 2026-09-18 (autonomous session, "take it to 10/10")
+
+| Check | Result |
+|-------|--------|
+| Full meta coverage (canonical, OG title/desc/image, Twitter card+image, favicon, theme-color, color-scheme) | 18/18 pages |
+| Case-study tabs | APG pattern: aria-selected sync, arrow/Home/End keys, roving tabindex, labelled focusable panels |
+| Article JSON-LD (Article schema, datePublished) | 3/3 articles |
+| Person schema | alumniOf (AUST) added; both blocks parse |
+| Image loading | All below-fold images lazy; contradictory lazy+high-priority combos removed; decoding=async site-wide |
+| Security | No `_blank` links without rel="noopener" |
+| PWA | site.webmanifest linked on all pages, JSON valid |
+| Article UX | read-next chaining between the 3 articles |
+| Mobile | family-B headers wrap on ≤720px (was overflowing) |
+| Sitemap | lastmod added |
+| CI | Validate workflow green on all 5 runs; badge wired to Actions |
+| Validator | ALL CHECKS PASS across 18 pages after every change |
+| Production sweep | 52 unique internal paths → 200; 404 correctly returns HTTP 404 |
