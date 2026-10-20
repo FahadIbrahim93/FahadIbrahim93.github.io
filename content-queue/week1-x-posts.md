@@ -50,7 +50,7 @@ BugSmasher’s tests and CI are tracked in the repo STATUS.md ledger — not a l
 
 AI didn't make me a faster typist. It collapsed the boring middle of development — scaffolding, boilerplate, first-draft tests — so I could spend attention on architecture and edge cases.
 
-~60% faster delivery without skipping quality gates. The gates are the point.
+No skipped quality gates. The gates are the point.
 
 ---
 
