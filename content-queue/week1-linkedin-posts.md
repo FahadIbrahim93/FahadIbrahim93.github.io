@@ -40,7 +40,7 @@ Unpopular opinion: "AI-assisted development" is a misleading phrase.
 
 The value isn't AI writing your code. It's AI deleting the boring middle — scaffolding, boilerplate, first-draft tests — so your attention goes where it actually matters: architecture, edge cases, security surfaces.
 
-My delivery time dropped ~60% across 4 shipped products. Not because I type faster, but because I stopped spending attention on work a machine does better.
+Not because I type faster, but because I stopped spending attention on work a machine does better.
 
 The quality gates stayed. The gates are the point.
 

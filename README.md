@@ -21,8 +21,8 @@ verification steps.
 |---|---|
 | **Case studies** | [BugSmasher](https://fahadibrahim93.github.io/case-study-bugsmasher.html) (anti-cheat leaderboards; tests in STATUS.md) · [RollON](https://fahadibrahim93.github.io/case-study-rollon.html) (117 tests, 87% coverage) · [JG Mart](https://fahadibrahim93.github.io/case-study-jgmart.html) (offline-first grocery PWA) · [Insectiles](https://fahadibrahim93.github.io/case-study-insectiles.html) (PixiJS roguelite) |
 | **Technical articles** | [Game engine architecture](https://fahadibrahim93.github.io/article-bugsmasher-architecture.html) · [E-commerce at scale](https://fahadibrahim93.github.io/article-rollon-ecommerce-architecture.html) · [Offline-first PWA](https://fahadibrahim93.github.io/article-jgmart-offline-first.html) |
-| **Services** | [Full-stack development](https://fahadibrahim93.github.io/services/fullstack.html) · [AI agent integration](https://fahadibrahim93.github.io/services/ai-agents.html) · [Bengali AI services](https://fahadibrahim93.github.io/services/bengali-ai.html) |
-| **Hire me** | [Web résumé](https://fahadibrahim93.github.io/resume.html) · [PDF résumé](https://fahadibrahim93.github.io/resume-pdf.html) |
+| **Services** | [Full-stack development](https://fahadibrahim93.github.io/services/fullstack.html) · [AI agent integration](https://fahadibrahim93.github.io/services/ai-agents.html) |
+| **Hire me** | [Web résumé](https://fahadibrahim93.github.io/resume.html) · [PDF résumé](https://fahadibrahim93.github.io/Fahad_Ibrahim_Resume.pdf) |
 
 ## Engineering highlights
 
