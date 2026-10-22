@@ -1231,7 +1231,7 @@
     <h1>Fahad Ibrahim</h1>
     <p class="hero-value">Ship <strong>React / TypeScript / Supabase</strong> products people can click — clear scope, real demos, honest status.</p>
     <p class="tagline" style="margin-top:-8px;margin-bottom:32px;">
-      Full-stack builds and games with public demos. No invented metrics. BugSmasher is live with every CI gate green (752 tests) — full release certification in progress.
+      Full-stack builds and games with public demos. No invented metrics. BugSmasher is live with 752 tests passing — release certification still in progress.
     </p>
     <div class="hero-cta">
       <a href="#work" class="btn btn-primary">View live projects</a>
@@ -1247,11 +1247,11 @@
         <div class="stat-label">Not Months</div>
       </div>
       <div class="stat">
-        <div class="stat-value" data-count="117" data-suffix="">117</div>
+        <div class="stat-value" data-count="136" data-suffix="">136</div>
         <div class="stat-label">RollON Tests</div>
       </div>
       <div class="stat">
-        <div class="stat-value" data-count="87" data-suffix="%">87%</div>
+        <div class="stat-value" data-count="88" data-suffix="%">88%</div>
         <div class="stat-label">RollON Coverage</div>
       </div>
     </div>
@@ -1389,8 +1389,8 @@
       <div class="project-body">
         <div class="project-cat">Commerce · Storefront</div>
         <h3>🛒 RollON</h3>
-        <p class="project-outcome">Catalog → cart → checkout + admin; 117 tests, 87% coverage, CI green.</p>
-        <p>E-commerce platform with catalog, cart, variants, checkout flow, and admin dashboard. Config-driven branding, CSP-hardened, WCAG 2.1 AA accessible. 117 tests (106 unit + 11 Playwright E2E), 87% coverage, CI green.</p>
+        <p class="project-outcome">Catalog → cart → checkout + admin; 136 tests, 88% coverage, CI green.</p>
+        <p>E-commerce platform with catalog, cart, variants, checkout flow, and admin dashboard. Config-driven branding, CSP-hardened, WCAG 2.1 AA accessible. 136 tests (115 unit + 21 Playwright E2E), 88% coverage, CI green.</p>
         <div class="tech">
           <span class="tech-tag">React 19</span>
           <span class="tech-tag">TypeScript</span>
@@ -1470,15 +1470,16 @@
         <span class="live-badge">● Live</span>
       </div>
       <div class="project-body">
-        <div class="project-cat">Game · Single-file arcade</div>
+        <div class="project-cat">Game · Zero-build arcade</div>
         <h3>🚀 Emberfall</h3>
-        <p class="project-outcome">Deep-range intercept shooter — waves, bosses, Web Audio, offline-capable.</p>
-        <p>Single-file HTML5 Canvas arcade shooter. Procedural audio, wave director, boss fights, local high scores. Zero build step — open <code>index.html</code> or play the live deploy.</p>
+        <p class="project-outcome">Deep-range intercept shooter — 8 worlds, 5 named bosses, graze-to-score chaining, offline-capable.</p>
+        <p>HTML5 Canvas arcade shooter that ships without a build step. Procedural audio, wave director, boss fights, local high scores, and a graze mechanic that converts near-misses into score chains. Zero runtime dependencies and no bundler — the deploy is the source. MIT licensed.</p>
         <div class="tech">
-          <span class="tech-tag">Vanilla HTML</span>
+          <span class="tech-tag">Vanilla JS</span>
           <span class="tech-tag">Canvas 2D</span>
           <span class="tech-tag">WebAudio</span>
-          <span class="tech-tag">0 deps</span>
+          <span class="tech-tag">0 runtime deps</span>
+          <span class="tech-tag">MIT</span>
         </div>
         <div class="links">
           <a href="https://emberfall-game-two.vercel.app/" target="_blank" rel="noopener" class="btn btn-primary">Play live</a>
@@ -1533,6 +1534,7 @@
     <button class="case-tab" role="tab" id="tab-rollon" aria-selected="false" aria-controls="panel-rollon" tabindex="-1" data-case="rollon">RollON</button>
     <button class="case-tab" role="tab" id="tab-jgmart" aria-selected="false" aria-controls="panel-jgmart" tabindex="-1" data-case="jgmart">JG Mart</button>
     <button class="case-tab" role="tab" id="tab-insectiles" aria-selected="false" aria-controls="panel-insectiles" tabindex="-1" data-case="insectiles">Insectiles</button>
+    <button class="case-tab" role="tab" id="tab-emberfall" aria-selected="false" aria-controls="panel-emberfall" tabindex="-1" data-case="emberfall">Emberfall</button>
     <span class="case-tab-pill" aria-hidden="true"></span>
   </div>
 
@@ -1566,11 +1568,11 @@
           <h3>Production-grade e-commerce with config-driven branding.</h3>
           <p class="case-intro">
             RollON includes catalog, cart, variants, checkout flow, and admin dashboard.
-            CSP-hardened, WCAG 2.1 AA accessible. 117 tests with 87% coverage and CI green.
+            CSP-hardened, WCAG 2.1 AA accessible. 136 tests with 88% coverage and CI green.
           </p>
           <div class="case-metrics-inline">
-            <div class="case-metric"><div class="val">117</div><div class="lbl">Tests</div></div>
-            <div class="case-metric"><div class="val">87%</div><div class="lbl">Coverage</div></div>
+            <div class="case-metric"><div class="val">136</div><div class="lbl">Tests</div></div>
+            <div class="case-metric"><div class="val">88%</div><div class="lbl">Coverage</div></div>
             <div class="case-metric"><div class="val">CI</div><div class="lbl">Green</div></div>
             <div class="case-metric"><div class="val">A11y</div><div class="lbl">WCAG 2.1 AA</div></div>
           </div>
@@ -1621,6 +1623,29 @@
           <div class="links" style="margin-top:28px;">
             <a href="/case-study-insectiles.html" class="btn btn-primary" style="padding:12px 24px;">Read Case Study</a>
             <span style="font-size:12px;color:var(--muted);margin-left:12px;">Private repo — walkthrough on request</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-panel" id="panel-emberfall" data-case="emberfall" role="tabpanel" aria-labelledby="tab-emberfall" tabindex="0">
+      <div class="case-banner">
+        <div class="case-story">
+          <h3>Zero-build arcade shooter — where grazing bullets builds the score chain.</h3>
+          <p class="case-intro">
+            A bullet-hell that inverts the usual risk model: the closer you fly to incoming fire, the more you score.
+            Eight worlds, five named bosses with multi-phase patterns, procedural WebAudio, and an offline PWA —
+            shipped with no bundler and zero runtime dependencies.
+          </p>
+          <div class="case-metrics-inline">
+            <div class="case-metric"><div class="val">8</div><div class="lbl">Worlds</div></div>
+            <div class="case-metric"><div class="val">5</div><div class="lbl">Named Bosses</div></div>
+            <div class="case-metric"><div class="val">16</div><div class="lbl">E2E Specs</div></div>
+            <div class="case-metric"><div class="val">MIT</div><div class="lbl">License</div></div>
+          </div>
+          <div class="links" style="margin-top:28px;">
+            <a href="/case-study-emberfall.html" class="btn btn-primary" style="padding:12px 24px;">Read Case Study</a>
+            <a href="https://emberfall-game-two.vercel.app/" target="_blank" rel="noopener" style="margin-left:12px;">Play live</a>
           </div>
         </div>
       </div>
@@ -1723,7 +1748,7 @@
     </div>
     <ul>
       <li>Built BugSmasher (React 19 + TypeScript + Firebase) — arcade game with auth, XP system, and server-authoritative real-time leaderboards. Tests and CI tracked in repo STATUS.md.</li>
-      <li>Developed RollON (React 19 + TypeScript + Tailwind) — e-commerce platform with cart, variants, checkout, and admin dashboard. 117 tests, 87% coverage, WCAG 2.1 AA compliant.</li>
+      <li>Developed RollON (React 19 + TypeScript + Tailwind) — e-commerce platform with cart, variants, checkout, and admin dashboard. 136 tests, 88% coverage, WCAG 2.1 AA compliant.</li>
       <li>Shipped JG Mart — hyperlocal grocery PWA built for a 1,700-family residential complex (pilot target) with WhatsApp-native ordering.</li>
       <li>Integrated AI agents into the development workflow while maintaining quality gates (lint → test → build → deploy).</li>
     </ul>
