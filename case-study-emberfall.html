@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>EMBERFALL Case Study — Zero-Build HTML5 Arcade Shooter | Fahad Ibrahim</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Case study: EMBERFALL — a zero-build HTML5 canvas shooter where grazing bullets builds the score chain. 8 worlds, 5 named bosses, a deterministic simulation core, and a 46-step CI gate chain." />
+<meta name="theme-color" content="#09090b" />
+<meta name="color-scheme" content="dark" />
+<!-- Open Graph -->
+<meta property="og:url" content="https://fahadibrahim93.github.io/case-study-emberfall.html" />
+<meta property="og:description" content="A zero-build HTML5 arcade shooter where grazing bullets builds your score chain. 8 worlds, 5 named bosses, deterministic sim core, 46-step CI gate chain." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<meta name="twitter:description" content="Zero-build HTML5 arcade shooter. Graze-to-score mechanic, 8 worlds, 5 bosses, offline PWA, MIT." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" rel="stylesheet">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
+    --bg: #09090b;
+    --surface: #0f0f12;
+    --card: #141418;
+    --card2: #1a1a1f;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent: #c8a97e;
+    --accent-glow: rgba(200,169,126,0.15);
+    --gold: #c8a97e;
+    --amber: #fbbf24;
+    --violet: #8b5cf6;
+    --violet-glow: rgba(139,92,246,0.12);
+    --green: #34d399;
+    --text: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --muted: #71717a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family:'Inter',sans-serif; line-height:1.7; }
+  a { color: var(--accent); text-decoration:none; }
+  a:hover { text-decoration: underline; }
+
+  header { padding:28px 32px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  header .brand { font-size:18px; font-weight:800; letter-spacing:-0.5px; }
+  header a.back { font-size:13px; font-weight:600; padding:8px 14px; border:1px solid var(--border); border-radius:8px; }
+
+  .hero { max-width:900px; margin:0 auto; padding:56px 32px 24px; }
+  .hero .kicker { font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--green); margin-bottom:14px; }
+  .hero h1 { font-size:clamp(30px,5vw,46px); font-weight:900; letter-spacing:-1.5px; line-height:1.1; margin-bottom:16px; }
+  .hero .sub { font-size:17px; color:var(--muted); max-width:720px; }
+  .hero .tags { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; }
+  .hero .tag { font-family:'JetBrains Mono',monospace; font-size:11px; padding:5px 10px; border:1px solid var(--border); border-radius:6px; color:var(--accent); background:rgba(200,169,126,0.05); }
+
+  .shot { margin:24px 0 0; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--card); }
+  .shot img { width:100%; height:auto; display:block; }
+
+  main { max-width:900px; margin:0 auto; padding:16px 32px 64px; }
+  section { margin-top:44px; }
+  section h2 { font-size:24px; font-weight:800; letter-spacing:-0.5px; margin-bottom:6px; display:flex; align-items:center; gap:10px; }
+  section h2 .num { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--violet); font-weight:600; }
+  section .lead { color:var(--muted); font-size:15px; margin-bottom:18px; }
+  section p { font-size:15px; color:var(--text); margin-bottom:14px; }
+  section p.dim { color:var(--muted); }
+
+  .metrics { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin:20px 0; }
+  .metric { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px 16px; text-align:center; }
+  .metric .val { font-size:26px; font-weight:800; font-family:'JetBrains Mono',monospace; color:var(--green); }
+  .metric .lbl { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1.5px; margin-top:6px; }
+
+  .callout { background:var(--card2); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:10px; padding:18px 20px; margin:18px 0; }
+  .callout.warn { border-left-color:var(--amber); }
+  .callout .t { font-weight:700; font-size:14px; margin-bottom:6px; color:var(--accent); }
+  .callout.warn .t { color:var(--amber); }
+  .callout p { font-size:14px; color:var(--muted); margin:0; }
+
+  ul.clean { list-style:none; margin:8px 0 4px; }
+  ul.clean li { padding:7px 0 7px 22px; position:relative; font-size:14.5px; color:var(--text); }
+  ul.clean li::before { content:'▹'; position:absolute; left:0; color:var(--green); font-weight:700; }
+  ul.clean li b { color:var(--accent); font-weight:600; }
+
+  table { width:100%; border-collapse:collapse; margin:16px 0; font-size:13.5px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-weight:600; text-transform:uppercase; font-size:11px; letter-spacing:1px; }
+  td.mono { font-family:'JetBrains Mono',monospace; color:var(--green); }
+  td.dim { color:var(--muted); }
+
+  .cta { margin-top:48px; display:flex; gap:12px; flex-wrap:wrap; }
+  .cta a { padding:12px 20px; border-radius:10px; font-weight:700; font-size:14px; }
+  .cta .primary { background:var(--accent); color:#04141a; }
+  .cta .ghost { border:1px solid var(--border); color:var(--accent); }
+
+  footer { text-align:center; padding:40px 24px; border-top:1px solid var(--border); color:var(--muted); font-size:13px; }
+  .case-nav { display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:44px; padding-top:24px; border-top:1px solid var(--border); }
+  .case-nav-empty { flex:1; }
+  .case-nav-prev, .case-nav-next { font-size:13px; font-weight:600; color:var(--accent); }
+
+  footer strong { color:var(--accent); }
+
+  .arch-diagram { margin: 24px 0; padding: 20px; background: rgba(9,9,11,0.6); border: 1px solid var(--border); border-radius: 12px; }
+  .arch-layer { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .arch-box { padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; font-size: 13px; line-height: 1.5; text-align: center; min-width: 140px; }
+  .arch-box.frontend { background: rgba(200,169,126,.06); border-color: rgba(200,169,126,.3); }
+  .arch-box.state { background: rgba(168,85,247,.06); border-color: rgba(168,85,247,.3); }
+  .arch-box.backend { background: rgba(0,255,136,.06); border-color: rgba(0,255,136,.3); }
+  .arch-arrow { font-size: 20px; color: var(--accent); font-weight: 700; }
+  .arch-caption { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; font-family: 'JetBrains Mono', monospace; }
+
+  @media (max-width:768px){ header,.hero,main{padding-left:18px;padding-right:18px;} .hero{padding-top:36px;} }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "EMBERFALL",
+  "description": "Zero-build HTML5 canvas arcade shooter where grazing bullets builds the score chain. 8 worlds, 5 named bosses, deterministic simulation core, offline PWA.",
+  "keywords": "game development, canvas, HTML5, WebAudio, bullet hell, offline PWA",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Person",
+    "name": "Fahad Ibrahim",
+    "url": "https://fahadibrahim93.github.io/"
+  },
+  "url": "https://fahadibrahim93.github.io/case-study-emberfall.html",
+  "image": "https://fahadibrahim93.github.io/images/og.png"
+}
+</script>
+<meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Fahad Ibrahim — Full-Stack Developer Portfolio" />
+<link rel="canonical" href="https://fahadibrahim93.github.io/case-study-emberfall.html" />
+<meta property="og:title" content="EMBERFALL Case Study — Fahad Ibrahim" />
+<meta property="og:description" content="Zero-build HTML5 arcade shooter. Graze-to-score mechanic, 8 worlds, 5 bosses, deterministic sim core, offline PWA." />
+<meta property="og:type" content="website" />
+</head>
+<body>
+<header>
+  <div class="brand">fahad<span style="color:var(--accent)">.ibrahim</span></div>
+  <a class="back" href="/case-studies.html">← All Case Studies</a>
+</header>
+
+<div class="hero">
+  <div class="kicker">Case Study · MIT · Public repo</div>
+  <h1>EMBERFALL — a zero-build arcade shooter where grazing bullets builds your score</h1>
+  <p class="sub">A bullet-hell that inverts the usual risk model: the closer you fly to incoming fire, the more you score. Eight worlds, five named bosses with multi-phase attack patterns, procedural audio, and an offline PWA — shipped without a bundler and without a single runtime dependency.</p>
+  <div class="tags">
+    <span class="tag">Vanilla JS</span>
+    <span class="tag">Canvas 2D</span>
+    <span class="tag">WebAudio</span>
+    <span class="tag">0 runtime deps</span>
+    <span class="tag">Offline PWA</span>
+    <span class="tag">MIT</span>
+  </div>
+</div>
+
+<main>
+  <div class="shot">
+    <picture>
+      <source srcset="/images/case-studies/emberfall-800.webp" type="image/webp" media="(min-width: 800px)" />
+      <source srcset="/images/case-studies/emberfall-400.webp" type="image/webp" />
+      <img src="/images/case-studies/emberfall-400.webp" alt="EMBERFALL gameplay showing a bullet curtain with the graze combo meter active" loading="lazy" decoding="async" width="1200" height="675" style="width:100%;height:auto;display:block;" />
+    </picture>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><div class="val">8</div><div class="lbl">Worlds</div></div>
+    <div class="metric"><div class="val">5</div><div class="lbl">Named Bosses</div></div>
+    <div class="metric"><div class="val">16</div><div class="lbl">E2E Specs</div></div>
+    <div class="metric"><div class="val">46</div><div class="lbl">CI Steps</div></div>
+  </div>
+
+  <div class="callout">
+    <div class="t">⚡ Key Decisions</div>
+    <p><b>Graze instead of dodge:</b> the core loop rewards proximity, so the player's instinct is inverted and the skill ceiling rises. <b>Deterministic simulation core:</b> combat math is extracted into a pure module pinned by golden vectors, so balance changes are verifiable. <b>No bundler:</b> the deployed artifact is the source, which removes a whole class of build-drift bugs. <b>Offline-first:</b> a service worker precaches the whole shell so the game runs with no network at all. <b>Honest scope:</b> leaderboards and a global mirror are built but not promoted until the backend is live.</p>
+  </div>
+
+  <section>
+    <h2><span class="num">01</span> The challenge</h2>
+    <p class="lead">Bullet hells are usually about not getting hit. I wanted a game where the safest play is the worst play.</p>
+    <p>EMBERFALL is a graze-to-score shooter. Enemy fire that passes close to your ship without connecting registers a graze, and grazes feed a heat meter that multiplies your score. Flying into the bullet curtain is the correct strategy, which means the player's real skill is judging distance under pressure rather than memorising a safe lane.</p>
+    <p>The second constraint was shipping. A browser game that needs a build step, a package tree, and a deploy pipeline can still be zero-dependency, but it introduces a failure surface that has nothing to do with the game. The requirement was that the shipped file be the source, with no compilation between writing code and playing it.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> The graze mechanic</h2>
+    <p class="lead">Two meters, one clock, and a decay curve that punishes camping.</p>
+    <ul class="clean">
+      <li><b>Graze radius</b> — near-miss detection uses a radius around the ship, widened for the tighter-hitbox ship class</li>
+      <li><b>Heat</b> — each graze adds heat; heat multiplies the score awarded, so consecutive close passes compound</li>
+      <li><b>Combo window</b> — the combo multiplier stays alive only while you keep grazing</li>
+      <li><b>Independent decay</b> — heat falls on its own clock rather than inside the combo window, so a single late graze still pays out for about three seconds</li>
+      <li><b>Ship variants</b> — different playable ships trade hitbox size, dash count, bomb count, and graze multiplier against each other</li>
+    </ul>
+    <div class="callout">
+      <div class="t">Why decay is separate</div>
+      <p>Heat decaying inside the combo window meant the multiplier froze whenever the window closed, and every late-run graze overpaid. Moving decay onto its own timer fixed a whole class of scoring edge cases, and the behaviour is pinned by a unit test rather than left to a playtester's memory.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span> Eight worlds, five bosses</h2>
+    <p class="lead">Difficulty ramps on a fixed wave schedule, with bosses arriving on a director cycle rather than a hand-placed trigger.</p>
+    <table>
+      <tr><th>Element</th><th>Design</th></tr>
+      <tr><td class="mono">Worlds</td><td>Eight, entered on a fixed wave progression (<code>4, 9, 14, 20, 26, 33, 40, 48</code>) so the difficulty curve is the same for every run</td></tr>
+      <tr><td class="mono">Bosses</td><td>Five named encounters, each with its own art, hitbox, health pool, and score value</td></tr>
+      <tr><td class="mono">Phases</td><td>Bosses gain phases as they lose health; later phases add attack patterns rather than only raising damage</td></tr>
+      <tr><td class="mono">Patterns</td><td>Rotating spiral curtains, sweeping cross-beams, and node-based turrets on multi-part bosses</td></tr>
+      <tr><td class="mono">Director</td><td>A wave director owns spawn timing and composition, so encounters are composed rather than hand-scripted</td></tr>
+    </table>
+    <p class="dim">Boss order and stat relationships are asserted directly in the test suite, including a check that the final boss outstats its sibling. Balance is a contract, not a hope.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span> Deterministic simulation core</h2>
+    <p class="lead">The part of the game most likely to break is the part that decides whether you lived. So it was extracted and made pure.</p>
+    <ul class="clean">
+      <li><b>Pure simulation module</b> — combat math lives in a dependency-free package with no DOM and no canvas access</li>
+      <li><b>Seeded RNG</b> — deterministic random streams, so a bug reproduces exactly instead of appearing once in fifty runs</li>
+      <li><b>Golden vectors</b> — T-DET anchor tests pin expected outputs, so a balance change shows up as a diff rather than a hunch</li>
+      <li><b>Headless testability</b> — because the core is pure, it runs in a plain test runner with no browser and no graphics stack</li>
+    </ul>
+    <div class="arch-diagram">
+      <div class="arch-layer">
+        <div class="arch-box frontend">Canvas + WebAudio<br/>Input / Render<br/>Presentation</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box state">packages/sim<br/>Pure combat math<br/>Seeded RNG</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-box backend">CI Gates<br/>Golden vectors<br/>Headless tests</div>
+      </div>
+      <p class="arch-caption">EMBERFALL: presentation → pure simulation → verified core</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span> The CI gate chain</h2>
+    <p class="lead">Forty-six steps, and none of them exist to prove the build works. They exist to stop the build from lying.</p>
+    <p>The workflow runs as a series of independent gates, each of which can fail the run on its own. A game that only ships when every gate is green is a game whose balance, economy, and copy are all verifiable at merge time.</p>
+    <ul class="clean">
+      <li><b>Syntax gate</b> — every shipped script is parse-checked before anything else runs</li>
+      <li><b>Dead-code and load-order gate</b> — catches unused modules and scripts loaded in the wrong order</li>
+      <li><b>Simulation unit tests</b> — the pure core against its golden vectors</li>
+      <li><b>Economy model gate</b> — the scoring economy is checked as a model, not by feel</li>
+      <li><b>Copy guard</b> — the player-facing text is checked against the product's actual rules, so copy cannot drift from behaviour</li>
+      <li><b>SQL binding audit</b> — catches the integer-versus-text trap class in database bindings</li>
+      <li><b>Parity gate</b> — the client display and the server's authorisation must agree on the daily economy</li>
+      <li><b>API smoke and drill steps</b> — the live command deck is started and exercised through a full challenge loop</li>
+      <li><b>Browser E2E</b> — sixteen Playwright specs covering gameplay, onboarding, accounts, accessibility surfaces, and link safety</li>
+    </ul>
+    <div class="callout">
+      <div class="t">Why the gates are separate</div>
+      <p>One big test job tells you something broke. A chain of narrow gates tells you what broke, in minutes instead of an hour, and each gate names the class of mistake it exists to catch. The copy guard is the one I would keep if I had to delete everything else.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span> Zero build step, offline PWA</h2>
+    <p class="lead">No bundler, no package tree, no network calls at runtime.</p>
+    <ul class="clean">
+      <li><b>Plain modules</b> — the shipped code is vanilla JavaScript and Canvas 2D, with no runtime imports and no external library</li>
+      <li><b>Service worker</b> — the application shell is precached, so the game is fully playable offline after first load</li>
+      <li><b>Procedural audio</b> — sound is synthesised with WebAudio at runtime, which keeps the payload small and the game self-contained</li>
+      <li><b>Portal build</b> — a separate script produces a portal-safe copy with online features off and hard size and content checks, so a portal package can never leak a network call</li>
+    </ul>
+    <div class="callout warn">
+      <div class="t">Honest scope</div>
+      <p>The global leaderboard and its public mirror are implemented, and the deck server that backs them is not deployed yet — no free, no-card host gives a long-running process and a persistent disk at the same time. Until that is live, leaderboards are not promoted, and no global ranking is claimed anywhere on this site. The daily stats mirror refresh is also currently failing on its own honesty alarm, which is the guard working as intended.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">07</span> What I learned</h2>
+    <p class="lead">Four lessons I carried into every project after this one.</p>
+    <ul class="clean">
+      <li><b>Extract the risky core early</b> — the moment combat math stopped touching the canvas, it became testable, and testing it found bugs that playtesting never would have</li>
+      <li><b>Make the mechanic the identity</b> — a single inverted rule (graze to score) is easier to explain, easier to balance, and more memorable than a pile of features</li>
+      <li><b>Separate gates beat one big job</b> — narrow checks that each own a class of failure turn a slow red build into a fast, specific error</li>
+      <li><b>Constraints pay off</b> — "no build step" was meant to save time. It also removed an entire category of deployment bug and made the artifact inspectable by hand</li>
+    </ul>
+  </section>
+
+  <div class="cta">
+    <a class="primary" href="https://emberfall-game-two.vercel.app/" target="_blank" rel="noopener">Play EMBERFALL</a>
+    <a class="ghost" href="https://github.com/FahadIbrahim93/emberfall" target="_blank" rel="noopener">Source on GitHub</a>
+    <a class="ghost" href="/case-studies.html">All Case Studies</a>
+  </div>
+
+  <nav class="case-nav" aria-label="Case study navigation">
+    <a class="case-nav-prev" href="/case-study-insectiles.html">← Insectiles</a>
+    <span class="case-nav-empty"></span>
+  </nav>
+
+</main>
+
+<footer>
+  <p>Built by <strong>Fahad Ibrahim</strong> · <strong>Hope Theory</strong> ☤</p>
+  <p style="margin-top:8px;font-size:11px;">"Never GIVE UP on your HOPES" · © 2026 Hope Theory</p>
+</footer>
+
+</body>
+</html>

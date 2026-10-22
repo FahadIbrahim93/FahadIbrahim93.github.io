@@ -5,14 +5,14 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="manifest" href="/site.webmanifest" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Production case studies from Fahad Ibrahim: BugSmasher, RollON, JG Mart, Insectiles. Metrics, decisions, outcomes." />
+<meta name="description" content="Production case studies from Fahad Ibrahim: BugSmasher, RollON, JG Mart, Emberfall, Insectiles. Metrics, decisions, outcomes." />
 <meta name="theme-color" content="#09090b" />
 <!-- Open Graph -->
 <meta property="og:url" content="https://fahadibrahim93.github.io/case-studies.html" />
-<meta property="og:description" content="Production case studies: BugSmasher, RollON, JG Mart. Metrics, decisions, outcomes." />
+<meta property="og:description" content="Production case studies: BugSmasher, RollON, JG Mart, Emberfall. Metrics, decisions, outcomes." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://fahadibrahim93.github.io/images/og.png" />
-<meta name="twitter:description" content="Production case studies: BugSmasher, RollON, JG Mart, Insectiles. Metrics, architecture decisions, outcomes." />
+<meta name="twitter:description" content="Production case studies: BugSmasher, RollON, JG Mart, Emberfall, Insectiles. Metrics, architecture decisions, outcomes." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" rel="stylesheet">
@@ -124,7 +124,7 @@
     <ul>
       <li>Firebase auth with callable write paths and schema validation</li>
       <li>Server-authoritative leaderboards: one-time session tokens, replay-proof score submission</li>
-      <li>Last STATUS.md baseline (2026-08-30): 752/752 tests, 81.7% coverage, emulator 26/26, Playwright 5/5 — CI green, not yet certified</li>
+      <li>Verified against main (2026-10-22): 752/752 unit tests pass, 81.9% line coverage. The npm audit security workflow is currently red on main, so the suite is green but the repo is not yet fully green end to end.</li>
       <li>Quality gates exist in CI; do not treat older 678 / 5/5 Playwright figures as current</li>
     </ul>
     <div class="links">
@@ -145,8 +145,8 @@
       </picture>
     </div>
     <div class="metrics">
-      <div class="metric"><div class="val">117</div><div class="lbl">Tests</div></div>
-      <div class="metric"><div class="val">87%</div><div class="lbl">Coverage</div></div>
+      <div class="metric"><div class="val">136</div><div class="lbl">Tests</div></div>
+      <div class="metric"><div class="val">88%</div><div class="lbl">Coverage</div></div>
       <div class="metric"><div class="val">WCAG</div><div class="lbl">2.1 AA</div></div>
       <div class="metric"><div class="val">CI</div><div class="lbl">Green</div></div>
     </div>
@@ -154,13 +154,44 @@
     <ul>
       <li>Config-driven branding via centralized config — rebrand entire storefront in under an hour</li>
       <li>Zustand state management with persistent cart and auth</li>
-      <li>117 tests (106 unit + 11 Playwright E2E), 87% coverage, CI green</li>
+      <li>136 tests (115 unit + 21 Playwright E2E), 88% coverage, CI green</li>
       <li>CSP-hardened, accessible by design, deployed on Vercel</li>
     </ul>
     <div class="links">
       <a href="/article-rollon-ecommerce-architecture.html">Read Technical Deep Dive</a>
       <a href="https://rollon-delta.vercel.app" target="_blank" rel="noopener">Shop Live</a>
       <a href="https://github.com/FahadIbrahim93/RollON-MVP-Final-V1" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+
+  <div class="case">
+    <h2>🚀 EMBERFALL</h2>
+    <div class="meta">Zero-build HTML5 arcade shooter · Vanilla JS + Canvas 2D + WebAudio · GitHub: FahadIbrahim93/emberfall</div>
+    <div style="margin-top: 16px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+      <picture>
+        <source srcset="/images/case-studies/emberfall-800.webp" type="image/webp" media="(min-width: 800px)" />
+        <source srcset="/images/case-studies/emberfall-400.webp" type="image/webp" />
+        <img src="/images/case-studies/emberfall-400.webp" alt="EMBERFALL arcade shooter showing bullet patterns and the graze combo meter" loading="lazy" decoding="async" width="1200" height="675" style="width: 100%; height: auto; display: block;" />
+      </picture>
+    </div>
+    <div class="metrics">
+      <div class="metric"><div class="val">8</div><div class="lbl">Worlds</div></div>
+      <div class="metric"><div class="val">5</div><div class="lbl">Named Bosses</div></div>
+      <div class="metric"><div class="val">16</div><div class="lbl">E2E Specs</div></div>
+      <div class="metric"><div class="val">MIT</div><div class="lbl">License</div></div>
+    </div>
+    <p>Zero-build HTML5 canvas shooter where grazing bullets builds the score chain. 8 worlds, 5 named bosses, procedural WebAudio, and an offline PWA. No bundler and no runtime dependencies — the deployed artifact is the source.</p>
+    <ul>
+      <li>Graze mechanic: near-misses feed a decaying heat meter that multiplies score, so playing close is the skill</li>
+      <li>8 worlds with a wave director and 5 named bosses on multi-phase attack patterns</li>
+      <li>Deterministic simulation core in <code>packages/sim</code>, pinned by golden test vectors in CI</li>
+      <li>46-step CI gate chain: syntax, dead-code, economy parity, API smoke, and full browser E2E</li>
+      <li>Offline-capable PWA with a service worker and no network calls at runtime</li>
+    </ul>
+    <div class="links">
+      <a href="/case-study-emberfall.html">Read Case Study</a>
+      <a href="https://emberfall-game-two.vercel.app/" target="_blank" rel="noopener">Play Live</a>
+      <a href="https://github.com/FahadIbrahim93/emberfall" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
 
@@ -274,6 +305,7 @@
       <li>Supabase backend with PostgreSQL + Auth + RPC</li>
       <li>Offline-first PWA with service worker cache v6</li>
       <li>82 products, 10 categories, pre-seed pilot ready</li>
+      <li>Honest status: the repo's CI has been red since Aug 2026 on a bandit security scan and a black formatting check — the app and tests pass, the gates do not</li>
     </ul>
     <div class="links">
       <a href="/article-jgmart-offline-first.html">Read Technical Deep Dive</a>
@@ -294,7 +326,8 @@
     <a href="/article-bugsmasher-architecture.html">BugSmasher Deep Dive</a> · 
     <a href="/article-rollon-ecommerce-architecture.html">RollON Deep Dive</a> · 
     <a href="/article-jgmart-offline-first.html">JG Mart Deep Dive</a> · 
-    <a href="/case-study-insectiles.html">Insectiles</a>
+    <a href="/case-study-insectiles.html">Insectiles</a> · 
+    <a href="/case-study-emberfall.html">EMBERFALL</a>
   </p>
   <p style="margin-top:8px; font-size:11px; color:var(--muted); opacity:0.6;">© 2026 Hope Theory. All rights reserved.</p>
 </footer>
