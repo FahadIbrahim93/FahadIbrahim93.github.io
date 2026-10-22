@@ -21,8 +21,8 @@ The portfolio page claims on CI are now only what the workflows actually show.
 
 | Repo | Workflow | State | Detail |
 |---|---|---|---|
-| BugSmasher-HopeTheory | Security Audit | RED since Oct 5 | `npm audit` on root dependencies fails |
-| BugSmasher-HopeTheory | CI / CodeQL | green | 752/752 unit tests pass, 81.9% line coverage |
+| BugSmasher-HopeTheory | Security Audit | GREEN since Oct 22 | fixed in 2b6bf70 via npm overrides + firebase-admin 13 |
+| BugSmasher-HopeTheory | CI / CodeQL | green | 752/752 unit tests pass, 81.9% line coverage, all 5 workflows green |
 | RollON-MVP-Final-V1 | CI | green (last run Aug 18) | 115 unit + 21 Playwright = 136 tests, 88% statements |
 | jgmart-hermes | CI | RED since Aug 18 | bandit security scan + black formatting check fail |
 | viral-pet-nix | gauntlet | RED since Sep 15 | deploy job still succeeds |
@@ -30,7 +30,7 @@ The portfolio page claims on CI are now only what the workflows actually show.
 | emberfall | Mirror stats refresh | RED since Oct 20 | "is the mirror honest" alarm fires |
 
 These need repo owners, not portfolio edits:
-1. **BugSmasher Security Audit** — `npm audit` failing on root deps. Fix or triage with `--audit-level` and document why each advisory is acceptable.
+1. ~~**BugSmasher Security Audit**~~ — **RESOLVED 2026-10-22**: fixed in commit 2b6bf70. Root tree pinned `@grpc/grpc-js` to 1.14.6 and `source-map-js` to 1.2.2 via npm overrides; functions tree bumped `firebase-admin` to 13.10.0 and pinned `proxy-addr` to 2.0.8. Both audit steps now report zero high/critical and all five workflows are green.
 2. **jgmart-hermes CI** — bandit finding plus black formatting. Both are mechanical to fix; the bandit finding may be a real issue.
 3. **viral-pet-nix gauntlet** — the workflow has failed on every run since Sep 15 while the Pages deploy succeeds. Either fix the gauntlet or remove it.
 4. **emberfall mirror stats refresh** — failing daily on its own alarm. The leaderboard mirror is not promoted anywhere on the portfolio until this is green.
