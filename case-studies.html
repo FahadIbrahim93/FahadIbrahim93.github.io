@@ -180,13 +180,14 @@
       <div class="metric"><div class="val">16</div><div class="lbl">E2E Specs</div></div>
       <div class="metric"><div class="val">MIT</div><div class="lbl">License</div></div>
     </div>
-    <p>Zero-build HTML5 canvas shooter where grazing bullets builds the score chain. 8 worlds, 5 named bosses, procedural WebAudio, and an offline PWA. No bundler and no runtime dependencies — the deployed artifact is the source.</p>
+    <p>Zero-build HTML5 canvas shooter where grazing bullets builds the score chain. 8 worlds, 5 named bosses, procedural WebAudio, an offline PWA, and live global and daily leaderboards with optional accounts on Supabase. No bundler — the deployed artifact is the source.</p>
     <ul>
       <li>Graze mechanic: near-misses feed a decaying heat meter that multiplies score, so playing close is the skill</li>
       <li>8 worlds with a wave director and 5 named bosses on multi-phase attack patterns</li>
       <li>Deterministic simulation core in <code>packages/sim</code>, pinned by golden test vectors in CI</li>
       <li>46-step CI gate chain: syntax, dead-code, economy parity, API smoke, and full browser E2E</li>
-      <li>Offline-capable PWA with a service worker and no network calls at runtime</li>
+      <li>Offline-capable PWA with a service worker; the game is fully playable without signing in</li>
+      <li>Global and daily leaderboards on Supabase: email sign-in and a callsign, scores written only through two RPCs, with row-level security, bounds checks and rate limits</li>
     </ul>
     <div class="links">
       <a href="/case-study-emberfall.html">Read Case Study</a>

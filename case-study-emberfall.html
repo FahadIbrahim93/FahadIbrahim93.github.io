@@ -118,7 +118,7 @@
   "@type": "CreativeWork",
   "name": "EMBERFALL",
   "description": "Zero-build HTML5 canvas arcade shooter where grazing bullets builds the score chain. 8 worlds, 5 named bosses, deterministic simulation core, offline PWA.",
-  "keywords": "game development, canvas, HTML5, WebAudio, bullet hell, offline PWA",
+  "keywords": "game development, canvas, HTML5, WebAudio, bullet hell, offline PWA, Supabase, leaderboard",
   "license": "https://opensource.org/licenses/MIT",
   "author": {
     "@type": "Person",
@@ -259,17 +259,17 @@
   </section>
 
   <section>
-    <h2><span class="num">06</span> Zero build step, offline PWA</h2>
-    <p class="lead">No bundler, no package tree, no network calls at runtime.</p>
+    <h2><span class="num">06</span> Zero build step, offline PWA, live boards</h2>
+    <p class="lead">No bundler and no package tree. The game needs no network to play; the leaderboard is the one optional online feature.</p>
     <ul class="clean">
-      <li><b>Plain modules</b> — the shipped code is vanilla JavaScript and Canvas 2D, with no runtime imports and no external library</li>
+      <li><b>Plain modules</b> — the game itself is vanilla JavaScript and Canvas 2D; the only external library is a vendored supabase-js, loaded only when a player opens the global board or is already signed in</li>
       <li><b>Service worker</b> — the application shell is precached, so the game is fully playable offline after first load</li>
       <li><b>Procedural audio</b> — sound is synthesised with WebAudio at runtime, which keeps the payload small and the game self-contained</li>
       <li><b>Portal build</b> — a separate script produces a portal-safe copy with online features off and hard size and content checks, so a portal package can never leak a network call</li>
     </ul>
     <div class="callout warn">
-      <div class="t">Honest scope</div>
-      <p>The global leaderboard and its public mirror are implemented, and the deck server that backs them is not deployed yet — no free, no-card host gives a long-running process and a persistent disk at the same time. Until that is live, leaderboards are not promoted, and no global ranking is claimed anywhere on this site. The daily stats mirror refresh is also currently failing on its own honesty alarm, which is the guard working as intended.</p>
+      <div class="t">Live global leaderboard</div>
+      <p>Global and daily leaderboards are live, with player accounts on Supabase. Players sign in with an email magic link and pick a callsign. Scores are written only through two database functions (<code>submit_score</code> and <code>set_callsign</code>), with row-level security on, score bounds checks and per-player rate limits; the public boards are read-only views. An earlier plan for a self-hosted game server was dropped before it was ever deployed. Scores are bounds-checked, not replayed on a server, so the boards are not claimed to be cheat-proof. Sign in with X is in progress and not live yet.</p>
     </div>
   </section>
 
