@@ -4,18 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Fahad Ibrahim — Developer, Dhaka | Websites and AI agents</title>
-<meta name="description" content="Fahad Ibrahim, developer in Dhaka. I build websites and AI agents, and co-founded Hope Theory Labs. Open to remote work." />
+<meta name="description" content="Fahad Ibrahim, developer in Dhaka. I build websites and AI agents, and run Hope Theory Labs. Open to remote work." />
 <link rel="canonical" href="https://fahadibrahim93.github.io/" />
 <meta name="color-scheme" content="dark" />
 <meta name="author" content="Fahad Ibrahim" />
 <meta name="robots" content="index, follow" />
-<meta name="theme-color" content="#09090b" />
+<meta name="theme-color" content="#0F1B2D" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://fahadibrahim93.github.io/" />
 <meta property="og:title" content="Fahad Ibrahim — Developer, Dhaka" />
-<meta property="og:description" content="Fahad Ibrahim, developer in Dhaka. I build websites and AI agents, and co-founded Hope Theory Labs. Open to remote work." />
+<meta property="og:description" content="Fahad Ibrahim, developer in Dhaka. I build websites and AI agents, and run Hope Theory Labs. Open to remote work." />
 <meta property="og:image" content="https://fahadibrahim93.github.io/images/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -26,7 +26,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:url" content="https://fahadibrahim93.github.io/" />
 <meta name="twitter:title" content="Fahad Ibrahim — Developer, Dhaka" />
-<meta name="twitter:description" content="Fahad Ibrahim, developer in Dhaka. I build websites and AI agents, and co-founded Hope Theory Labs. Open to remote work." />
+<meta name="twitter:description" content="Fahad Ibrahim, developer in Dhaka. I build websites and AI agents, and run Hope Theory Labs. Open to remote work." />
 <meta name="twitter:image" content="https://fahadibrahim93.github.io/images/og.png" />
 <meta name="twitter:creator" content="@HopeTheory__" />
 
@@ -50,7 +50,7 @@
   "image": "https://fahadibrahim93.github.io/images/og.png",
   "jobTitle": "Developer",
   "worksFor": { "@type": "Organization", "name": "Hope Theory Labs", "url": "https://hopetheorylabs.vercel.app/" },
-  "description": "Fahad Ibrahim, developer in Dhaka. I build websites and AI agents, and co-founded Hope Theory Labs. Open to remote work.",
+  "description": "Fahad Ibrahim, developer in Dhaka. I build websites and AI agents, and run Hope Theory Labs. Open to remote work.",
   "email": "mailto:hopetheorybd@gmail.com",
   "address": { "@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD" },
   "sameAs": [
@@ -77,20 +77,21 @@
      Refined dark luxury palette — warm blacks, restrained accents,
      generous whitespace, cinematic motion.
      ================================================================ */
+  html, body { overflow-x: clip; }
   :root {
-    --bg: #09090b;
-    --surface: #0f0f12;
-    --card: #141418;
-    --card2: #1a1a1f;
+    --bg: #0B1524;
+    --surface: #0F1B2D;
+    --card: #12213A;
+    --card2: #172944;
     --border: rgba(255,255,255,0.12);
     --border-strong: rgba(255,255,255,0.2);
     --border-hover: rgba(255,255,255,0.22);
-    --accent: #c8a97e;
-    --accent-glow: rgba(200,169,126,0.15);
+    --accent: #B8892F;
+    --accent-glow: rgba(184,137,47,0.15);
     --violet: #8b5cf6;
     --violet-glow: rgba(139,92,246,0.12);
     --green: #34d399;
-    --teal: #2dd4bf;
+    --gold: #B8892F;
     --text: #f4f4f5;
     --text-secondary: #a1a1aa;
     --muted: #71717a;
@@ -105,7 +106,7 @@
     --radius: 12px;
     --shadow-hard: 4px 4px 0 rgba(0,0,0,0.85);
     --shadow-hard-lg: 6px 6px 0 rgba(0,0,0,0.9);
-    --shadow-hard-accent: 4px 4px 0 rgba(200,169,126,0.45);
+    --shadow-hard-accent: 4px 4px 0 rgba(184,137,47,0.45);
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -127,7 +128,7 @@
   }
 
   ::selection {
-    background: rgba(200,169,126,0.25);
+    background: rgba(184,137,47,0.25);
     color: var(--text);
   }
 
@@ -189,19 +190,19 @@
     padding: 8px 14px; border-radius: 8px; transition: all .2s ease;
     letter-spacing: 0.2px;
   }
-  .nav-links a:hover { color: #c8a97e; background: rgba(200,169,126,0.06); }
+  .nav-links a:hover { color: #B8892F; background: rgba(184,137,47,0.06); }
   .nav-links a.nav-cta {
     color: var(--bg); background: var(--accent);
     font-weight: 600; padding: 8px 18px;
   }
   .nav-links a.nav-cta:hover {
-    background: #c8a97e; color: var(--bg);
+    background: #B8892F; color: var(--bg);
   }
   .nav-links a.active {
-    color: #c8a97e; background: rgba(200,169,126,0.08);
+    color: #B8892F; background: rgba(184,137,47,0.08);
   }
   .nav-links a.nav-active {
-    color: #c8a97e; background: rgba(200,169,126,0.08);
+    color: #B8892F; background: rgba(184,137,47,0.08);
   }
   .nav-toggle {
     display: none; background: none; border: 1px solid var(--border);
@@ -227,7 +228,7 @@
   .hero-bg {
     position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
     background:
-      radial-gradient(ellipse 90% 70% at 20% 10%, rgba(200,169,126,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse 90% 70% at 20% 10%, rgba(184,137,47,0.18) 0%, transparent 55%),
       radial-gradient(ellipse 70% 60% at 85% 80%, rgba(139,92,246,0.12) 0%, transparent 55%),
       radial-gradient(ellipse 60% 60% at 50% 50%, rgba(24,24,27,0.0) 0%, transparent 70%);
     filter: saturate(1.05);
@@ -236,7 +237,7 @@
     position: absolute; border-radius: 50%; filter: blur(110px); opacity: .55;
     will-change: transform;
   }
-  .hero-mesh-orb.o1 { width: 620px; height: 620px; background: rgba(200,169,126,0.18); top: -140px; left: -120px; }
+  .hero-mesh-orb.o1 { width: 620px; height: 620px; background: rgba(184,137,47,0.18); top: -140px; left: -120px; }
   .hero-mesh-orb.o2 { width: 720px; height: 720px; background: rgba(139,92,246,0.13); bottom: -220px; right: -160px; }
   .hero-mesh-orb.o3 { width: 420px; height: 420px; background: rgba(52,211,153,0.07); top: 45%; left: 58%; }
   .hero-mouse-light {
@@ -255,7 +256,7 @@
     border-radius: 999px;
     font-size: 11px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase;
     color: var(--accent);
-    background: rgba(200,169,126,0.06);
+    background: rgba(184,137,47,0.06);
     box-shadow: 3px 3px 0 rgba(0,0,0,0.75);
   }
   .hero-value {
@@ -266,16 +267,16 @@
   .hero-value strong { color: var(--accent); font-weight: 700; }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 10px;
-    padding: 8px 16px; border: 2px solid rgba(200,169,126,0.35); border-radius: 100px;
+    padding: 8px 16px; border: 2px solid rgba(184,137,47,0.35); border-radius: 100px;
     font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-    color: #c8a97e; margin-bottom: 20px;
-    background: rgba(200,169,126,0.08);
+    color: #B8892F; margin-bottom: 20px;
+    background: rgba(184,137,47,0.08);
     backdrop-filter: blur(12px);
     box-shadow: var(--shadow-hard-accent);
   }
   .hero-badge .dot {
-    width: 7px; height: 7px; border-radius: 50%; background: #c8a97e;
-    box-shadow: 0 0 8px rgba(200,169,126,0.6); animation: pulse 2s ease-in-out infinite;
+    width: 7px; height: 7px; border-radius: 50%; background: #B8892F;
+    box-shadow: 0 0 8px rgba(184,137,47,0.6); animation: pulse 2s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
@@ -424,8 +425,8 @@
     position: fixed; right: 20px; bottom: 24px; z-index: 90;
     width: 44px; height: 44px; border-radius: 50%;
     background: rgba(9,9,11,0.7);
-    border: 1px solid rgba(200,169,126,0.35);
-    color: #c8a97e; cursor: pointer;
+    border: 1px solid rgba(184,137,47,0.35);
+    color: #B8892F; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transform: translateY(12px);
     pointer-events: none;
@@ -433,7 +434,7 @@
     backdrop-filter: blur(16px);
   }
   .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .back-to-top:hover { border-color: rgba(200,169,126,0.7); transform: translateY(-2px); }
+  .back-to-top:hover { border-color: rgba(184,137,47,0.7); transform: translateY(-2px); }
   .scroll-cue::after {
     content: ''; width: 1px; height: 36px;
     background: linear-gradient(to bottom, var(--muted), transparent);
@@ -528,12 +529,12 @@
     transition: border-color .35s ease, transform .35s ease;
   }
   .process-step:hover {
-    border-color: rgba(200,169,126,0.25);
+    border-color: rgba(184,137,47,0.25);
     transform: translateY(-3px);
   }
   .step-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; font-weight: 700; color: #c8a97e;
+    font-size: 12px; font-weight: 700; color: #B8892F;
     letter-spacing: 1.5px; margin-bottom: 12px;
   }
   .step-num::before {
@@ -565,7 +566,7 @@
   .testimonial-quote::before {
     content: '"'; position: absolute; top: -30px; left: 50%;
     transform: translateX(-50%);
-    font-size: 80px; color: rgba(200,169,126,0.15);
+    font-size: 80px; color: rgba(184,137,47,0.15);
     font-family: 'Inter', sans-serif; line-height: 1;
   }
   .testimonial-author {
@@ -581,7 +582,7 @@
   .section + .section::before {
     content: ''; position: absolute; top: 0; left: 50%;
     width: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(200,169,126,0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(184,137,47,0.4), transparent);
     transform: translateX(-50%);
     transition: width 1.2s cubic-bezier(.4,0,.2,1);
   }
@@ -600,8 +601,8 @@
     transform-style: preserve-3d; perspective: 1000px;
   }
   .project-card[data-type="game"] { border-color: rgba(139,92,246,0.55); }
-  .project-card[data-type="commerce"] { border-color: rgba(200,169,126,0.55); }
-  .project-card[data-type="ops"] { border-color: rgba(45,212,191,0.5); }
+  .project-card[data-type="commerce"] { border-color: rgba(184,137,47,0.55); }
+  .project-card[data-type="ops"] { border-color: rgba(184,137,47,0.5); }
   .project-cat {
     display: inline-flex; align-items: center; gap: 6px;
     font-family: 'JetBrains Mono', monospace;
@@ -610,15 +611,15 @@
   }
   .project-card[data-type="game"] .project-cat { color: #c4b5fd; }
   .project-card[data-type="commerce"] .project-cat { color: var(--accent); }
-  .project-card[data-type="ops"] .project-cat { color: var(--teal); }
+  .project-card[data-type="ops"] .project-cat { color: var(--gold); }
   .project-outcome {
     font-size: 13px; color: var(--text-secondary); margin: -4px 0 14px;
     padding: 8px 12px; border-left: 3px solid var(--border-strong);
     background: rgba(255,255,255,0.02);
   }
   .project-card[data-type="game"] .project-outcome { border-left-color: rgba(139,92,246,0.7); }
-  .project-card[data-type="commerce"] .project-outcome { border-left-color: rgba(200,169,126,0.7); }
-  .project-card[data-type="ops"] .project-outcome { border-left-color: rgba(45,212,191,0.7); }
+  .project-card[data-type="commerce"] .project-outcome { border-left-color: rgba(184,137,47,0.7); }
+  .project-card[data-type="ops"] .project-outcome { border-left-color: rgba(184,137,47,0.7); }
   .links { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: auto; padding-top: 8px; }
   .links .btn { padding: 10px 16px; font-size: 13px; }
   .links a:not(.btn) {
@@ -639,7 +640,7 @@
   }
   .project-card:first-child .project-thumb::after {
     content: 'Featured'; position: absolute; top: 12px; right: 12px;
-    background: rgba(200,169,126,0.9); color: #09090b;
+    background: rgba(184,137,47,0.9); color: #09090b;
     font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
     text-transform: uppercase; padding: 5px 10px; border-radius: 6px;
     z-index: 2; font-family: 'JetBrains Mono', monospace;
@@ -771,7 +772,7 @@
      CASE STUDY BANNER — editorial, cinematic
      ================================================================ */
   .case-banner {
-    background: linear-gradient(135deg, rgba(200,169,126,0.04), rgba(139,92,246,0.04));
+    background: linear-gradient(135deg, rgba(184,137,47,0.04), rgba(139,92,246,0.04));
     border: 1px solid var(--border); border-radius: 20px;
     padding: 44px; display: grid; grid-template-columns: 1.3fr 1fr;
     gap: 36px; align-items: center; position: relative; overflow: hidden;
@@ -779,7 +780,7 @@
 
   .case-banner::before {
     content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 0% 0%, rgba(200,169,126,0.06) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 0% 0%, rgba(184,137,47,0.06) 0%, transparent 60%);
     pointer-events: none;
   }
 
@@ -860,7 +861,7 @@
     z-index: 0;
     pointer-events: none;
     transition: transform .35s cubic-bezier(.4,0,.2,1), width .35s cubic-bezier(.4,0,.2,1);
-    box-shadow: 0 0 0 1px rgba(200,169,126,0.35);
+    box-shadow: 0 0 0 1px rgba(184,137,47,0.35);
   }
   .case-panels { position: relative; }
   .case-panel {
@@ -920,9 +921,9 @@
     transform-style: preserve-3d; perspective: 1000px;
   }
   .bento-card:hover {
-    border-color: rgba(200,169,126,0.28);
+    border-color: rgba(184,137,47,0.28);
     transform: translateY(-4px);
-    box-shadow: 0 24px 56px rgba(0,0,0,0.45), 0 0 0 1px rgba(200,169,126,0.08) inset;
+    box-shadow: 0 24px 56px rgba(0,0,0,0.45), 0 0 0 1px rgba(184,137,47,0.08) inset;
   }
   .bento-icon {
     font-size: 22px; opacity: 0.9;
@@ -984,7 +985,7 @@
     transition: all .3s cubic-bezier(.4,0,.2,1);
   }
   .contact-card:hover {
-    border-color: rgba(200,169,126,0.35); transform: translateY(-3px);
+    border-color: rgba(184,137,47,0.35); transform: translateY(-3px);
     box-shadow: 0 14px 36px rgba(0,0,0,0.35);
   }
   .contact-card .icon {
@@ -1006,7 +1007,7 @@
     margin: var(--space-6) auto 0;
     max-width: 920px;
     padding: clamp(36px, 6vw, 56px) clamp(24px, 5vw, 48px);
-    background: linear-gradient(160deg, rgba(200,169,126,0.1) 0%, var(--card) 45%, rgba(139,92,246,0.08) 100%);
+    background: linear-gradient(160deg, rgba(184,137,47,0.1) 0%, var(--card) 45%, rgba(139,92,246,0.08) 100%);
     border: 2px solid var(--border-strong);
     border-radius: var(--radius);
     box-shadow: var(--shadow-hard-lg);
@@ -1039,7 +1040,7 @@
   .contact-card:hover {
     transform: translate(-2px, -2px) !important;
     box-shadow: 6px 6px 0 rgba(0,0,0,0.9) !important;
-    border-color: rgba(200,169,126,0.45) !important;
+    border-color: rgba(184,137,47,0.45) !important;
   }
 
   /* ================================================================
@@ -1088,7 +1089,7 @@
   #cursor-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; background: var(--accent); }
   #cursor-ring {
     width: 36px; height: 36px; margin: -18px 0 0 -18px;
-    border: 1px solid rgba(200,169,126,0.4);
+    border: 1px solid rgba(184,137,47,0.4);
     transition: width .3s cubic-bezier(.4,0,.2,1), height .3s cubic-bezier(.4,0,.2,1),
                 margin .3s cubic-bezier(.4,0,.2,1), border-color .3s, background .3s;
   }
@@ -1229,11 +1230,11 @@
     <div class="hero-mouse-light"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-eyebrow"><span class="dot" aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#c8a97e;box-shadow:0 0 8px rgba(200,169,126,0.6);"></span> Dhaka · UTC+6 · Open to remote work</div>
+    <div class="hero-eyebrow"><span class="dot" aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#B8892F;box-shadow:0 0 8px rgba(184,137,47,0.6);"></span> Dhaka · UTC+6 · Open to remote work</div>
     <h1>Fahad Ibrahim</h1>
     <p class="hero-value">I build websites and <strong>AI agents</strong>, and automate the boring parts.</p>
     <p class="tagline" style="margin-top:-8px;margin-bottom:32px;">
-      React, TypeScript and Supabase day to day. Co-founder of <a href="#labs">Hope Theory Labs</a>. Every project below has a live link you can try.
+      React, TypeScript and Supabase day to day. Founder of <a href="#labs">Hope Theory Labs</a>. Every project below has a live link you can try.
     </p>
     <div class="hero-cta">
       <a href="#work" class="btn btn-primary">View live projects</a>
@@ -1303,6 +1304,34 @@
   <h2 class="reveal">Live projects</h2>
   <p class="section-intro reveal">Selected builds, with honest scope notes and direct links to the work.</p>
   <div class="projects-grid">
+
+    <article class="project-card reveal" data-type="commerce">
+      <div class="card-glare" aria-hidden="true"></div>
+      <div class="project-thumb">
+        <picture>
+          <source srcset="/images/hopetheorylabs-600.webp 600w, /images/hopetheorylabs-900.webp 900w, /images/hopetheorylabs-1200.webp 1200w" sizes="(max-width: 860px) 94vw, 50vw" type="image/webp" />
+          <img src="/images/hopetheorylabs-1200.webp" alt="Hope Theory Labs website hero" width="1200" height="675" loading="lazy" decoding="async" />
+        </picture>
+        <span class="live-badge">● Live</span>
+      </div>
+      <div class="project-body">
+        <div class="project-cat">Company site · My studio</div>
+        <h3>Hope Theory Labs</h3>
+        <p class="project-outcome">The website for my studio: websites for businesses first, AI services in early access.</p>
+        <p>One-page Next.js site with a full-screen WebGL scene built in Three.js and React Three Fiber, plus an SVG and canvas fallback for low-power devices. Static export on Vercel. The main call to action opens a WhatsApp chat.</p>
+        <div class="tech">
+          <span class="tech-tag">Next.js</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Tailwind v4</span>
+          <span class="tech-tag">Three.js</span>
+          <span class="tech-tag">Vercel</span>
+        </div>
+        <div class="links">
+          <a href="https://hopetheorylabs.vercel.app/" target="_blank" rel="noopener" class="btn btn-primary">View live</a>
+          <a href="https://github.com/FahadIbrahim93/hopetheorylabs-site" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </article>
 
     <article class="project-card project-card--learn reveal" data-type="commerce">
       <div class="card-glare" aria-hidden="true"></div>
@@ -1457,7 +1486,7 @@
         <div class="project-cat">Game · Zero-build arcade</div>
         <h3>🚀 EMBERFALL</h3>
         <p class="project-outcome">Free browser space shooter with a global leaderboard on Supabase. Eight worlds, works offline.</p>
-        <p>Graze bullets, chain combos and post your score to the global and daily leaderboards, backed by Supabase with optional accounts. Plain HTML5 Canvas with procedural audio and no build step. Nothing to install. MIT licensed.</p>
+        <p>Play as a guest with no sign-up, or create an account to post Endless and Daily runs to the global boards on Supabase. On phones you drag to fly, with on-screen DASH and PULSE buttons. Plain HTML5 Canvas with procedural audio and no build step. Nothing to install. MIT licensed.</p>
         <div class="tech">
           <span class="tech-tag">Vanilla JS</span>
           <span class="tech-tag">Canvas 2D</span>
@@ -1730,7 +1759,7 @@
 <section class="section" id="labs">
   <div class="section-title reveal">Hope Theory Labs</div>
   <h2 class="reveal">The agency</h2>
-  <p class="section-intro reveal">Hope Theory Labs is the small AI agency I run with Tamim Abir in Dhaka. Right now we build fast, mobile-first websites for local businesses, with WhatsApp ordering built in. AI audits and forward-deployed AI engineering come next. The site is still a work in progress.</p>
+  <p class="section-intro reveal">Hope Theory Labs is my one-person studio in Dhaka. The main offer today is fast, mobile-first websites for local businesses, with WhatsApp ordering built in. AI services are available in early access.</p>
   <div class="contact-grid" style="margin-top:24px;">
     <a class="contact-card reveal" href="https://hopetheorylabs.vercel.app/" target="_blank" rel="noopener">
       <div class="label">Website</div>
@@ -1770,8 +1799,8 @@
   <div class="experience-item reveal">
     <div class="experience-header">
       <div>
-        <h3>Co-founder</h3>
-        <div class="company">Hope Theory Labs (with Tamim Abir)</div>
+        <h3>Founder</h3>
+        <div class="company">Hope Theory Labs</div>
       </div>
       <div class="date">2023 – Present</div>
     </div>
